@@ -1,77 +1,132 @@
-import SkillsTags from "./SkillsTags";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+} from "@mui/material";
+import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
+import SkillsTags from "@/components/SkillsTags";
 
-interface cardProjectProps {
+type CardProjectProps = {
+  slug: string;
   title: string;
+  summaryLine?: string;
+  period?: string;
   tecnosUsed?: string[];
   description: string;
   urlName: string;
   produtionLink?: string;
   repositoryLink?: string;
+};
+
+function ActionButton({ label, url }: { label: string; url?: string }) {
+  const isAvailable = Boolean(url);
+  const isExternal = Boolean(url && /^(https?:\/\/|mailto:|tel:)/i.test(url));
+
+  return (
+    <Button
+      component="a"
+      href={url || undefined}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
+      disabled={!isAvailable}
+      variant="contained"
+      color={isAvailable ? "primary" : "error"}
+      endIcon={<OpenInNewRoundedIcon fontSize="small" />}
+      sx={{ width: { xs: "100%", sm: "auto" } }}
+    >
+      {label}
+    </Button>
+  );
 }
 
-const CardProject = ({
+export default function CardProject({
+  slug,
   title,
+  summaryLine,
+  period,
   description,
   tecnosUsed,
   urlName,
   produtionLink,
   repositoryLink,
-}: cardProjectProps) => {
-  const pathImageReal =
+}: CardProjectProps) {
+  const imagePath =
     urlName !== ""
       ? `/images/projects/${urlName}.jpeg`
-      : `/images/projects/default.jpg`;
-
-  const renderLinkButton = (label: string, url?: string) => {
-    const isAvailable = !!url;
-    const bgColor = isAvailable
-      ? `bg-indigo-300 hover:bg-indigo-500`
-      : `bg-red-300 hover:bg-red-500`;
-
-    return (
-      <a
-        className={`flex w-[90%] flex-1/2 justify-center gap-3 ${bgColor} p-3 rounded-2xl 
-        transition delay-150 duration-300 ease-in-out hover:text-white hover:scale-105 cursor-pointer`}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <p>{label}</p>
-        <span className="text-white">
-          <img
-            className="w-6"
-            src="/images/icons/arrow-up-right-from-square-svgrepo-com.svg"
-            alt={`Abrir ${label.toLowerCase()}`}
-          />
-        </span>
-      </a>
-    );
-  };
+      : "/images/projects/default.jpg";
 
   return (
-    <div
-      className="w-60 sm:w-auto md:w-150 h-full flex flex-col justify-center items-center 
-    gap-3 lg:gap-5 bg-indigo-400 pb-3 rounded-2xl text-lg sm:text-xl
-    snap-start lg:scroll-ml-6 
-    hover:scale-103 transition delay-150 duration-300 ease-in-out
-    overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-ml-32"
+    <Card
+      sx={{
+        p: 1,
+        borderRadius: 3,
+        backgroundColor: "rgba(18,23,34,0.85)",
+        transition: "transform .2s ease",
+        "&:hover": { transform: "translateY(-2px)" },
+      }}
     >
-      <img
-        className="w-auto h-auto max-h-54 sm:max-h-64 md:max-h-105 rounded-t-2xl"
-        src={pathImageReal}
+      <Box
+        component="img"
+        src={imagePath}
         alt={`Imagem do projeto ${title}`}
+        sx={{
+          width: "100%",
+          maxHeight: 350,
+          objectFit: "cover",
+          borderRadius: 2,
+        }}
       />
-      <h1 className="text-3xl sm:text-4xl font-bold text-center">{title}</h1>
-      <SkillsTags tecnosUsed={tecnosUsed || []} />
-      <p className="text-xl text-start px-5 md:px-8 whitespace-pre-line">
-        {description}
-      </p>
-      <div className="flex flex-col lg:flex-row w-full justify-center items-center gap-5 font-semibold text-indigo-900 lg:px-5">
-        {renderLinkButton("Produção", produtionLink)}
-        {renderLinkButton("Repositório", repositoryLink)}
-      </div>
-    </div>
-  );
-};
+      <CardContent>
+        <Stack spacing={2}>
+          <Typography
+            variant="h5"
+            sx={{ textAlign: "center", fontWeight: 800 }}
+          >
+            {title}
+          </Typography>
 
-export default CardProject;
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={0.4}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: { sm: "center" },
+            }}
+          >
+            <Typography sx={{ color: "text.secondary", fontStyle: "italic" }}>
+              {summaryLine || "Projeto de software"}
+            </Typography>
+            {period ? (
+              <Typography
+                sx={{
+                  color: "text.secondary",
+                  fontWeight: 700,
+                  fontSize: "0.92rem",
+                }}
+              >
+                {period}
+              </Typography>
+            ) : null}
+          </Stack>
+
+          <SkillsTags tecnosUsed={tecnosUsed || []} />
+          <Typography sx={{ color: "text.secondary", lineHeight: 1.7 }}>
+            {description}
+          </Typography>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1.2}
+            sx={{ justifyContent: "center" }}
+          >
+            <ActionButton label="Detalhes" url={`/projetos/${slug}`} />
+            <ActionButton label="Produção" url={produtionLink} />
+            <ActionButton label="Repositório" url={repositoryLink} />
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}

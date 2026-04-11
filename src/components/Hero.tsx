@@ -1,74 +1,119 @@
-import { SocialIcon } from "./SocialIcon";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import SocialIcon from "@/components/SocialIcon";
 
-function Hero() {
+export default function Hero() {
   return (
-    <div className="w-screen text-white mt-10 lg:mt-30 md:items-center">
-      <div className="w-full h-auto flex flex-col lg:flex-row lg:justify-between">
-        <div className="w-auto h-auto flex flex-col justify-center items-center flex-2 pt-15 xl:pt-0 px-5">
-          <img
-            src="/images/hero-img.jpg"
-            alt="Hero Image"
-            className="h-auto md:max-w-100 rounded-full"
-          />
-          <div className="flex space-x-4">
-            <SocialIcon />
-          </div>
-        </div>
-        <div className="flex flex-col md:pb-4 px-10 xl:pb-5 pt-10 text-2xl lg:text-3xl text-center lg:text-right w-auto h-fit justify-center items-center lg:flex-3">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold pb-3 lg:pb-10">
-            Quem eu sou?
-          </h1>
-          <p className="xl:mr-30">
-            Meu nome é{" "}
-            <span className="font-bold text-indigo-400">
-              João Pedro Calsavara
-            </span>
-            , tenho 19 anos e sou estudante de{" "}
-            <span className="font-bold text-indigo-400">
-              Análise e Desenvolvimento de Sistemas na Unicamp
-            </span>
-            .
-            <br />
-            <br />
-            Meu propósito é impactar a sociedade por meio da criatividade e
-            inovação na programação.
-            <br />
-            <br />
-            Minhas principais experiências incluem a{" "}
-            <span className="font-bold text-indigo-400">Atria Jr</span>, empresa
-            júnior da Unicamp,
-            <span className="font-bold text-indigo-400">
-              {" "}
-              co-fundador do Semea Code
-            </span>
-            , projeto de extensão que oferece aulas de programação em escolas
-            públicas.
-            <br />
-            <br />
-            As tecnologias que tenho experiência são{" "}
-            <span className="font-bold text-indigo-400">
-              TypeScript, Python, C++ e C
-            </span>
-            .
-          </p>
-        </div>
-      </div>
-      <div className="flex flex-col items-center justify-center text-white text-6xl w-full h-auto py-2 pt-5 lg:p-0 px-3 ">
-        <a
-          href="#projetos"
-          className="
-            p-3 line align-middle animate-bounce
-            transition-all duration-500 ease-in-out 
-            hover:scale-110 hover:bg-indigo-500 rounded-full"
+    <Box sx={{ pt: { xs: 12, md: 14 }, pb: { xs: 6, md: 8 } }}>
+      <Container maxWidth="lg">
+        <Stack
+          direction={{ xs: "column", lg: "row" }}
+          spacing={4}
+          sx={{ alignItems: "center" }}
         >
-          <img
-            className="w-15"
-            src="/images/icons/arrow-down-svgrepo-com.svg"
-          />
-        </a>
-      </div>
-    </div>
+          <Stack spacing={2} sx={{ flex: 1, alignItems: "center" }}>
+            <Box
+              component="img"
+              src="/images/hero-img.jpg"
+              alt="Hero"
+              sx={{
+                width: { xs: 220, md: 360 },
+                borderRadius: "50%",
+                border: "2px solid rgba(92,156,255,0.65)",
+              }}
+            />
+            <SocialIcon />
+          </Stack>
+
+          <Box sx={{ flex: 1.4 }}>
+            <Typography
+              variant="h2"
+              sx={{ fontSize: { xs: "2rem", md: "3.5rem" }, mb: 2 }}
+            >
+              Quem eu sou?
+            </Typography>
+            <Typography sx={{ color: "text.secondary", lineHeight: 1.8 }}>
+              Meu nome e{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 700 }}
+              >
+                João Pedro Calsavara
+              </Box>
+              , sou Desenvolvedor Backend e estudante de{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 700 }}
+              >
+                Análise e Desenvolvimento de Sistemas na Unicamp
+              </Box>
+              .
+              <br />
+              <br />
+              Atualmente atuo na{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 700 }}
+              >
+                Mottu
+              </Box>{" "}
+              com foco em .NET 8, microsserviços e dados estratégicos para
+              operações de alta escala.
+              <br />
+              <br />
+              Minhas principais experiências incluem arquiteturas orientadas a
+              eventos, automações com IA, observabilidade em Datadog e
+              infraestrutura cloud com Docker/Kubernetes.
+              <br />
+              <br />
+              Entre os projetos de destaque estão o{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 700 }}
+              >
+                InterceptorSystem
+              </Box>
+              , plataforma full stack estruturada com Clean Architecture e DDD,
+              e a plataforma da{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 700 }}
+              >
+                Ju Decoração de Natal
+              </Box>
+              , com foco em SEO e performance de negócio.
+              <br />
+              <br />
+              Minha stack principal inclui{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 700 }}
+              >
+                C#, .NET 8, PostgreSQL, SQL Server, RabbitMQ/PubSub e Kubernetes
+              </Box>
+              .
+            </Typography>
+          </Box>
+        </Stack>
+
+        <Box sx={{ display: "grid", placeItems: "center", mt: 3 }}>
+          <Box
+            component="a"
+            href="#projetos"
+            sx={{
+              p: 1.1,
+              borderRadius: 999,
+              "&:hover": { backgroundColor: "rgba(92,156,255,0.16)" },
+            }}
+          >
+            <Box
+              component="img"
+              src="/images/icons/arrow-down-svgrepo-com.svg"
+              alt="Ir para projetos"
+              sx={{ width: 38, animation: "bounce 1.6s infinite" }}
+            />
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }
-
-export default Hero;

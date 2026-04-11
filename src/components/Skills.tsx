@@ -1,55 +1,80 @@
+"use client";
+
 import { useState } from "react";
-import CardSkills from "./CardSkills"; // Importa o componente correto
-import { SkillsData } from "../services/inMemoryData";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
+import CardSkills from "@/components/CardSkills";
+import { legendItems, skillsData } from "@/data/portfolioData";
 
-const Skills = () => {
-  const [hoveredType, setHoveredType] = useState<string | null>(null); // Estado para rastrear o tipo em foco
-
-  const skillsAll = SkillsData.skillsAll;
-
-  const legendItems = SkillsData.legendItems;
+export default function Skills() {
+  const [hoveredType, setHoveredType] = useState<string | null>(null);
 
   return (
-    <div
+    <Box
       id="habilidades"
-      className="w-full h-auto scroll-m-16 flex flex-col justify-center items-center p-10"
+      sx={{
+        py: { xs: 6, md: 8 },
+        backgroundColor: "rgba(17,25,40,0.52)",
+        scrollMarginTop: "92px",
+      }}
     >
-      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold pb-10 text-white text-shadow-violet-500">
-        Habilidades
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-6 lg:gap-10 bg-indigo-400 rounded-t-2xl pt-10 px-10 lg:px-30 text-indigo-900">
-        {skillsAll.map((skill, index) => (
-          <CardSkills
-            key={index}
-            name={skill.name}
-            link={skill.link}
-            type={skill.type}
-            label={skill.label}
-            isHovered={hoveredType === skill.type} // Passa o estado de hover para o CardSkills
-          />
-        ))}
-      </div>
-      <div className="w-full flex justify-end pr-5 pt-2 text-white text-xl bg-indigo-400 rounded-b-2xl pb-2">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-2xl text-end pb-2">Legenda</h1>
-          <div className="w-full md:px-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:text-lg ">
-            {legendItems.map((item, index) => (
-              <div
-                key={index}
-                className={`w-full flex justify-between items-center gap-2 bg-indigo-800 hover:${item.color} py-1 px-3 rounded-2xl
-                transition delay-150 duration-300 ease-in-out cursor-default`}
-                onMouseEnter={() => setHoveredType(item.type)} // Define o tipo em foco
-                onMouseLeave={() => setHoveredType(null)} // Remove o tipo em foco
-              >
-                <p>{item.label}</p>
-                <div className={`h-4 w-4 rounded-full ${item.color}`}></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+      <Container maxWidth="lg">
+        <Typography
+          variant="h2"
+          sx={{ fontSize: { xs: "2.1rem", md: "3.4rem" }, mb: 4 }}
+        >
+          Habilidades
+        </Typography>
 
-export default Skills;
+        <Grid container spacing={2}>
+          {skillsData.map((skill) => (
+            <Grid key={skill.name} size={{ xs: 6, md: 3 }}>
+              <CardSkills
+                name={skill.name}
+                link={skill.link}
+                type={skill.type}
+                label={skill.label}
+                isHovered={hoveredType === skill.type}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box sx={{ mt: 3 }}>
+          <Typography variant="h6" sx={{ mb: 1.2 }}>
+            Legenda
+          </Typography>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={1.2}>
+            {legendItems.map((item) => (
+              <Stack
+                key={item.type}
+                direction="row"
+                sx={{
+                  px: 1.5,
+                  py: 1,
+                  borderRadius: 2,
+                  backgroundColor: "rgba(255,255,255,0.06)",
+                  minWidth: 180,
+                  cursor: "default",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+                onMouseEnter={() => setHoveredType(item.type)}
+                onMouseLeave={() => setHoveredType(null)}
+              >
+                <Typography>{item.label}</Typography>
+                <Box
+                  sx={{
+                    width: 14,
+                    height: 14,
+                    borderRadius: 999,
+                    backgroundColor: item.color,
+                  }}
+                />
+              </Stack>
+            ))}
+          </Stack>
+        </Box>
+      </Container>
+    </Box>
+  );
+}

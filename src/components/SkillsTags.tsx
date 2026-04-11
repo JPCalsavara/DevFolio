@@ -1,48 +1,61 @@
-import { TagsData } from "../services/inMemoryData";
+import Link from "next/link";
+import { Chip, Stack } from "@mui/material";
+import { tagsData } from "@/data/portfolioData";
 
-interface SkillsTagsProps {
+type SkillsTagsProps = {
   tecnosUsed: string[];
-}
-
-const SkillsTags = ({ tecnosUsed }: SkillsTagsProps) => {
-  const tecnologies = TagsData.tecnologies;
-
-  const getColor = (category: string) => {
-    switch (category) {
-      case "frontend":
-        return "bg-rose-500 hover:bg-rose-600";
-      case "backend":
-        return "bg-lime-500 hover:bg-lime-600";
-      case "database":
-        return "bg-amber-500 hover:bg-amber-600";
-      case "all":
-        return "bg-purple-600 hover:bg-purple-700";
-      case "softskill":
-          return "bg-cyan-600 hover:bg-cyan-700";
-      default:
-        return "bg-gray-500 hover:bg-gray-600";
-    }
-  };
-
-  return (
-    <div className="flex flex-wrap gap-2 justify-start px-2 md:px-7">
-      {tecnosUsed.map((tecno, index) => {
-        const techInfo = tecnologies[tecno] || { category: "unknown", link: "#", realName: tecno };
-        const colorClass = getColor(techInfo.category);
-
-        return (
-          <div
-            key={index}
-            className={`w-auto h-auto p-1 px-4 rounded-lg text-white text-sm md:text-base font-semibold ${colorClass} transition delay-150 duration-300 ease-in-out`}
-          >
-            <a href={techInfo.link} target="_blank" rel="noopener noreferrer">
-              {techInfo.realName}
-            </a>
-          </div>
-        );
-      })}
-    </div>
-  );
 };
 
-export default SkillsTags;
+const colorByCategory: Record<string, string> = {
+  frontend: "#FB7185",
+  backend: "#A3E635",
+  database: "#F59E0B",
+  all: "#A78BFA",
+  devops: "#22D3EE",
+  softskill: "#22D3EE",
+  default: "#64748B",
+};
+
+export default function SkillsTags({ tecnosUsed }: SkillsTagsProps) {
+  return (
+    <Stack
+      direction="row"
+      sx={{
+        flexWrap: "wrap",
+        columnGap: 1,
+        rowGap: 1,
+      }}
+    >
+      {tecnosUsed.map((tecno) => {
+        const info = tagsData[tecno] || {
+          category: "default",
+          realName: tecno,
+          link: "#",
+        };
+        const bg = colorByCategory[info.category] || colorByCategory.default;
+
+        return (
+          <Chip
+            key={`${tecno}-${info.realName}`}
+            label={
+              info.link ? (
+                <Link href={info.link} target="_blank" rel="noreferrer">
+                  {info.realName}
+                </Link>
+              ) : (
+                info.realName
+              )
+            }
+            size="small"
+            sx={{
+              backgroundColor: bg,
+              color: "#0B1020",
+              fontWeight: 700,
+              borderRadius: 2,
+            }}
+          />
+        );
+      })}
+    </Stack>
+  );
+}

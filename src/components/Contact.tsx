@@ -1,20 +1,23 @@
-import { SocialIcon } from "./SocialIcon";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import SocialIcon from "@/components/SocialIcon";
 
-const Contact = () => {
+export default function Contact() {
   return (
-    <div
-      id="contato"
-      className="w-screen h-auto scroll-m-16 bg-indigo-950 px-5 pt-10 pb-2 text-white"
-    >
-      <div className="flex flex-col justify-center items-center gap-5">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white text-shadow-violet-500">
-          Contato
-        </h1>
-        <SocialIcon />
-        <div>Feito por João Calsavara</div>
-      </div>
-    </div>
+    <Box id="contato" sx={{ py: { xs: 6, md: 8 }, scrollMarginTop: "92px" }}>
+      <Container maxWidth="lg">
+        <Stack spacing={2} sx={{ alignItems: "center" }}>
+          <Typography
+            variant="h2"
+            sx={{ fontSize: { xs: "2.1rem", md: "3.4rem" } }}
+          >
+            Contato
+          </Typography>
+          <SocialIcon />
+          <Typography color="text.secondary">
+            Feito por João Calsavara
+          </Typography>
+        </Stack>
+      </Container>
+    </Box>
   );
-};
-
-export default Contact;
+}
