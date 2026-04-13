@@ -79,6 +79,8 @@ export default function CardSkills({
             component="img"
             src={imagePath}
             alt={`${name} logo`}
+            loading="lazy"
+            decoding="async"
             sx={{ width: 64, height: 64, objectFit: "contain" }}
           />
           <Typography

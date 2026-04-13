@@ -6,6 +6,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
+import Image from "next/image";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
 import SkillsTags from "@/components/SkillsTags";
 
@@ -24,10 +26,11 @@ type CardProjectProps = {
 function ActionButton({ label, url }: { label: string; url?: string }) {
   const isAvailable = Boolean(url);
   const isExternal = Boolean(url && /^(https?:\/\/|mailto:|tel:)/i.test(url));
+  const isInternal = Boolean(url && !isExternal && url.startsWith("/"));
 
   return (
     <Button
-      component="a"
+      component={isInternal ? Link : "a"}
       href={url || undefined}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
@@ -55,13 +58,16 @@ export default function CardProject({
 }: CardProjectProps) {
   const imagePath =
     urlName !== ""
-      ? `/images/projects/${urlName}.jpeg`
+      ? `/images/projects/${urlName}`
       : "/images/projects/default.jpg";
 
   return (
     <Card
       sx={{
         p: 1,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
         borderRadius: 3,
         backgroundColor: "rgba(18,23,34,0.85)",
         transition: "transform .2s ease",
@@ -69,18 +75,27 @@ export default function CardProject({
       }}
     >
       <Box
-        component="img"
-        src={imagePath}
-        alt={`Imagem do projeto ${title}`}
         sx={{
           width: "100%",
-          maxHeight: 350,
-          objectFit: "cover",
+          aspectRatio: "16 / 9",
           borderRadius: 2,
+          overflow: "hidden",
+          position: "relative",
         }}
-      />
-      <CardContent>
-        <Stack spacing={2}>
+      >
+        <Image
+          src={imagePath}
+          alt={`Imagem do projeto ${title}`}
+          fill
+          sizes="(max-width: 900px) 100vw, 50vw"
+          quality={72}
+          style={{ objectFit: "cover" }}
+        />
+      </Box>
+      <CardContent
+        sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+      >
+        <Stack spacing={2} sx={{ flexGrow: 1 }}>
           <Typography
             variant="h5"
             sx={{ textAlign: "center", fontWeight: 800 }}
@@ -116,15 +131,16 @@ export default function CardProject({
           <Typography sx={{ color: "text.secondary", lineHeight: 1.7 }}>
             {description}
           </Typography>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={1.2}
-            sx={{ justifyContent: "center" }}
-          >
-            <ActionButton label="Detalhes" url={`/projetos/${slug}`} />
-            <ActionButton label="Produção" url={produtionLink} />
-            <ActionButton label="Repositório" url={repositoryLink} />
-          </Stack>
+        </Stack>
+
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={1.2}
+          sx={{ justifyContent: "center", mt: 2 }}
+        >
+          <ActionButton label="Detalhes" url={`/projetos/${slug}`} />
+          <ActionButton label="Produção" url={produtionLink} />
+          <ActionButton label="Repositório" url={repositoryLink} />
         </Stack>
       </CardContent>
     </Card>

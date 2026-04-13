@@ -19,6 +19,8 @@ export default function SocialIcon() {
             component="img"
             src={`/images/social/${key}-icon.svg`}
             alt={`${key} icon`}
+            loading="lazy"
+            decoding="async"
             sx={{
               width: { xs: 32, md: 44 },
               height: { xs: 32, md: 44 },

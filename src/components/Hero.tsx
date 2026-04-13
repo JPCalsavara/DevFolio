@@ -1,4 +1,5 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
+import Image from "next/image";
 import SocialIcon from "@/components/SocialIcon";
 
 export default function Hero() {
@@ -12,15 +13,25 @@ export default function Hero() {
         >
           <Stack spacing={2} sx={{ flex: 1, alignItems: "center" }}>
             <Box
-              component="img"
-              src="/images/hero-img.jpg"
-              alt="Hero"
               sx={{
                 width: { xs: 220, md: 360 },
+                height: { xs: 220, md: 360 },
                 borderRadius: "50%",
                 border: "2px solid rgba(92,156,255,0.65)",
+                overflow: "hidden",
+                position: "relative",
               }}
-            />
+            >
+              <Image
+                src="/images/hero-img.jpg"
+                alt="Hero"
+                fill
+                priority
+                sizes="(max-width: 900px) 220px, 360px"
+                quality={80}
+                style={{ objectFit: "cover" }}
+              />
+            </Box>
             <SocialIcon />
           </Stack>
 
@@ -105,12 +116,15 @@ export default function Hero() {
               "&:hover": { backgroundColor: "rgba(92,156,255,0.16)" },
             }}
           >
-            <Box
-              component="img"
-              src="/images/icons/arrow-down-svgrepo-com.svg"
-              alt="Ir para projetos"
-              sx={{ width: 38, animation: "bounce 1.6s infinite" }}
-            />
+            <Box sx={{ width: 38, height: 38, position: "relative" }}>
+              <Image
+                src="/images/icons/arrow-down-svgrepo-com.svg"
+                alt="Ir para projetos"
+                fill
+                sizes="38px"
+                style={{ animation: "bounce 1.6s infinite" }}
+              />
+            </Box>
           </Box>
         </Box>
       </Container>

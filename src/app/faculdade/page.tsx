@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Contact from "@/components/Contact";
@@ -143,16 +144,17 @@ export default function CollegeDetailPage() {
       >
         <Container maxWidth="lg">
           <Stack spacing={3.2}>
-            <Button
-              href="/"
-              component="a"
-              variant="outlined"
-              color="secondary"
-              startIcon={<ArrowBackRoundedIcon />}
-              sx={{ alignSelf: "flex-start" }}
-            >
-              Voltar para página principal
-            </Button>
+            <Link href="/" style={{ textDecoration: "none" }}>
+              <Button
+                component="span"
+                variant="outlined"
+                color="secondary"
+                startIcon={<ArrowBackRoundedIcon />}
+                sx={{ alignSelf: "flex-start" }}
+              >
+                Voltar para página principal
+              </Button>
+            </Link>
 
             <Stack spacing={1}>
               <Typography

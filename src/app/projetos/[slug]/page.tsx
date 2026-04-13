@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
@@ -106,16 +107,17 @@ export default async function ProjectDetailPage({
       >
         <Container maxWidth="lg">
           <Stack spacing={3.5}>
-            <Button
-              href="/"
-              component="a"
-              variant="outlined"
-              color="secondary"
-              startIcon={<ArrowBackRoundedIcon />}
-              sx={{ alignSelf: "flex-start" }}
-            >
-              Voltar para página principal
-            </Button>
+            <Link href="/" style={{ textDecoration: "none" }}>
+              <Button
+                component="span"
+                variant="outlined"
+                color="secondary"
+                startIcon={<ArrowBackRoundedIcon />}
+                sx={{ alignSelf: "flex-start" }}
+              >
+                Voltar para página principal
+              </Button>
+            </Link>
 
             <Stack spacing={1.2}>
               <Typography

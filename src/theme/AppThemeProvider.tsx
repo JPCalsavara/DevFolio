@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { blueTheme } from "@/theme/theme";
 
 type AppThemeProviderProps = {
@@ -9,9 +10,11 @@ type AppThemeProviderProps = {
 
 export default function AppThemeProvider({ children }: AppThemeProviderProps) {
   return (
-    <ThemeProvider theme={blueTheme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
+    <AppRouterCacheProvider options={{ key: "mui" }}>
+      <ThemeProvider theme={blueTheme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </AppRouterCacheProvider>
   );
 }

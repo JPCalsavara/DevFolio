@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
 import { collegeData } from "@/data/portfolioData";
 
@@ -55,15 +56,16 @@ export default function College() {
                 ))}
               </Stack>
 
-              <Button
-                href="/faculdade"
-                component="a"
-                variant="outlined"
-                color="secondary"
-                sx={{ alignSelf: "flex-start", mt: 0.8 }}
-              >
-                Ver detalhes da formação
-              </Button>
+              <Link href="/faculdade" style={{ textDecoration: "none" }}>
+                <Button
+                  component="span"
+                  variant="outlined"
+                  color="secondary"
+                  sx={{ alignSelf: "flex-start", mt: 0.8 }}
+                >
+                  Ver detalhes da formação
+                </Button>
+              </Link>
             </Stack>
           </Box>
         </Stack>
