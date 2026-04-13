@@ -25,9 +25,9 @@ export default function Skills() {
           Habilidades
         </Typography>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} columns={{ xs: 12, md: 16 }}>
           {skillsData.map((skill) => (
-            <Grid key={skill.name} size={{ xs: 6, md: 3 }}>
+            <Grid key={skill.name} size={{ xs: 6, md: 2 }}>
               <CardSkills
                 name={skill.name}
                 link={skill.link}
@@ -53,7 +53,7 @@ export default function Skills() {
                   py: 1,
                   borderRadius: 2,
                   backgroundColor: "rgba(255,255,255,0.06)",
-                  minWidth: 180,
+                  minWidth: 220,
                   cursor: "default",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -68,6 +68,7 @@ export default function Skills() {
                     height: 14,
                     borderRadius: 999,
                     backgroundColor: item.color,
+                    px: 0.5,
                   }}
                 />
               </Stack>

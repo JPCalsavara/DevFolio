@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   Box,
   Button,
-  Chip,
+  Card,
+  CardContent,
   Container,
-  Grid,
   Stack,
   Typography,
 } from "@mui/material";
@@ -18,27 +18,54 @@ import { projectsData } from "@/data/portfolioData";
 
 export default function Projects() {
   const featuredProjects = projectsData.slice(0, 4);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const slideGroups = useMemo(() => {
-    const groups = [];
-    for (let index = 0; index < featuredProjects.length; index += 2) {
-      groups.push(featuredProjects.slice(index, index + 2));
-    }
-    return groups;
+  const carouselItems = useMemo(() => {
+    return [
+      ...featuredProjects.map((project) => ({
+        type: "project" as const,
+        key: project.slug,
+        project,
+      })),
+      {
+        type: "more" as const,
+        key: "more-projects",
+      },
+    ];
   }, [featuredProjects]);
 
-  const canSlide = slideGroups.length > 1;
-  const currentSlideProjects = slideGroups[activeSlide] || [];
+  const canSlide = carouselItems.length > 1;
+
+  const scrollToSlide = (targetIndex: number) => {
+    const container = carouselRef.current;
+    if (!container || carouselItems.length === 0) return;
+
+    const boundedIndex =
+      ((targetIndex % carouselItems.length) + carouselItems.length) %
+      carouselItems.length;
+    const targetElement = container.children.item(
+      boundedIndex,
+    ) as HTMLElement | null;
+
+    if (!targetElement) return;
+
+    targetElement.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+    setActiveSlide(boundedIndex);
+  };
 
   const handleNext = () => {
     if (!canSlide) return;
-    setActiveSlide((prev) => (prev + 1) % slideGroups.length);
+    scrollToSlide(activeSlide + 1);
   };
 
   const handlePrevious = () => {
     if (!canSlide) return;
-    setActiveSlide((prev) => (prev === 0 ? slideGroups.length - 1 : prev - 1));
+    scrollToSlide(activeSlide - 1);
   };
 
   return (
@@ -66,9 +93,7 @@ export default function Projects() {
             <Typography
               variant="h4"
               sx={{ fontWeight: 800, fontSize: "1.5rem" }}
-            >
-              Destaques
-            </Typography>
+            ></Typography>
 
             <Stack direction="row" spacing={1}>
               <Button
@@ -92,37 +117,94 @@ export default function Projects() {
             </Stack>
           </Stack>
 
-          <Grid container spacing={1.3}>
-            {currentSlideProjects.map((project) => (
-              <Grid key={project.slug} size={{ xs: 12, md: 6 }}>
-                <CardProject {...project} />
-              </Grid>
-            ))}
-          </Grid>
+          <Box
+            ref={carouselRef}
+            onScroll={(event) => {
+              const container = event.currentTarget;
+              const children = Array.from(container.children) as HTMLElement[];
+              if (children.length === 0) return;
 
-          <Stack direction="row" spacing={1} sx={{ justifyContent: "center" }}>
-            {slideGroups.map((slide, index) => (
-              <Chip
-                key={slide.map((project) => project.slug).join("-")}
-                label={`${index + 1}`}
-                onClick={() => setActiveSlide(index)}
-                color={index === activeSlide ? "secondary" : "default"}
-                variant={index === activeSlide ? "filled" : "outlined"}
-                size="small"
-              />
-            ))}
-          </Stack>
+              const currentScroll = container.scrollLeft;
+              let nearestIndex = 0;
+              let nearestDistance = Number.POSITIVE_INFINITY;
 
-          <Stack direction="row" sx={{ justifyContent: "center", pt: 1 }}>
-            <Button
-              href="/projetos"
-              component={Link}
-              variant="outlined"
-              color="secondary"
-            >
-              Ver todos os projetos
-            </Button>
-          </Stack>
+              children.forEach((child, index) => {
+                const distance = Math.abs(child.offsetLeft - currentScroll);
+                if (distance < nearestDistance) {
+                  nearestDistance = distance;
+                  nearestIndex = index;
+                }
+              });
+
+              if (nearestIndex !== activeSlide) {
+                setActiveSlide(nearestIndex);
+              }
+            }}
+            sx={{
+              display: "grid",
+              gridAutoFlow: "column",
+              gridAutoColumns: {
+                xs: "100%",
+                sm: "calc((100% - 16px) / 2)",
+                md: "calc((100% - 16px) / 2)",
+              },
+              gap: 2,
+              overflowX: "auto",
+              scrollSnapType: "x mandatory",
+              pb: 0.8,
+              "&::-webkit-scrollbar": { height: 8 },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(148,163,184,.38)",
+                borderRadius: 999,
+              },
+            }}
+          >
+            {carouselItems.map((item) => (
+              <Box key={item.key} sx={{ scrollSnapAlign: "start" }}>
+                {item.type === "project" ? (
+                  <CardProject {...item.project} />
+                ) : (
+                  <Card
+                    sx={{
+                      p: 1,
+                      height: "100%",
+                      borderRadius: 3,
+                      border: "1px dashed rgba(125,211,252,0.32)",
+                      backgroundColor: "rgba(18,23,34,0.65)",
+                    }}
+                  >
+                    <CardContent
+                      sx={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 1.6,
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                        Mais projetos
+                      </Typography>
+                      <Typography sx={{ color: "text.secondary" }}>
+                        Ver catalogo completo com filtros por stack e
+                        tecnologias.
+                      </Typography>
+                      <Button
+                        href="/projetos"
+                        component={Link}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Abrir catalogo
+                      </Button>
+                    </CardContent>
+                  </Card>
+                )}
+              </Box>
+            ))}
+          </Box>
         </Stack>
       </Container>
     </Box>

@@ -14,6 +14,7 @@ import CardProject from "@/components/CardProject";
 import {
   projectsData,
   tagsData,
+  legendItems,
   type ProjectCardData,
 } from "@/data/portfolioData";
 
@@ -27,6 +28,59 @@ const stackOptions = [
 ] as const;
 
 const PAGE_SIZE = 6;
+
+const colorByCategory: Record<string, string> = {
+  ...Object.fromEntries(legendItems.map((item) => [item.type, item.color])),
+  softskill: "#22D3EE",
+  default: "#64748B",
+};
+
+const stackLabelByOption: Record<(typeof stackOptions)[number], string> = {
+  all: "TODAS STACKS",
+  frontend: "FRONT-END",
+  backend: "BACK-END",
+  database: "DATABASE",
+  devops: "DEVOPS",
+  softskill: "SOFTSKILL",
+};
+
+function chipSx(isSelected: boolean, color: string) {
+  return {
+    borderColor: isSelected ? color : `${color}AA`,
+    backgroundColor: isSelected ? color : "transparent",
+    color: isSelected ? "#0B1020" : "text.primary",
+    fontWeight: 800,
+    "& .MuiChip-label": {
+      display: "flex",
+      alignItems: "center",
+      gap: 0.8,
+    },
+  };
+}
+
+function chipLabel(label: string, color: string, isSelected: boolean) {
+  const upperLabel = label.toUpperCase();
+
+  if (isSelected) {
+    return upperLabel;
+  }
+
+  return (
+    <>
+      <Box
+        component="span"
+        sx={{
+          width: 8,
+          height: 8,
+          borderRadius: 999,
+          backgroundColor: color,
+          display: "inline-block",
+        }}
+      />
+      {upperLabel}
+    </>
+  );
+}
 
 function getProjectStacks(project: ProjectCardData) {
   const categories = (project.tecnosUsed || [])
@@ -105,42 +159,70 @@ export default function ProjectsCatalog() {
       />
 
       <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
-        {stackOptions.map((stack) => (
-          <Chip
-            key={stack}
-            label={stack === "all" ? "Todas stacks" : stack}
-            onClick={() => {
-              setSelectedStack(stack);
-              setCurrentPage(1);
-            }}
-            color={selectedStack === stack ? "secondary" : "default"}
-            variant={selectedStack === stack ? "filled" : "outlined"}
-          />
-        ))}
+        {stackOptions.map((stack) =>
+          (() => {
+            const isSelected = selectedStack === stack;
+            const categoryColor =
+              stack === "all"
+                ? colorByCategory.default
+                : colorByCategory[stack] || colorByCategory.default;
+
+            return (
+              <Chip
+                key={stack}
+                label={chipLabel(
+                  stackLabelByOption[stack],
+                  categoryColor,
+                  isSelected,
+                )}
+                onClick={() => {
+                  setSelectedStack(stack);
+                  setCurrentPage(1);
+                }}
+                variant={isSelected ? "filled" : "outlined"}
+                sx={chipSx(isSelected, categoryColor)}
+              />
+            );
+          })(),
+        )}
       </Stack>
 
       <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
         <Chip
-          label="Todas tecnologias"
+          label={chipLabel(
+            "TODAS TECNOLOGIAS",
+            colorByCategory.default,
+            selectedTech === "all",
+          )}
           onClick={() => {
             setSelectedTech("all");
             setCurrentPage(1);
           }}
-          color={selectedTech === "all" ? "secondary" : "default"}
           variant={selectedTech === "all" ? "filled" : "outlined"}
+          sx={chipSx(selectedTech === "all", colorByCategory.default)}
         />
-        {availableTechs.map((tech) => (
-          <Chip
-            key={tech}
-            label={tagsData[tech]?.realName || tech}
-            onClick={() => {
-              setSelectedTech(tech);
-              setCurrentPage(1);
-            }}
-            color={selectedTech === tech ? "secondary" : "default"}
-            variant={selectedTech === tech ? "filled" : "outlined"}
-          />
-        ))}
+        {availableTechs.map((tech) =>
+          (() => {
+            const isSelected = selectedTech === tech;
+            const category = tagsData[tech]?.category || "default";
+            const categoryColor =
+              colorByCategory[category] || colorByCategory.default;
+            const label = tagsData[tech]?.realName || tech;
+
+            return (
+              <Chip
+                key={tech}
+                label={chipLabel(label, categoryColor, isSelected)}
+                onClick={() => {
+                  setSelectedTech(tech);
+                  setCurrentPage(1);
+                }}
+                variant={isSelected ? "filled" : "outlined"}
+                sx={chipSx(isSelected, categoryColor)}
+              />
+            );
+          })(),
+        )}
       </Stack>
 
       <Typography sx={{ color: "text.secondary" }}>

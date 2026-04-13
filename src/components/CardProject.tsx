@@ -108,10 +108,17 @@ export default function CardProject({
             spacing={0.4}
             sx={{
               justifyContent: "space-between",
-              alignItems: { sm: "center" },
+              alignItems: { sm: "flex-start" },
             }}
           >
-            <Typography sx={{ color: "text.secondary", fontStyle: "italic" }}>
+            <Typography
+              sx={{
+                color: "text.secondary",
+                fontStyle: "italic",
+                lineHeight: 1.35,
+                alignSelf: { sm: "flex-start" },
+              }}
+            >
               {summaryLine || "Projeto de software"}
             </Typography>
             {period ? (
@@ -120,6 +127,10 @@ export default function CardProject({
                   color: "text.secondary",
                   fontWeight: 700,
                   fontSize: "0.92rem",
+                  minWidth: "8rem",
+                  lineHeight: 1.35,
+                  alignSelf: { sm: "flex-start" },
+                  textAlign: { xs: "left", sm: "right" },
                 }}
               >
                 {period}
