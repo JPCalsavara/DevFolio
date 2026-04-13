@@ -31,3 +31,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+public/images_backup_20260412_231051
+
+# Environment files
+.env
+.env.*
+!.env.example
