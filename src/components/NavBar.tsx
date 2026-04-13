@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   AppBar,
   Box,
@@ -39,6 +40,7 @@ export default function NavBar() {
               component="img"
               src="/images/icons/screen-svgrepo-com.svg"
               alt="logo"
+              decoding="async"
               sx={{ width: 30, height: 30 }}
             />
             <Typography sx={{ fontWeight: 800 }}>João Calsavara</Typography>
@@ -51,9 +53,9 @@ export default function NavBar() {
           >
             {navTopics.map((item) => (
               <Button
-                key={item.href}
+                key={item.label}
                 href={item.href}
-                component="a"
+                component={Link}
                 color="inherit"
               >
                 {item.label}
@@ -61,7 +63,7 @@ export default function NavBar() {
             ))}
             <Button
               href="/admin"
-              component="a"
+              component={Link}
               variant="outlined"
               color="secondary"
             >
@@ -96,9 +98,9 @@ export default function NavBar() {
           <Stack spacing={1}>
             {navTopics.map((item) => (
               <Button
-                key={item.href}
+                key={item.label}
                 href={item.href}
-                component="a"
+                component={Link}
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -106,7 +108,7 @@ export default function NavBar() {
             ))}
             <Button
               href="/admin"
-              component="a"
+              component={Link}
               variant="contained"
               color="secondary"
               onClick={() => setOpen(false)}

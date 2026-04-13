@@ -1,26 +1,36 @@
 import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
+import Link from "next/link";
+import Image from "next/image";
+import ExperienceImageCarousel from "@/components/ExperienceImageCarousel";
 import SkillsTags from "@/components/SkillsTags";
 
 type CardExperienceProps = {
+  slug?: string;
   title: string;
+  imageName?: string;
+  imageNames?: string[];
   location?: string;
   period?: string;
   role?: string;
   summary: string;
   achievements?: string[];
   skillsLearned: string[];
-  link?: string;
+  exploreHref?: string;
+  exploreLabel?: string;
 };
 
 export default function CardExperience({
   title,
+  imageName,
+  imageNames,
   location,
   period,
   role,
   summary,
   achievements,
   skillsLearned,
-  link,
+  exploreHref,
+  exploreLabel = "Explorar melhor",
 }: CardExperienceProps) {
   return (
     <Card
@@ -32,6 +42,29 @@ export default function CardExperience({
     >
       <CardContent sx={{ p: { xs: 2.2, md: 3 } }}>
         <Stack spacing={2.2}>
+          {imageNames?.length ? (
+            <ExperienceImageCarousel imageNames={imageNames} title={title} />
+          ) : imageName ? (
+            <Stack
+              sx={{
+                width: "100%",
+                aspectRatio: "16 / 9",
+                borderRadius: 2,
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              <Image
+                src={`/images/experiences/${imageName}`}
+                alt={`Foto da experiência ${title}`}
+                fill
+                sizes="(max-width: 900px) 100vw, 70vw"
+                quality={72}
+                style={{ objectFit: "cover" }}
+              />
+            </Stack>
+          ) : null}
+
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1}
@@ -104,18 +137,17 @@ export default function CardExperience({
 
           <SkillsTags tecnosUsed={skillsLearned} />
 
-          {link ? (
-            <Button
-              href={link}
-              component="a"
-              target="_blank"
-              rel="noreferrer"
-              variant="contained"
-              color="secondary"
-              sx={{ alignSelf: "flex-start" }}
-            >
-              Explorar
-            </Button>
+          {exploreHref ? (
+            <Link href={exploreHref} style={{ textDecoration: "none" }}>
+              <Button
+                component="span"
+                variant="contained"
+                color="secondary"
+                sx={{ alignSelf: "flex-start" }}
+              >
+                {exploreLabel}
+              </Button>
+            </Link>
           ) : null}
         </Stack>
       </CardContent>

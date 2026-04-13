@@ -18,8 +18,10 @@ export type SkillCardData = {
 };
 
 export type ExperienceCardData = {
+  slug?: string;
   title: string;
   imageName?: string;
+  imageNames?: string[];
   location?: string;
   period?: string;
   role?: string;
@@ -27,6 +29,16 @@ export type ExperienceCardData = {
   achievements?: string[];
   skillsLearned: string[];
   link?: string;
+  exploreHref?: string;
+  exploreLabel?: string;
+};
+
+export type ExperienceDetailPageData = {
+  slug: string;
+  title: string;
+  introTitle: string;
+  intro: string;
+  sections: ExperienceCardData[];
 };
 
 export type LegendItem = {
@@ -75,11 +87,6 @@ export const tagsData: Record<
     category: "backend",
     link: "https://expressjs.com",
     realName: "Express",
-  },
-  typescript: {
-    category: "all",
-    link: "https://www.typescriptlang.org",
-    realName: "TypeScript",
   },
   javascript: {
     category: "all",
@@ -258,7 +265,7 @@ export const projectsData: ProjectCardData[] = [
     ],
     description:
       "Projeto full stack para gestão patrimonial. Estruturado em .NET 8 com Clean Architecture e DDD (monólito modular), com foco em escalabilidade, confiabilidade das regras de negócio e cobertura de testes unitários/integração.",
-    urlName: "",
+    urlName: "InterceptorSystem.png",
     produtionLink: "https://d1wq60pm5w8m2y.cloudfront.net/",
     repositoryLink: "https://github.com/JPCalsavara/InterceptorSystem",
   },
@@ -270,7 +277,7 @@ export const projectsData: ProjectCardData[] = [
     tecnosUsed: ["lideranca", "comunicacao", "oratoria", "design"],
     description:
       "Projeto de extensão criado do zero para ampliar o acesso à educação tecnológica no ensino médio. Coordenação executiva, estruturação da metodologia e liderança de equipe multidisciplinar com impacto direto em mais de 20 estudantes.",
-    urlName: "",
+    urlName: "SemeiaCode.jpeg",
     repositoryLink: "",
   },
   {
@@ -281,7 +288,7 @@ export const projectsData: ProjectCardData[] = [
     tecnosUsed: ["nextjs", "typescript", "tailwind", "node"],
     description:
       "Projeto freelance full stack voltado para captação de leads e performance digital. Plataforma desenvolvida com Next.js e TypeScript, com ganhos concretos de SEO e crescimento de faturamento do cliente.",
-    urlName: "",
+    urlName: "JuDecoraçãoDeNatal.png",
     produtionLink: "https://www.ju-decoracao-de-natal.com.br/",
     repositoryLink:
       "https://github.com/JPCalsavara/ju-decoradoracao-de-natal-site",
@@ -294,7 +301,7 @@ export const projectsData: ProjectCardData[] = [
     tecnosUsed: ["nextjs", "typescript", "react", "tailwind"],
     description:
       "Portfólio para consolidar minha apresentação profissional em engenharia de software, com foco em backend, projetos de impacto e experiências em cloud e observabilidade.",
-    urlName: "",
+    urlName: "Portifolio.png",
     produtionLink: "",
     repositoryLink: "https://github.com/JPCalsavara/portifolioReact",
   },
@@ -427,8 +434,9 @@ export const legendItems: LegendItem[] = [
 
 export const experiencesData: ExperienceCardData[] = [
   {
+    slug: "mottu",
     title: "Mottu",
-    imageName: "mottu",
+    imageName: "Mottu.jpg",
     location: "São Paulo, SP",
     period: "Setembro 2025 - Atual",
     role: "Desenvolvedor Backend (Estagiário)",
@@ -450,7 +458,216 @@ export const experiencesData: ExperienceCardData[] = [
       "datadog",
       "llm",
     ],
-    link: "https://mottu.com.br/",
+    exploreHref: "/experiencia/mottu",
+    exploreLabel: "Explorar melhor",
+  },
+  {
+    slug: "atria",
+    title: "Atria Jr.",
+    imageName: "atria.jpeg",
+    location: "Limeira, São Paulo, Brasil · Híbrido",
+    period: "mai de 2024 - set de 2025",
+    role: "Assessor Comercial e Desenvolvedor Backend · Estágio",
+    summary:
+      "Na Empresa Júnior atuei em duas frentes: marketing e comercial em 2024, e backend em 2025, com evolução da prospecção e requisitos até arquitetura e infraestrutura de software.",
+    achievements: [
+      "2024: reestruturei o blog com foco em SEO, ultrapassando 1.000 usuários orgânicos/mês e apoiando pré-vendas e requisitos.",
+      "2025: desenvolvi backend em TypeScript com DDD/Clean Architecture, PostgreSQL/Prisma, Docker e AWS.",
+    ],
+    skillsLearned: [
+      "comunicacao",
+      "lideranca",
+      "oratoria",
+      "html",
+      "css",
+      "design",
+      "typescript",
+      "node",
+      "docker",
+      "dockercompose",
+      "aws",
+      "postgres",
+      "prisma",
+      "ddd",
+      "cleanarchitecture",
+    ],
+    exploreHref: "/experiencia/atria",
+    exploreLabel: "Explorar melhor",
+  },
+  {
+    slug: "semeia-code",
+    title: "Semeia Code",
+    imageName: "PrimeiraTurmaSemeia.jpg",
+    location: "Limeira, São Paulo, Brasil",
+    period: "2025 - Atual",
+    role: "Co-fundador e Coordenador Executivo/Educacional",
+    summary:
+      "Co-fundei o Semeia Code para levar aulas de programação a escolas públicas e aproximar talentos do ensino médio da universidade.",
+    achievements: [
+      "No primeiro semestre de 2025, impactamos 18 alunos com 3 alunos da Unicamp na organização.",
+      "No segundo semestre, conduzimos 2 turmas com 10 alunos e 7 alunos da Unicamp na organização; hoje atuo como conselheiro dos novos coordenadores.",
+    ],
+    skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
+    exploreHref: "/experiencia/semeia-code",
+    exploreLabel: "Explorar melhor",
+  },
+];
+
+export const experiencesDetailsData: ExperienceDetailPageData[] = [
+  {
+    slug: "mottu",
+    title: "Mottu",
+    introTitle: "Mottu",
+    intro:
+      "Unicórnio brasileiro de mobilidade com forte cultura de operação, tecnologia e escala. No time de Infrações e Multas, atuei em soluções orientadas a eventos e em observabilidade para processos críticos de negócio.",
+    sections: [
+      {
+        slug: "mottu",
+        title: "Desenvolvedor Backend · Estagiário",
+        imageName: "Mottu.jpg",
+        location: "São Paulo, SP",
+        period: "Setembro 2025 - Atual",
+        role: "Desenvolvedor Backend (Estagiário)",
+        summary:
+          "Atuação no Squad de Infrações e Multas focada em redundância, consistência de dados e entrega confiável em produção.",
+        achievements: [
+          "Arquitetura Orientada a Eventos & Core Business: assegurei a consistência de dados operacionais e a retenção de repasses financeiros sem falhas de concorrência, ao desenvolver e orquestrar microsserviços seguros em .NET 8 utilizando mensageria (Pub/Sub), Docker e Kubernetes para lidar com complexidades espaciais (lat/long) e temporais (UTC).",
+          "Inovação (IA) & Redução de Custos: eliminei 2 horas de trabalho manual diário da operação logística, triando e processando com sucesso mais de 1.200 notificações/mês, ao arquitetar um CronJob em Kubernetes integrado a um LLM (Engenharia de Prompt / Few-Shot), salvando no PostgreSQL e mitigando multas NICs.",
+          "Sustentação & Observabilidade: evitei a perda de dezenas de milhares de reais semanais em penalidades, reduzindo drasticamente o tempo de resolução de incidentes de produção, ao criar painéis de monitorização analítica e alertas em tempo real no Datadog para um ecossistema híbrido (VMs e K8s).",
+        ],
+        skillsLearned: [
+          "dotnet",
+          "csharp",
+          "postgres",
+          "rabbitmq",
+          "pubsub",
+          "kubernetes",
+          "docker",
+          "datadog",
+          "llm",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "atria",
+    title: "Atria Jr.",
+    introTitle: "Atria Jr.",
+    intro:
+      "Empresa júnior da Unicamp em Limeira que une formação empresarial, tecnologia e impacto prático. Ao longo da jornada, a atuação passou por marketing/comercial em 2024 e por backend/infraestrutura em 2025.",
+    sections: [
+      {
+        slug: "atria",
+        title: "2024 · Marketing, Comercial e Pré-vendas",
+        imageNames: ["Epej2024Atria.jpg", "Enej2024Atria.jpg"],
+        location: "Limeira, São Paulo, Brasil",
+        period: "mai de 2024 - nov de 2024 · 7 meses",
+        role: "Assessor Comercial · Estágio",
+        summary:
+          "Atuei na frente comercial e de pré-vendas, com foco em marketing, outbound e qualificação técnica para fortalecer o funil de novos projetos.",
+        achievements: [
+          "Geração de Demanda (Marketing): liderei a reestruturação estratégica do blog da Atria Jr. com foco em SEO, gerando mais de 1.000 usuários orgânicos mensais.",
+          "Prospecção Ativa (Outbound): realizei prospecção B2B de novos clientes por abordagens digitais (cold messages) e presenciais.",
+          "Pré-Vendas e Requisitos: conduzi reuniões diagnósticas para qualificação de leads, atuando como ponte técnica entre cliente e time de desenvolvimento.",
+          "Elicitação de requisitos e apoio à precificação de soluções de software.",
+          "Desenvolvi e mantive páginas do blog e landing pages em WordPress com customizações em HTML/CSS.",
+        ],
+        skillsLearned: [
+          "comunicacao",
+          "lideranca",
+          "oratoria",
+          "html",
+          "css",
+          "design",
+        ],
+      },
+      {
+        slug: "atria",
+        title: "2025 · Backend, Arquitetura e Infraestrutura",
+        imageNames: ["AgiBankAtria.jpg", "GloboAtria.jpg", "Epej2025Atria.jpg"],
+        location: "Limeira, São Paulo, Brasil · Híbrido",
+        period: "fev de 2025 - set de 2025 · 8 meses",
+        role: "Desenvolvedor Backend · Estágio",
+        summary:
+          "Participei ativamente do desenvolvimento backend de uma aplicação web robusta em TypeScript, colaborando em todo o ciclo de projeto, desde a definição de requisitos até a implementação.",
+        achievements: [
+          "Contribuí para a implementação da arquitetura do sistema, aplicando conceitos de Clean Architecture e Domain-Driven Design (DDD) sob mentoria.",
+          "Adquiri experiência prática na configuração e gerenciamento da infraestrutura de deploy e staging, utilizando Docker, Docker Compose e serviços da AWS (EC2 e S3).",
+          "Auxiliei na estruturação e gerenciamento do banco de dados PostgreSQL e na utilização do ORM Prisma.",
+          "Colaborei na modelagem técnica do sistema e na aplicação de boas práticas de desenvolvimento para garantir a qualidade e manutenibilidade do código.",
+          "Nas visitas técnicas, conheci melhores práticas e conversei com CTOs e CEOs de grandes empresas, incluindo Conquer e AGI.",
+        ],
+        skillsLearned: [
+          "typescript",
+          "node",
+          "docker",
+          "dockercompose",
+          "aws",
+          "postgres",
+          "prisma",
+          "ddd",
+          "cleanarchitecture",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "semeia-code",
+    title: "Semeia Code",
+    introTitle: "Semeia Code",
+    intro:
+      "Projeto de aulas de programação em escolas públicas criado para aproximar alunos do ensino médio da universidade e da tecnologia, com forte papel social, pedagógico e de organização de comunidade.",
+    sections: [
+      {
+        slug: "semeia-code",
+        title: "Começo do projeto",
+        imageName: "ComeçoSemeiaCode.jpg",
+        location: "Limeira, São Paulo, Brasil",
+        period: "2025 - Atual",
+        role: "Co-fundador, Coordenador Executivo e Educacional",
+        summary:
+          "A etapa inicial foi dedicada à escrita científica para estruturar o projeto, buscar as primeiras pessoas e validar as ideias do Semeia Code.",
+        achievements: [
+          "Escrita científica para estruturar o projeto inicial.",
+          "Busca das primeiras pessoas para participar da iniciativa.",
+          "Validação das ideias e do formato pedagógico do Semeia Code.",
+        ],
+        skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
+      },
+      {
+        slug: "semeia-code",
+        title: "Primeira turma na E. E. Ely",
+        imageName: "PrimeiraTurmaSemeia.jpg",
+        location: "E. E. Ely · Limeira, São Paulo",
+        period: "2025 - Atual",
+        role: "Professor e Coordenador do Projeto",
+        summary:
+          "Tivemos uma turma na E. E. Ely com 13 alunos, ministrando 8 aulas de Python, com atuação direta na docência e na coordenação.",
+        achievements: [
+          "Turma com 13 alunos na E. E. Ely.",
+          "Ministrei 8 aulas de Python.",
+          "Atuei como professor e coordenador do projeto, ao lado de mais um professor e um corretor de alunos.",
+        ],
+        skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
+      },
+      {
+        slug: "semeia-code",
+        title: "Segunda turma e reestruturação",
+        imageName: "SegundaTurmaSemeia.jpg",
+        location: "Limeira, São Paulo, Brasil",
+        period: "2025 - Atual",
+        role: "Coordenador Executivo e Educacional",
+        summary:
+          "Reestruturei cargos, processo seletivo, reuniões e modelos de aula; dei aula à noite na Ely e uma aula na Nexus, além de conduzir os processos seletivos para 2025.2 e 2026.1.",
+        achievements: [
+          "Reestruturação total dos cargos, do processo seletivo, das reuniões e dos modelos de aula.",
+          "Aulas à noite na Ely e uma aula na Nexus, organização para crianças superdotadas.",
+          "Condução do processo seletivo para 2025.2 e 2026.1 como coordenador executivo e educacional.",
+          "Atuação em suporte como conselho para os novos coordenadores executivos e educacionais.",
+        ],
+        skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
+      },
+    ],
   },
 ];
 
@@ -484,10 +701,10 @@ export const collegeData: CollegeDetailData = {
 };
 
 export const navTopics: Array<{ label: string; href: string }> = [
-  { label: "Início", href: "#" },
-  { label: "Faculdade", href: "#faculdade" },
-  { label: "Projetos", href: "#projetos" },
-  { label: "Habilidades", href: "#habilidades" },
-  { label: "Experiências", href: "#experiencias" },
-  { label: "Contato", href: "#contato" },
+  { label: "Início", href: "/" },
+  { label: "Experiências", href: "/experiencias" },
+  { label: "Faculdade", href: "/faculdade" },
+  { label: "Projetos", href: "/projetos" },
+  { label: "Habilidades", href: "/#habilidades" },
+  { label: "Contato", href: "/#contato" },
 ];

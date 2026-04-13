@@ -1,8 +1,14 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
+import Link from "next/link";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import CardExperience from "@/components/CardExperience";
 import { experiencesData } from "@/data/portfolioData";
 
 export default function Experience() {
+  const uniqueExperiences = experiencesData.filter(
+    (experience, index, list) =>
+      index === list.findIndex((item) => item.title === experience.title),
+  );
+
   return (
     <Box
       id="experiencias"
@@ -16,9 +22,17 @@ export default function Experience() {
           Experiências
         </Typography>
         <Stack spacing={2}>
-          {experiencesData.map((experience) => (
+          {uniqueExperiences.map((experience) => (
             <CardExperience key={experience.title} {...experience} />
           ))}
+        </Stack>
+
+        <Stack direction="row" sx={{ justifyContent: "center", pt: 3 }}>
+          <Link href="/experiencias" style={{ textDecoration: "none" }}>
+            <Button component="span" variant="outlined" color="secondary">
+              Ver experiências em detalhes
+            </Button>
+          </Link>
         </Stack>
       </Container>
     </Box>
