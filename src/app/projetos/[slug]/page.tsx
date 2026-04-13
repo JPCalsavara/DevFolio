@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
@@ -13,14 +14,14 @@ const projectInsights: Record<
   { goal: string; highlights: string[]; impact: string }
 > = {
   interceptorsystem: {
-    goal: "Estruturar uma plataforma robusta para gestão patrimonial com base em arquitetura limpa, testes e escalabilidade.",
+    goal: "Plataforma SaaS de gestão de segurança patrimonial para clientes, com backend em .NET 8 e frontend em Angular 21.",
     highlights: [
-      "Monólito modular em .NET 8 com foco em separação clara de responsabilidades.",
-      "Modelagem voltada para regras de negócio críticas, com DDD e Clean Architecture.",
-      "Ambiente orientado a entrega confiável com cobertura de testes e integração contínua.",
+      "Domínio estruturado em Clean Architecture + DDD com 3 bounded contexts: Operações, Auth e WhatsApp.",
+      "Autenticação JWT, gestão de contas SaaS (FREE/BASIC/PRO), notificações por e-mail e integração com WhatsApp chatbot.",
+      "Parte das funcionalidades está em evolução contínua, com entregas incrementais no produto.",
     ],
     impact:
-      "Projeto pensado para reduzir acoplamento, facilitar evolução do produto e sustentar crescimento técnico do domínio.",
+      "Projeto orientado a escalar regras de negócio complexas com segurança, observabilidade e arquitetura sustentável de longo prazo.",
   },
   "semeia-code": {
     goal: "Criar uma iniciativa de extensão universitária para democratizar ensino de tecnologia no ensino médio.",
@@ -33,14 +34,14 @@ const projectInsights: Record<
       "Projeto com forte componente social, liderança e formação de base para estudantes em início de jornada na tecnologia.",
   },
   "ju-decoracao-de-natal": {
-    goal: "Desenvolver uma presença digital voltada a captação de leads e performance comercial.",
+    goal: "Traduzir a arte e o atendimento personalizado de uma decoradora profissional em uma experiência digital moderna para credibilidade, portfólio interativo e captação de leads.",
     highlights: [
-      "Implementação com Next.js e TypeScript.",
-      "Foco em SEO, performance e experiência da marca.",
-      "Contribuição direta para crescimento de faturamento do cliente.",
+      "Plataforma orientada a negócio, não e-commerce tradicional: foco em qualificação e conversão de interessados.",
+      "Galeria dinâmica com filtros avançados e fluxo de orçamento integrado ao banco de dados.",
+      "Integração com WhatsApp para acelerar o primeiro contato comercial.",
     ],
     impact:
-      "Projeto comercial com resultado mensurável e foco em conversão digital.",
+      "Projeto com valor afetivo e resultado prático, transformando atendimento artesanal em operação digital com escala.",
   },
   "portfolio-pessoal": {
     goal: "Centralizar minha apresentação profissional em uma vitrine moderna, coerente e objetiva.",
@@ -87,6 +88,88 @@ const projectInsights: Record<
   },
 };
 
+const interceptorFeatureSections: Array<{ title: string; items: string[] }> = [
+  {
+    title: "Backend",
+    items: [
+      "CRUD completo para Cliente, Funcionário, Posto, Alocação, Diária, Contrato e Tag.",
+      "Cálculos financeiros via Tags com modelo dinâmico (substituindo salário fixo).",
+      "Lazy fetching + cache coordenador para queries otimizadas.",
+      "Turnos flexíveis com suporte a Comercial, 8h (Alcalá), Folguista e 12h.",
+      "Criação em cascata com POST /api/clientes-completos.",
+      "Diárias em lote com POST /api/diarias/batch.",
+      "Auto-finalização de contratos vencidos ao listar dados.",
+      "Fluxo completo de autenticação JWT (registro, login, verificação de e-mail e reset).",
+      "Gestão de contas e assinaturas SaaS (FREE, BASIC, PRO).",
+      "Notificações SMTP (MailKit) para verificação, reset e alteração de e-mail.",
+      "Integração WhatsApp via Meta API para substituição de diárias por chatbot.",
+    ],
+  },
+  {
+    title: "Frontend",
+    items: [
+      "Landing page pública focada em gestão de serviços e facilities.",
+      "Design system próprio com tokens CSS, cores semânticas e SVGs otimizados.",
+      "Gestão de cache e invalidação reativa baseada em EntityCacheCoordinatorService.",
+      "Sidebar desktop colapsável com persistência local de layout.",
+      "Padronização visual de formulários, botões e mensagens de erro.",
+      "Fluxo completo de autenticação (login, cadastro, esqueci a senha, nova senha e verificação de e-mail).",
+      "Dashboard financeiro com análise por período (mensal, trimestral, semestral e anual).",
+      "Três modos de visualização de diárias: diário (lista), semanal (kanban) e mensal (calendário).",
+      "Dark mode e light mode dinâmicos em todas as telas.",
+      "Formulários validados por schema (Zod) com máscaras (ngx-mask).",
+      "Auth Guard para rotas protegidas e Auth Interceptor para JWT.",
+    ],
+  },
+  {
+    title: "Infraestrutura",
+    items: [
+      "Docker Compose com 4 serviços: DB, API, Frontend e Nginx.",
+      "Hot-reload no backend (dotnet watch) e frontend (ng serve --poll).",
+      "Imagem Docker do frontend com npm 11.10.1 atualizado.",
+      "CI/CD com GitHub Actions validando backend, frontend e Docker em PRs.",
+      "Nginx como reverse proxy para a API.",
+      "Estratégia event-driven com invalidação automática de cache via Domain Events (MediatR).",
+    ],
+  },
+];
+
+const juDecoracaoFeatureSections: Array<{ title: string; items: string[] }> = [
+  {
+    title: "Sobre o Projeto",
+    items: [
+      "Aplicação full-stack para uma decoradora de Natal com mais de 30 anos de experiência.",
+      "Projeto com significado pessoal, criado para digitalizar a arte e o atendimento personalizado da cliente.",
+      "Plataforma pensada para credibilidade, apresentação de portfólio e captação automatizada de leads.",
+      "Fluxo completo: inspiração do cliente, orçamento, persistência no banco e primeiro contato via WhatsApp.",
+    ],
+  },
+  {
+    title: "Funcionalidades Principais",
+    items: [
+      "Galeria dinâmica com produtos carregados diretamente do Supabase.",
+      "Filtros em cascata por tipo de produto, altura, estilo e cores.",
+      "Carrossel interativo em modal com navegação por setas e gestos de swipe.",
+      "Formulário de orçamento inspirado com pré-preenchimento por referência de produto.",
+      "Formulário geral para contato e orçamento de projetos do zero.",
+      "Persistência automática de pedidos em PostgreSQL (Supabase).",
+      "Seletores em cascata de localização com a API oficial do IBGE.",
+      "Automação de WhatsApp com mensagem detalhada após envio do formulário.",
+    ],
+  },
+  {
+    title: "Stack e Deploy",
+    items: [
+      "Framework: Next.js (App Router).",
+      "Linguagem: TypeScript.",
+      "Backend e banco: Supabase (PostgreSQL).",
+      "Estilização: Tailwind CSS.",
+      "Animações: Framer Motion.",
+      "Deploy: Vercel.",
+    ],
+  },
+];
+
 export function generateStaticParams() {
   return projectsData.map((project) => ({ slug: project.slug }));
 }
@@ -124,6 +207,10 @@ export default async function ProjectDetailPage({
   }
 
   const insight = projectInsights[project.slug];
+  const projectImagePath =
+    project.urlName && project.urlName.trim().length > 0
+      ? `/images/projects/${project.urlName}`
+      : "/images/projects/default.jpg";
 
   return (
     <Box>
@@ -178,6 +265,27 @@ export default async function ProjectDetailPage({
                 {project.description}
               </Typography>
             </Stack>
+
+            <Box
+              sx={{
+                width: "100%",
+                maxWidth: 980,
+                aspectRatio: "16 / 9",
+                borderRadius: 3,
+                overflow: "hidden",
+                position: "relative",
+                border: "1px solid rgba(125, 211, 252, 0.2)",
+              }}
+            >
+              <Image
+                src={projectImagePath}
+                alt={`Imagem do projeto ${project.title}`}
+                fill
+                sizes="(max-width: 900px) 100vw, 980px"
+                quality={76}
+                style={{ objectFit: "cover" }}
+              />
+            </Box>
 
             {insight ? (
               <Stack
@@ -235,6 +343,87 @@ export default async function ProjectDetailPage({
               </Stack>
             ) : null}
 
+            {project.slug === "interceptorsystem" ? (
+              <Stack
+                spacing={2.2}
+                sx={{
+                  p: { xs: 2.2, md: 3 },
+                  borderRadius: 3,
+                  backgroundColor: "rgba(13, 27, 45, 0.92)",
+                  border: "1px solid rgba(125, 211, 252, 0.14)",
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 800, color: "primary.main" }}
+                >
+                  Status do Produto
+                </Typography>
+                <Typography sx={{ color: "text.primary", lineHeight: 1.8 }}>
+                  Muitas funcionalidades ja estao operacionais em ambiente de
+                  desenvolvimento e outras estao em evolucao ativa. O projeto
+                  segue roadmap incremental para consolidacao da plataforma
+                  SaaS.
+                </Typography>
+
+                {interceptorFeatureSections.map((section) => (
+                  <Box key={section.title}>
+                    <Typography
+                      variant="h6"
+                      sx={{ mb: 1, fontWeight: 800, color: "secondary.main" }}
+                    >
+                      {section.title}
+                    </Typography>
+                    <Stack component="ul" spacing={1.1} sx={{ pl: 2.5, m: 0 }}>
+                      {section.items.map((item) => (
+                        <Typography
+                          component="li"
+                          key={item}
+                          sx={{ lineHeight: 1.7 }}
+                        >
+                          {item}
+                        </Typography>
+                      ))}
+                    </Stack>
+                  </Box>
+                ))}
+              </Stack>
+            ) : null}
+
+            {project.slug === "ju-decoracao-de-natal" ? (
+              <Stack
+                spacing={2.2}
+                sx={{
+                  p: { xs: 2.2, md: 3 },
+                  borderRadius: 3,
+                  backgroundColor: "rgba(13, 27, 45, 0.92)",
+                  border: "1px solid rgba(125, 211, 252, 0.14)",
+                }}
+              >
+                {juDecoracaoFeatureSections.map((section) => (
+                  <Box key={section.title}>
+                    <Typography
+                      variant="h6"
+                      sx={{ mb: 1, fontWeight: 800, color: "secondary.main" }}
+                    >
+                      {section.title}
+                    </Typography>
+                    <Stack component="ul" spacing={1.1} sx={{ pl: 2.5, m: 0 }}>
+                      {section.items.map((item) => (
+                        <Typography
+                          component="li"
+                          key={item}
+                          sx={{ lineHeight: 1.7 }}
+                        >
+                          {item}
+                        </Typography>
+                      ))}
+                    </Stack>
+                  </Box>
+                ))}
+              </Stack>
+            ) : null}
+
             <Stack spacing={1.2}>
               <Typography variant="h5" sx={{ fontWeight: 800 }}>
                 Tecnologias
@@ -251,7 +440,7 @@ export default async function ProjectDetailPage({
                       py: 1,
                       borderRadius: 2,
                       backgroundColor: "rgba(255,255,255,0.06)",
-                      minWidth: 180,
+                      minWidth: 220,
                       alignItems: "center",
                       justifyContent: "space-between",
                     }}

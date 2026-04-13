@@ -247,6 +247,21 @@ export const tagsData: Record<
     link: "https://nextjs.org/",
     realName: "Next.js",
   },
+  framermotion: {
+    category: "frontend",
+    link: "https://www.framer.com/motion/",
+    realName: "Framer Motion",
+  },
+  vercel: {
+    category: "devops",
+    link: "https://vercel.com/",
+    realName: "Vercel",
+  },
+  materialui: {
+    category: "frontend",
+    link: "https://mui.com/material-ui/",
+    realName: "Material UI",
+  },
   typescript: {
     category: "frontend",
     link: "https://www.typescriptlang.org/",
@@ -329,7 +344,7 @@ export const projectsData: ProjectCardData[] = [
     title: "Semeia Code",
     summaryLine: "Projeto de extensão em educação ",
     period: "Jul 2024 - Fev 2026",
-    tecnosUsed: ["lideranca", "comunicacao", "oratoria", "design"],
+    tecnosUsed: ["lideranca", "comunicacao", "oratoria", "design", "python"],
     description:
       "Projeto de extensão criado do zero para ampliar o acesso à educação tecnológica no ensino médio. Coordenação executiva, estruturação da metodologia e liderança de equipe multidisciplinar com impacto direto em mais de 20 estudantes.",
     urlName: "SemeiaCode.jpeg",
@@ -338,11 +353,18 @@ export const projectsData: ProjectCardData[] = [
   {
     slug: "ju-decoracao-de-natal",
     title: "Ju Decoração de Natal",
-    summaryLine: "Plataforma digital com foco em SEO e leads",
+    summaryLine: "Plataforma full-stack para captação qualificada de leads",
     period: "Jul - Ago 2025",
-    tecnosUsed: ["nextjs", "typescript", "tailwind", "node"],
+    tecnosUsed: [
+      "nextjs",
+      "typescript",
+      "tailwind",
+      "supabase",
+      "framermotion",
+      "vercel",
+    ],
     description:
-      "Projeto freelance full stack voltado para captação de leads e performance digital. Plataforma desenvolvida com Next.js e TypeScript, com ganhos concretos de SEO e crescimento de faturamento do cliente.",
+      "Aplicação web full-stack criada para transformar o portfólio de uma decoradora de Natal em uma ferramenta de negócio, com galeria interativa, filtros avançados e automação de captação de leads.",
     urlName: "JuDecoraçãoDeNatal.png",
     produtionLink: "https://www.ju-decoracao-de-natal.com.br/",
     repositoryLink:
@@ -353,11 +375,11 @@ export const projectsData: ProjectCardData[] = [
     title: "Portfólio Pessoal",
     summaryLine: "Vitrine profissional para projetos e experiência",
     period: "Jan 2026 - Atual",
-    tecnosUsed: ["nextjs", "typescript", "react", "tailwind"],
+    tecnosUsed: ["nextjs", "typescript", "react", "tailwind", "materialui"],
     description:
       "Portfólio para consolidar minha apresentação profissional em engenharia de software, com foco em backend, projetos de impacto e experiências em cloud e observabilidade.",
     urlName: "Portifolio.png",
-    produtionLink: "",
+    produtionLink: "https://joaocalsavara.vercel.app/",
     repositoryLink: "https://github.com/JPCalsavara/portifolioReact",
   },
   {
@@ -622,9 +644,28 @@ export const experiencesData: ExperienceCardData[] = [
       "kubernetes",
       "docker",
       "datadog",
+      "rancher",
+      "argocd",
       "llm",
     ],
     exploreHref: "/experiencia/mottu",
+    exploreLabel: "Explorar melhor",
+  },
+  {
+    slug: "semeia-code",
+    title: "Semeia Code",
+    imageName: "PrimeiraTurmaSemeia.jpg",
+    location: "Limeira, São Paulo, Brasil",
+    period: "Jul 2024 - Fev 2026",
+    role: "Co-fundador e Coordenador Executivo/Educacional",
+    summary:
+      "Co-fundei o Semeia Code para levar aulas de programação a escolas públicas e aproximar talentos do ensino médio da universidade.",
+    achievements: [
+      "No primeiro semestre de 2025, impactamos 18 alunos com 3 alunos da Unicamp na organização.",
+      "No segundo semestre, conduzimos 2 turmas com 10 alunos e 7 alunos da Unicamp na organização; hoje atuo como conselheiro dos novos coordenadores.",
+    ],
+    skillsLearned: ["lideranca", "comunicacao", "oratoria", "design", "python"],
+    exploreHref: "/experiencia/semeia-code",
     exploreLabel: "Explorar melhor",
   },
   {
@@ -660,23 +701,6 @@ export const experiencesData: ExperienceCardData[] = [
     exploreHref: "/experiencia/atria",
     exploreLabel: "Explorar melhor",
   },
-  {
-    slug: "semeia-code",
-    title: "Semeia Code",
-    imageName: "PrimeiraTurmaSemeia.jpg",
-    location: "Limeira, São Paulo, Brasil",
-    period: "Jan 2025 - Atual",
-    role: "Co-fundador e Coordenador Executivo/Educacional",
-    summary:
-      "Co-fundei o Semeia Code para levar aulas de programação a escolas públicas e aproximar talentos do ensino médio da universidade.",
-    achievements: [
-      "No primeiro semestre de 2025, impactamos 18 alunos com 3 alunos da Unicamp na organização.",
-      "No segundo semestre, conduzimos 2 turmas com 10 alunos e 7 alunos da Unicamp na organização; hoje atuo como conselheiro dos novos coordenadores.",
-    ],
-    skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
-    exploreHref: "/experiencia/semeia-code",
-    exploreLabel: "Explorar melhor",
-  },
 ];
 
 export const experiencesDetailsData: ExperienceDetailPageData[] = [
@@ -710,6 +734,8 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
           "kubernetes",
           "docker",
           "datadog",
+          "rancher",
+          "argocd",
           "llm",
         ],
       },
@@ -789,7 +815,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "Começo do projeto",
         imageName: "ComeçoSemeiaCode.jpg",
         location: "Limeira, São Paulo, Brasil",
-        period: "Jan 2025 - Atual",
+        period: "Jul 2024 - Fev 2025",
         role: "Co-fundador, Coordenador Executivo e Educacional",
         summary:
           "A etapa inicial foi dedicada à escrita científica para estruturar o projeto, buscar as primeiras pessoas e validar as ideias do Semeia Code.",
@@ -802,26 +828,10 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
       },
       {
         slug: "semeia-code",
-        title: "Primeira turma na E. E. Ely",
-        imageName: "PrimeiraTurmaSemeia.jpg",
-        location: "E. E. Ely · Limeira, São Paulo",
-        period: "Jan 2025 - Atual",
-        role: "Professor e Coordenador do Projeto",
-        summary:
-          "Tivemos uma turma na E. E. Ely com 13 alunos, ministrando 8 aulas de Python, com atuação direta na docência e na coordenação.",
-        achievements: [
-          "Turma com 13 alunos na E. E. Ely.",
-          "Ministrei 8 aulas de Python.",
-          "Atuei como professor e coordenador do projeto, ao lado de mais um professor e um corretor de alunos.",
-        ],
-        skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
-      },
-      {
-        slug: "semeia-code",
         title: "Segunda turma e reestruturação",
         imageName: "SegundaTurmaSemeia.jpg",
         location: "Limeira, São Paulo, Brasil",
-        period: "Jan 2025 - Atual",
+        period: "Jul 2025 - Fev 2026",
         role: "Coordenador Executivo e Educacional",
         summary:
           "Reestruturei cargos, processo seletivo, reuniões e modelos de aula; dei aula à noite na Ely e uma aula na Nexus, além de conduzir os processos seletivos para 2025.2 e 2026.1.",
@@ -831,7 +841,35 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
           "Condução do processo seletivo para 2025.2 e 2026.1 como coordenador executivo e educacional.",
           "Atuação em suporte como conselho para os novos coordenadores executivos e educacionais.",
         ],
-        skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
+        skillsLearned: [
+          "lideranca",
+          "comunicacao",
+          "oratoria",
+          "design",
+          "python",
+        ],
+      },
+      {
+        slug: "semeia-code",
+        title: "Primeira turma na E. E. Ely",
+        imageName: "PrimeiraTurmaSemeia.jpg",
+        location: "E. E. Ely · Limeira, São Paulo",
+        period: "Mar 2025 - Jun 2025",
+        role: "Professor e Coordenador do Projeto",
+        summary:
+          "Tivemos uma turma na E. E. Ely com 13 alunos, ministrando 8 aulas de Python, com atuação direta na docência e na coordenação.",
+        achievements: [
+          "Turma com 13 alunos na E. E. Ely.",
+          "Ministrei 8 aulas de Python.",
+          "Atuei como professor e coordenador do projeto, ao lado de mais um professor e um corretor de alunos.",
+        ],
+        skillsLearned: [
+          "lideranca",
+          "comunicacao",
+          "oratoria",
+          "design",
+          "python",
+        ],
       },
     ],
   },
