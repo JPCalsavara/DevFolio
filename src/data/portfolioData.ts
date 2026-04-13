@@ -93,6 +93,26 @@ export const tagsData: Record<
     link: "https://pt.wikipedia.org/wiki/JavaScript",
     realName: "JavaScript",
   },
+  php: {
+    category: "backend",
+    link: "https://www.php.net/",
+    realName: "PHP",
+  },
+  mysql: {
+    category: "database",
+    link: "https://www.mysql.com/",
+    realName: "MySQL",
+  },
+  supabase: {
+    category: "database",
+    link: "https://supabase.com/",
+    realName: "Supabase",
+  },
+  lamp: {
+    category: "devops",
+    link: "https://en.wikipedia.org/wiki/LAMP_(software_bundle)",
+    realName: "LAMP",
+  },
   mongodb: {
     category: "database",
     link: "https://www.mongodb.com",
@@ -177,6 +197,11 @@ export const tagsData: Record<
     link: "https://aws.amazon.com/",
     realName: "AWS",
   },
+  python: {
+    category: "backend",
+    link: "https://www.python.org/",
+    realName: "Python",
+  },
   gcp: {
     category: "all",
     link: "https://cloud.google.com/",
@@ -186,6 +211,11 @@ export const tagsData: Record<
     category: "devops",
     link: "https://www.datadoghq.com/",
     realName: "Datadog",
+  },
+  argocd: {
+    category: "devops",
+    link: "https://argo-cd.readthedocs.io/",
+    realName: "Argo CD",
   },
   xunit: {
     category: "backend",
@@ -217,6 +247,11 @@ export const tagsData: Record<
     link: "https://nextjs.org/",
     realName: "Next.js",
   },
+  typescript: {
+    category: "frontend",
+    link: "https://www.typescriptlang.org/",
+    realName: "TypeScript",
+  },
   llm: {
     category: "all",
     link: "https://en.wikipedia.org/wiki/Large_language_model",
@@ -237,6 +272,26 @@ export const tagsData: Record<
     link: "https://docs.docker.com/compose/",
     realName: "Docker Compose",
   },
+  rancher: {
+    category: "devops",
+    link: "https://www.rancher.com/",
+    realName: "Rancher",
+  },
+  swagger: {
+    category: "backend",
+    link: "https://swagger.io/",
+    realName: "Swagger",
+  },
+  insomnia: {
+    category: "all",
+    link: "https://insomnia.rest/",
+    realName: "Insomnia",
+  },
+  rider: {
+    category: "all",
+    link: "https://www.jetbrains.com/rider/",
+    realName: "Rider",
+  },
   git: {
     category: "all",
     link: "https://git-scm.com/",
@@ -249,7 +304,7 @@ export const projectsData: ProjectCardData[] = [
     slug: "interceptorsystem",
     title: "InterceptorSystem",
     summaryLine: "Plataforma de Gestão em Segurança",
-    period: "Novembro 2024 - Atual",
+    period: "Nov 2024 - Atual",
     tecnosUsed: [
       "dotnet",
       "csharp",
@@ -273,7 +328,7 @@ export const projectsData: ProjectCardData[] = [
     slug: "semeia-code",
     title: "Semeia Code",
     summaryLine: "Projeto de extensão em educação ",
-    period: "Julho 2024 - Fev 2026",
+    period: "Jul 2024 - Fev 2026",
     tecnosUsed: ["lideranca", "comunicacao", "oratoria", "design"],
     description:
       "Projeto de extensão criado do zero para ampliar o acesso à educação tecnológica no ensino médio. Coordenação executiva, estruturação da metodologia e liderança de equipe multidisciplinar com impacto direto em mais de 20 estudantes.",
@@ -284,7 +339,7 @@ export const projectsData: ProjectCardData[] = [
     slug: "ju-decoracao-de-natal",
     title: "Ju Decoração de Natal",
     summaryLine: "Plataforma digital com foco em SEO e leads",
-    period: "Julho 2025 - Agosto 2025",
+    period: "Jul - Ago 2025",
     tecnosUsed: ["nextjs", "typescript", "tailwind", "node"],
     description:
       "Projeto freelance full stack voltado para captação de leads e performance digital. Plataforma desenvolvida com Next.js e TypeScript, com ganhos concretos de SEO e crescimento de faturamento do cliente.",
@@ -297,13 +352,46 @@ export const projectsData: ProjectCardData[] = [
     slug: "portfolio-pessoal",
     title: "Portfólio Pessoal",
     summaryLine: "Vitrine profissional para projetos e experiência",
-    period: "2026 - Atual",
+    period: "Jan 2026 - Atual",
     tecnosUsed: ["nextjs", "typescript", "react", "tailwind"],
     description:
       "Portfólio para consolidar minha apresentação profissional em engenharia de software, com foco em backend, projetos de impacto e experiências em cloud e observabilidade.",
     urlName: "Portifolio.png",
     produtionLink: "",
     repositoryLink: "https://github.com/JPCalsavara/portifolioReact",
+  },
+  {
+    slug: "projeto-web-faculdade",
+    title: "Projeto Web (Faculdade)",
+    summaryLine: "Jogo da Memória do Mario para disciplina de Web",
+    period: "Mar - Jun 2025",
+    tecnosUsed: ["html", "css", "javascript", "php", "mysql", "lamp"],
+    description:
+      "Jogo da Memória interativo desenvolvido na disciplina SI401 para estimular memória visual e atenção. O objetivo é encontrar todos os pares em um tabuleiro embaralhado, com registro de movimentos e tempo de conclusão para aumentar o desafio.",
+    urlName: "JogoDaMemoriaMario.png",
+    repositoryLink: "https://github.com/JPCalsavara/SI401-JogoDaMemoria",
+  },
+  {
+    slug: "projeto-threads-faculdade",
+    title: "Projeto Threads",
+    summaryLine: "Processamento paralelo com comparação de desempenho",
+    period: "Ago - Nov 2024",
+    tecnosUsed: ["c", "linux"],
+    description:
+      "Projeto da faculdade voltado a concorrência e paralelismo com merge sort em C, avaliando ganho de performance com diferentes quantidades de threads.",
+    urlName: "",
+    repositoryLink: "https://github.com/JPCalsavara/mergesort",
+  },
+  {
+    slug: "projeto-analise-faculdade",
+    title: "Projeto de Análise",
+    summaryLine: "Análise e modelagem de solução de software",
+    period: "Set - Dez 2024",
+    tecnosUsed: ["c", "uml"],
+    description:
+      "Projeto acadêmico focado em análise de requisitos, modelagem de domínio e estruturação de solução de software com documentação técnica.",
+    urlName: "",
+    repositoryLink: "https://github.com/JPCalsavara/gerenciador-credenciais",
   },
 ];
 
@@ -351,6 +439,12 @@ export const skillsData: SkillCardData[] = [
     label: "Git",
   },
   {
+    name: "docker",
+    link: "https://www.docker.com/",
+    type: "devops",
+    label: "Docker",
+  },
+  {
     name: "aws",
     link: "https://aws.amazon.com/",
     type: "devops",
@@ -381,6 +475,12 @@ export const skillsData: SkillCardData[] = [
     label: "React",
   },
   {
+    name: "angular",
+    link: "https://angular.dev/",
+    type: "frontend",
+    label: "Angular",
+  },
+  {
     name: "express",
     link: "https://expressjs.com",
     type: "backend",
@@ -402,7 +502,7 @@ export const skillsData: SkillCardData[] = [
     name: "tailwind",
     link: "https://tailwindcss.com",
     type: "frontend",
-    label: "Tailwind CSS",
+    label: "Tailwind",
   },
   {
     name: "html",
@@ -422,6 +522,72 @@ export const skillsData: SkillCardData[] = [
     type: "backend",
     label: "C++",
   },
+  {
+    name: "python",
+    link: "https://www.python.org/",
+    type: "backend",
+    label: "Python",
+  },
+  {
+    name: "nextjs",
+    link: "https://nextjs.org/",
+    type: "frontend",
+    label: "Next.js",
+  },
+  {
+    name: "rabbitmq",
+    link: "https://www.rabbitmq.com/",
+    type: "backend",
+    label: "RabbitMQ",
+  },
+  {
+    name: "xunit",
+    link: "https://xunit.net/",
+    type: "backend",
+    label: "xUnit",
+  },
+  {
+    name: "swagger",
+    link: "https://swagger.io/",
+    type: "backend",
+    label: "Swagger",
+  },
+  {
+    name: "insomnia",
+    link: "https://insomnia.rest/",
+    type: "all",
+    label: "Insomnia",
+  },
+  {
+    name: "rider",
+    link: "https://www.jetbrains.com/rider/",
+    type: "all",
+    label: "Rider",
+  },
+  {
+    name: "argocd",
+    link: "https://argo-cd.readthedocs.io/",
+    type: "devops",
+    label: "Argo CD",
+  },
+  {
+    name: "rancher",
+    link: "https://www.rancher.com/",
+    type: "devops",
+    label: "Rancher",
+  },
+  {
+    name: "supabase",
+    link: "https://supabase.com/",
+    type: "database",
+    label: "Supabase",
+  },
+  {
+    name: "uml",
+    link: "https://en.wikipedia.org/wiki/Unified_Modeling_Language",
+    type: "all",
+    label: "UML",
+  },
 ];
 
 export const legendItems: LegendItem[] = [
@@ -438,7 +604,7 @@ export const experiencesData: ExperienceCardData[] = [
     title: "Mottu",
     imageName: "Mottu.jpg",
     location: "São Paulo, SP",
-    period: "Setembro 2025 - Atual",
+    period: "Set 2025 - Atual",
     role: "Desenvolvedor Backend (Estagiário)",
     summary:
       "Unicórnio brasileiro de mobilidade. Atuação no Squad de Infrações e Multas focada em redundância e dados estratégicos.",
@@ -466,7 +632,7 @@ export const experiencesData: ExperienceCardData[] = [
     title: "Atria Jr.",
     imageName: "atria.jpeg",
     location: "Limeira, São Paulo, Brasil · Híbrido",
-    period: "mai de 2024 - set de 2025",
+    period: "Mai 2024 - Set 2025",
     role: "Assessor Comercial e Desenvolvedor Backend · Estágio",
     summary:
       "Na Empresa Júnior atuei em duas frentes: marketing e comercial em 2024, e backend em 2025, com evolução da prospecção e requisitos até arquitetura e infraestrutura de software.",
@@ -499,7 +665,7 @@ export const experiencesData: ExperienceCardData[] = [
     title: "Semeia Code",
     imageName: "PrimeiraTurmaSemeia.jpg",
     location: "Limeira, São Paulo, Brasil",
-    period: "2025 - Atual",
+    period: "Jan 2025 - Atual",
     role: "Co-fundador e Coordenador Executivo/Educacional",
     summary:
       "Co-fundei o Semeia Code para levar aulas de programação a escolas públicas e aproximar talentos do ensino médio da universidade.",
@@ -526,7 +692,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "Desenvolvedor Backend · Estagiário",
         imageName: "Mottu.jpg",
         location: "São Paulo, SP",
-        period: "Setembro 2025 - Atual",
+        period: "Set 2025 - Atual",
         role: "Desenvolvedor Backend (Estagiário)",
         summary:
           "Atuação no Squad de Infrações e Multas focada em redundância, consistência de dados e entrega confiável em produção.",
@@ -561,7 +727,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "2024 · Marketing, Comercial e Pré-vendas",
         imageNames: ["Epej2024Atria.jpg", "Enej2024Atria.jpg"],
         location: "Limeira, São Paulo, Brasil",
-        period: "mai de 2024 - nov de 2024 · 7 meses",
+        period: "Mai - Nov 2024",
         role: "Assessor Comercial · Estágio",
         summary:
           "Atuei na frente comercial e de pré-vendas, com foco em marketing, outbound e qualificação técnica para fortalecer o funil de novos projetos.",
@@ -586,7 +752,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "2025 · Backend, Arquitetura e Infraestrutura",
         imageNames: ["AgiBankAtria.jpg", "GloboAtria.jpg", "Epej2025Atria.jpg"],
         location: "Limeira, São Paulo, Brasil · Híbrido",
-        period: "fev de 2025 - set de 2025 · 8 meses",
+        period: "Fev - Set 2025",
         role: "Desenvolvedor Backend · Estágio",
         summary:
           "Participei ativamente do desenvolvimento backend de uma aplicação web robusta em TypeScript, colaborando em todo o ciclo de projeto, desde a definição de requisitos até a implementação.",
@@ -623,7 +789,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "Começo do projeto",
         imageName: "ComeçoSemeiaCode.jpg",
         location: "Limeira, São Paulo, Brasil",
-        period: "2025 - Atual",
+        period: "Jan 2025 - Atual",
         role: "Co-fundador, Coordenador Executivo e Educacional",
         summary:
           "A etapa inicial foi dedicada à escrita científica para estruturar o projeto, buscar as primeiras pessoas e validar as ideias do Semeia Code.",
@@ -639,7 +805,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "Primeira turma na E. E. Ely",
         imageName: "PrimeiraTurmaSemeia.jpg",
         location: "E. E. Ely · Limeira, São Paulo",
-        period: "2025 - Atual",
+        period: "Jan 2025 - Atual",
         role: "Professor e Coordenador do Projeto",
         summary:
           "Tivemos uma turma na E. E. Ely com 13 alunos, ministrando 8 aulas de Python, com atuação direta na docência e na coordenação.",
@@ -655,7 +821,7 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         title: "Segunda turma e reestruturação",
         imageName: "SegundaTurmaSemeia.jpg",
         location: "Limeira, São Paulo, Brasil",
-        period: "2025 - Atual",
+        period: "Jan 2025 - Atual",
         role: "Coordenador Executivo e Educacional",
         summary:
           "Reestruturei cargos, processo seletivo, reuniões e modelos de aula; dei aula à noite na Ely e uma aula na Nexus, além de conduzir os processos seletivos para 2025.2 e 2026.1.",

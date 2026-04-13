@@ -52,6 +52,39 @@ const projectInsights: Record<
     impact:
       "Portfólio pensado como peça de posicionamento técnico e narrativa profissional.",
   },
+  "projeto-web-faculdade": {
+    goal: "Desenvolver um Jogo da Memória interativo para melhorar memória visual e atenção, registrando tempo e movimentos para tornar a experiência mais desafiadora e divertida.",
+    highlights: [
+      "Tabuleiro dinâmico com pares embaralhados a cada nova partida.",
+      "Temporizador e contador de movimentos para medir a performance do jogador.",
+      "Feedback visual ao virar cartas e ao encontrar pares, com mensagem de vitória ao concluir o tabuleiro.",
+      "Interface amigável e responsiva para diferentes resoluções de tela.",
+      "Implementação com HTML5, CSS3 e JavaScript (Vanilla) para estrutura, estilo e lógica do jogo no navegador.",
+      "Execução do projeto em ambiente LAMP, com backend em PHP e persistência em MySQL.",
+    ],
+    impact:
+      "Consolidou fundamentos de front-end e lógica interativa, além da integração com backend e banco de dados em um cenário web completo.",
+  },
+  "projeto-threads-faculdade": {
+    goal: "Comparar desempenho de processamento sequencial e paralelo em algoritmos de ordenação.",
+    highlights: [
+      "Implementação de merge sort em C com variações de paralelismo.",
+      "Medição de tempos e análise de ganho de performance por cenário.",
+      "Estudo de concorrência, sincronização e limites práticos de escala.",
+    ],
+    impact:
+      "Fortaleceu fundamentos de sistemas e performance com abordagem quantitativa.",
+  },
+  "projeto-analise-faculdade": {
+    goal: "Transformar requisitos em uma solução de software modelada de forma clara e implementável.",
+    highlights: [
+      "Levantamento e organização de requisitos funcionais e não funcionais.",
+      "Modelagem de domínio e documentação técnica para orientar implementação.",
+      "Priorização de escopo com foco em viabilidade e qualidade da entrega.",
+    ],
+    impact:
+      "Aprimorou visão de engenharia de software desde a análise até a definição da arquitetura.",
+  },
 };
 
 export function generateStaticParams() {
