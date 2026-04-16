@@ -37,3 +37,6 @@ public/images_backup_20260412_231051
 .env
 .env.*
 !.env.example
+
+# Supabase seeds (local/private)
+supabase/seed*.sql

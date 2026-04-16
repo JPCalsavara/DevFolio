@@ -7,9 +7,16 @@ import CardExperience from "@/components/CardExperience";
 import Contact from "@/components/Contact";
 import NavBar from "@/components/NavBar";
 import { experiencesDetailsData } from "@/data/portfolioData";
+import {
+  buildTechnologyTagMap,
+  getPortfolioExperienceBySlug,
+  getPortfolioExperiences,
+  getPortfolioTechnologies,
+} from "@/lib/portfolio";
 
-export function generateStaticParams() {
-  return experiencesDetailsData.map((experience) => ({
+export async function generateStaticParams() {
+  const experiences = await getPortfolioExperiences();
+  return experiences.map((experience) => ({
     slug: experience.slug,
   }));
 }
@@ -20,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const experience = experiencesDetailsData.find((item) => item.slug === slug);
+  const experience = await getPortfolioExperienceBySlug(slug);
 
   if (!experience) {
     return { title: "Experiência não encontrada | Portfólio" };
@@ -28,7 +35,7 @@ export async function generateMetadata({
 
   return {
     title: `${experience.title} | Portfólio`,
-    description: experience.intro,
+    description: experience.intro || experience.summary,
   };
 }
 
@@ -38,11 +45,55 @@ export default async function ExperienceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const experience = experiencesDetailsData.find((item) => item.slug === slug);
+  const [experience, technologies] = await Promise.all([
+    getPortfolioExperienceBySlug(slug),
+    getPortfolioTechnologies(),
+  ]);
 
   if (!experience) {
     notFound();
   }
+
+  const tagsMap = buildTechnologyTagMap(technologies);
+  const detailedExperience = experiencesDetailsData.find(
+    (item) => item.slug === slug,
+  );
+
+  const cards = detailedExperience?.sections?.length
+    ? detailedExperience.sections.map((section) => {
+        const imageUrls = section.imageNames?.length
+          ? section.imageNames.map(
+              (imageName) => `/images/experiences/${imageName}`,
+            )
+          : section.imageName
+            ? [`/images/experiences/${section.imageName}`]
+            : [];
+
+        return (
+          <CardExperience
+            key={`${section.slug || slug}-${section.title}`}
+            {...section}
+            imageUrl={imageUrls[0]}
+            imageUrls={imageUrls}
+            showExploreButton={false}
+            tagsMap={tagsMap}
+          />
+        );
+      })
+    : [
+        <CardExperience
+          key={experience.id}
+          {...experience}
+          imageUrl={experience.imageUrls[0]}
+          imageUrls={experience.imageUrls}
+          showExploreButton={false}
+          tagsMap={tagsMap}
+        />,
+      ];
+
+  const introTitle = detailedExperience?.introTitle || experience.introTitle;
+  const introText =
+    detailedExperience?.intro || experience.intro || experience.summary;
 
   return (
     <Box>
@@ -80,32 +131,20 @@ export default async function ExperienceDetailPage({
                   fontWeight: 700,
                 }}
               >
-                {experience.introTitle}
+                {introTitle || "Experiência"}
               </Typography>
               <Typography
                 variant="h1"
                 sx={{ fontSize: { xs: "2.3rem", md: "3.9rem" }, lineHeight: 1 }}
               >
-                {experience.title}
+                {detailedExperience?.title || experience.title}
               </Typography>
               <Typography sx={{ color: "text.secondary", maxWidth: 900 }}>
-                {experience.intro}
+                {introText}
               </Typography>
             </Stack>
 
-            <Stack spacing={2.2}>
-              {experience.sections.map((section) => (
-                <Stack
-                  key={`${experience.slug}-${section.title}`}
-                  spacing={1.5}
-                >
-                  <Typography variant="h4" sx={{ fontWeight: 800 }}>
-                    {section.title}
-                  </Typography>
-                  <CardExperience {...section} />
-                </Stack>
-              ))}
-            </Stack>
+            <Stack spacing={2.2}>{cards}</Stack>
           </Stack>
         </Container>
       </Box>

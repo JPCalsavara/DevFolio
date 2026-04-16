@@ -14,10 +14,15 @@ import {
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import CardProject from "@/components/CardProject";
-import { projectsData } from "@/data/portfolioData";
+import type { PortfolioProject, TechnologyTagMap } from "@/lib/portfolio";
 
-export default function Projects() {
-  const featuredProjects = projectsData.slice(0, 4);
+type ProjectsProps = {
+  projects: PortfolioProject[];
+  tagsMap: TechnologyTagMap;
+};
+
+export default function Projects({ projects, tagsMap }: ProjectsProps) {
+  const featuredProjects = projects.slice(0, 4);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -162,7 +167,7 @@ export default function Projects() {
             {carouselItems.map((item) => (
               <Box key={item.key} sx={{ scrollSnapAlign: "start" }}>
                 {item.type === "project" ? (
-                  <CardProject {...item.project} />
+                  <CardProject {...item.project} tagsMap={tagsMap} />
                 ) : (
                   <Card
                     sx={{

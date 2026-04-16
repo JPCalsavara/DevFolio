@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Chip, Stack } from "@mui/material";
-import { tagsData } from "@/data/portfolioData";
+import type { TechnologyTagMap } from "@/lib/portfolio";
 
 type SkillsTagsProps = {
   tecnosUsed: string[];
+  tagsMap?: TechnologyTagMap;
 };
 
 const colorByCategory: Record<string, string> = {
@@ -16,7 +17,7 @@ const colorByCategory: Record<string, string> = {
   default: "#64748B",
 };
 
-export default function SkillsTags({ tecnosUsed }: SkillsTagsProps) {
+export default function SkillsTags({ tecnosUsed, tagsMap }: SkillsTagsProps) {
   return (
     <Stack
       direction="row"
@@ -27,7 +28,7 @@ export default function SkillsTags({ tecnosUsed }: SkillsTagsProps) {
       }}
     >
       {tecnosUsed.map((tecno) => {
-        const info = tagsData[tecno] || {
+        const info = tagsMap?.[tecno] || {
           category: "default",
           realName: tecno,
           link: "#",

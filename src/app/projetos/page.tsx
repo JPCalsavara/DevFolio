@@ -5,6 +5,12 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Contact from "@/components/Contact";
 import NavBar from "@/components/NavBar";
 import ProjectsCatalog from "@/components/ProjectsCatalog";
+import {
+  buildLegendItems,
+  buildTechnologyTagMap,
+  getPortfolioProjects,
+  getPortfolioTechnologies,
+} from "@/lib/portfolio";
 
 export const metadata: Metadata = {
   title: "Projetos | Joao Calsavara",
@@ -12,7 +18,14 @@ export const metadata: Metadata = {
     "Catalogo completo de projetos com filtros por stack e tecnologia, com paginacao.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const [projects, technologies] = await Promise.all([
+    getPortfolioProjects(),
+    getPortfolioTechnologies(),
+  ]);
+  const tagsMap = buildTechnologyTagMap(technologies);
+  const legendItems = buildLegendItems(technologies);
+
   return (
     <Box>
       <NavBar />
@@ -63,7 +76,11 @@ export default function ProjectsPage() {
               </Typography>
             </Stack>
 
-            <ProjectsCatalog />
+            <ProjectsCatalog
+              projects={projects}
+              tagsMap={tagsMap}
+              legendItems={legendItems}
+            />
           </Stack>
         </Container>
       </Box>

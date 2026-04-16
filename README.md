@@ -1,195 +1,203 @@
-# **Documentação do Portfólio**
+# Portfolio React (Next.js + Supabase)
 
-## **Visão Geral 📜**
+Este projeto e um portfolio pessoal com area publica e painel admin.
 
-Este documento descreve a estrutura, as tecnologias utilizadas e como executar e manter o projeto do meu portfólio pessoal. O portfólio foi desenvolvido para apresentar meus projetos, habilidades e experiência de forma interativa e moderna.
+- Frontend: Next.js (App Router) + React + MUI
+- Backend de dados: Supabase (Postgres + Auth + Storage)
+- Conteudo: projetos, experiencias e habilidades
+- Fallback: se Supabase falhar/estiver vazio, usa dados de `src/data/portfolioData.ts`
 
----
+## Como o portfolio foi construido
 
-## **Tecnologias Utilizadas 🛠️**
+O projeto foi migrado de dados estaticos para Supabase:
 
-- **Vite:** Um builder de front-end extremamente rápido que oferece um ambiente de desenvolvimento ágil e otimizações de build eficientes.
-- **React:** Uma biblioteca JavaScript para construir interfaces de usuário, permitindo a criação de componentes reutilizáveis e uma arquitetura baseada em componentes.
-- **Tailwind CSS:** Um framework CSS utility-first para criar designs customizados rapidamente sem sair do HTML. Ele oferece classes de baixo nível que podem ser combinadas para construir qualquer design diretamente na marcação.
-- **Node.js:** Ambiente de execução JavaScript necessário para rodar o Vite e gerenciar as dependências do projeto.
-- **npm / yarn:** Gerenciadores de pacotes para Node.js, usados para instalar e gerenciar as bibliotecas do projeto.
+1. Tabelas no banco para `projects`, `experiences` e `habilidades`.
+2. Storage bucket `portfolio` para imagens publicas.
+3. Admin com login (Supabase Auth) e CRUD de conteudo.
+4. Paginas publicas consumindo Supabase.
+5. Fallback automatico para `portfolioData` quando necessario.
 
----
+Arquivos centrais:
 
-## **Pré-requisitos 📋**
+- `src/lib/portfolio.ts`: leitura do Supabase + fallback para `portfolioData`.
+- `src/app/admin/page.tsx`: painel admin.
+- `src/app/admin/projects/[id]/page.tsx`: CRUD de projetos.
+- `src/app/admin/experiences/[id]/page.tsx`: CRUD de experiencias.
+- `supabase/schema.sql`: schema e policies.
+- `supabase/seed.sql`: seed inicial.
 
-Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em seu sistema:
+## Setup local
 
-- **Node.js:** (Versão LTS recomendada) - [Download Node.js](https://nodejs.org/)
-- **npm** (geralmente vem com o Node.js) ou **yarn** (opcional) - [Instalar Yarn](https://classic.yarnpkg.com/en/docs/install/)
-
----
-
-## **Instalação ⚙️**
-
-Siga os passos abaixo para configurar o ambiente de desenvolvimento local:
-
-1. **Clone o repositório:**
-
-```bash
-git clone <URL_DO_SEU_REPOSITORIO_GIT>
-cd <NOME_DA_PASTA_DO_PROJETO>
-```
-
-2. **Instale as dependências:**
-
-   Usando npm:
+### 1. Instalar dependencias
 
 ```bash
 npm install
 ```
 
-Ou usando yarn:
+### 2. Configurar ambiente
+
+Copie `.env.example` para `.env` e preencha:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+```
+
+### 3. Aplicar banco e seed
+
+No Supabase SQL Editor:
+
+1. Rode `supabase/schema.sql`
+2. Rode `supabase/seed.sql`
+
+### 4. Criar usuario admin (Auth)
+
+No Supabase Dashboard:
+
+- `Authentication` -> `Users` -> `Create user`
+- Use esse email/senha para login em `/admin`
+
+### 5. Rodar projeto
 
 ```bash
-yarn install
+npm run dev
 ```
 
----
+Abra `http://localhost:3000`.
 
-## **Scripts Disponíveis 🚀**
+## Como editar conteudo
 
-No diretório do projeto, você pode executar vários scripts definidos no arquivo `package.json`:
+### Fluxo manual (mais simples)
 
-- `npm run dev` ou `yarn dev`
+1. Acesse `/admin` e faca login.
+2. Edite projetos, experiencias e habilidades.
+3. Salve cada item.
 
-  - Inicia o servidor de desenvolvimento do Vite com Hot Module Replacement (HMR).
-  - Abra [http://localhost:5173](http://localhost:5173) (ou a porta indicada no terminal) para visualizar no navegador.
+## Imagens: o que fazer
 
-- `npm run build` ou `yarn build`
+Existem 2 formas.
 
-  - Compila o projeto para produção na pasta `dist`.
-  - Otimiza os assets para melhor performance.
+### A) Pelo proprio admin (recomendado)
 
-- `npm run preview` ou `yarn preview`
+Nos formularios de projeto/experiencia/habilidade:
 
-  - Inicia um servidor local para visualizar o build de produção (conteúdo da pasta `dist`).
+1. Clique em upload de imagem.
+2. O arquivo sobe no bucket `portfolio`.
+3. O sistema gera automaticamente `publicUrl` com `getPublicUrl(...)`.
+4. O campo de URL e preenchido automaticamente.
+5. Clique em salvar para persistir no banco.
 
-- `npm run lint` ou `yarn lint` (se configurado)
-  - Executa o linter (ESLint, por exemplo) para verificar erros de código e estilo.
+Observacao: gerar URL nao salva sozinho; precisa confirmar no botao de salvar.
 
----
+### B) Pelo dashboard do Supabase
 
-## **Estrutura do Projeto 📂**
+1. `Storage` -> bucket `portfolio`.
+2. Upload manual em pastas como:
+   - `projects/`
+   - `experiences/`
+   - `technologies/`
+3. Copie a URL publica e cole no campo do admin.
 
-A estrutura de pastas do projeto segue um padrão comum para aplicações React com Vite:
+Boas praticas para imagens:
 
-```
-portfolio-vite-react-tailwind/
-├── public/               # Arquivos estáticos públicos (ícones, manifest.json, etc.)
-├── src/                  # Código fonte da aplicação
-│   ├── assets/           # Imagens, fontes e outros assets
-│   ├── components/       # Componentes React reutilizáveis
-│   │   ├── Button.jsx
-│   │   └── ...
-│   ├── pages/            # Componentes de nível de página (Home, About, Projects, etc.)
-│   │   ├── HomePage.jsx
-│   │   └── ...
-│   ├── App.jsx           # Componente raiz da aplicação
-│   ├── main.jsx          # Ponto de entrada da aplicação React
-│   └── index.css         # Arquivo CSS global ou importações do Tailwind
-├── .eslintrc.cjs         # Configuração do ESLint (se usado)
-├── .gitignore            # Arquivos e pastas ignorados pelo Git
-├── index.html            # Template HTML principal
-├── package.json          # Metadados do projeto e dependências
-├── postcss.config.js     # Configuração do PostCSS (para Tailwind)
-├── tailwind.config.js    # Configuração do Tailwind CSS
-└── vite.config.js        # Configuração do Vite
-```
+- Use nomes de arquivo sem espacos e sem caracteres especiais.
+- Prefira `webp` ou `png` comprimidos.
+- Mantenha proporcao consistente para cards/carrossel.
 
----
+## Como preencher com IA (CV + links + imagens)
 
-## **Componentes 🧩**
+Pipeline recomendada: `docs/ai-intake-pipeline.md`
 
-O projeto é construído usando uma arquitetura baseada em componentes. Componentes reutilizáveis (como botões, cards, modais, etc.) são encontrados em `src/components/`. Componentes que representam seções ou páginas inteiras (como `Header`, `Footer`, `ProjectsSection`, `ContactForm`) podem estar em `src/components/` ou `src/pages/` dependendo da sua organização.
+Resumo do fluxo:
 
-**Exemplo de componente:**
+1. Pessoa envia CV + links de repositorios/projetos + imagens.
+2. Backend extrai texto e metadados.
+3. Agente MCP recebe prompt estrito e retorna JSON puro.
+4. Sistema valida schema.
+5. Admin revisa/edita.
+6. Sistema faz upsert no Supabase.
 
-- `src/components/ProjectCard.jsx`: Um card para exibir informações de um projeto individual.
-- `src/components/Navbar.jsx`: A barra de navegação principal do portfólio.
+Entradas sugeridas para IA:
 
----
+- `cv_file` (PDF/DOCX)
+- `github_links[]`
+- `project_links[]`
+- `image_files[]` ou `image_urls[]`
+- observacoes opcionais
 
-## **Estilização com Tailwind CSS 🎨**
+Importante:
 
-O Tailwind CSS é configurado no arquivo `tailwind.config.js`. As classes utilitárias são aplicadas diretamente nos elementos JSX.
+- A IA nao deve escrever direto no banco.
+- Sempre revisar antes de aplicar.
+- URLs e slugs devem ser validados.
 
-**Principais pontos da configuração:**
+## Pasta sugerida para preparar conteudo
 
-- **`content`**: Em `tailwind.config.js`, esta propriedade especifica os arquivos onde o Tailwind deve procurar por classes para gerar o CSS final. Geralmente inclui arquivos `.html`, `.js`, `.jsx`, `.ts`, e `.tsx`.
+Para facilitar o uso da ferramenta, foi criada a pasta:
 
-  ```javascript
-  // tailwind.config.js
-  export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    theme: {
-      extend: {}, // Para adicionar ou sobrescrever estilos do Tailwind
-    },
-    plugins: [],
-  };
-  ```
+- `content-staging/`
 
-- **CSS Global**: O arquivo `src/index.css` (ou similar) é usado para importar as diretivas base do Tailwind e pode ser usado para estilos globais ou customizações mais complexas.
+Estrutura:
 
-  ```css
-  /* src/index.css */
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  ```
+- `content-staging/markdown/`: textos em `.md` para projetos, experiencias e habilidades.
+- `content-staging/images/projects/`: imagens de projetos.
+- `content-staging/images/experiences/`: imagens de experiencias.
+- `content-staging/images/habilidades/`: icones/logos de habilidades.
 
----
+Fluxo recomendado:
 
-## **Build para Produção 📦**
+1. Monte o conteudo textual em `.md` dentro de `content-staging/markdown/`.
+2. Separe e normalize as imagens nas pastas corretas dentro de `content-staging/images/`.
+3. Suba os arquivos para o Supabase (admin ou dashboard).
+4. Revise os links publicos e salve no banco.
 
-Para criar uma versão otimizada do seu portfólio para deploy, execute o comando:
+## Onde buscar icones/imagens
+
+- Tech Icons: `https://techicons.dev/`
+- Se nao achar o icone tecnico, pesquise por: `nome-da-empresa icon png`
+
+Exemplo:
+
+- `Datadog icon png`
+- `Rancher icon png`
+- `Argo CD icon png`
+
+## Se nao tiver CV ainda
+
+Voce pode gerar um CV rapidamente com:
+
+- Template open source: `https://github.com/celiobjunior/resume-template`
+- Gerador online: `https://curricu.lol/cv/create`
+
+Depois de gerar o CV, use esse arquivo no fluxo de IA (CV + links + imagens) para preencher o portfolio.
+
+## Prompt MCP (base)
+
+Use o template completo em `docs/ai-intake-pipeline.md`.
+
+Ele ja define:
+
+- saida JSON estrita
+- preservacao de acentos/cedilha
+- schema de `habilidades`, `projects`, `experiences`
+- lista de `warnings`
+
+## Scripts
 
 ```bash
+npm run dev
 npm run build
+npm run start
+npm run lint
 ```
 
-Ou, se estiver usando yarn:
+## Fallback de dados
 
-```bash
-yarn build
-```
+Se o Supabase cair, estiver sem dados, ou retornar erro nas consultas, o sistema usa `src/data/portfolioData.ts` como backup para nao quebrar a exibicao.
 
-Este comando criará uma pasta `dist` no diretório raiz do projeto com todos os arquivos estáticos prontos para serem servidos.
+## Proximos passos recomendados
 
----
-
-## **Deployment (Implantação) 🌐**
-
-A pasta `dist` gerada pelo comando build contém tudo o que é necessário para implantar seu portfólio. Eu hospedei esta pasta na plataforma:
-
-- **Netlify**
-
----
-
-## **Funcionalidades Principais ✨**
-
-- **Design Responsivo:** Adaptável a diferentes tamanhos de tela (desktop, tablet, mobile) graças ao Tailwind CSS.
-- **Seções Comuns:**
-  - Home/Apresentação
-  - Sobre Mim
-  - Projetos (com detalhes e links)
-  - Habilidades/Tecnologias
-  - Contato
-- **Navegação Clara:** Menu de navegação intuitivo.
-- **Performance Otimizada:** Graças ao Vite e às boas práticas de desenvolvimento React.
-
----
-
-## **Possíveis Melhorias e Próximos Passos 🚀**
-
-- **Internacionalização (i18n):** Adicionar suporte para múltiplos idiomas.
-- **Blog:** Integrar uma seção de blog para compartilhar artigos e conhecimentos.
-- **Animações Avançadas:** Implementar animações mais elaboradas (ex: com Framer Motion).
-- **Testes:** Adicionar testes unitários e de integração (ex: com Jest e React Testing Library).
-- **CMS Integration:** Integrar um Headless CMS para gerenciar o conteúdo dos projetos e do blog.
-- **Dark Mode:** Implementar um tema escuro.
+1. Implementar rota `POST /api/intake/parse` (CV + links -> draft JSON).
+2. Implementar `POST /api/intake/validate`.
+3. Implementar `POST /api/intake/apply` com confirmacao humana.
+4. Criar pagina `admin/intake` para revisao e aprovacao.

@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
 import SkillsTags from "@/components/SkillsTags";
+import type { TechnologyTagMap } from "@/lib/portfolio";
 
 type CardProjectProps = {
   slug: string;
@@ -18,9 +19,10 @@ type CardProjectProps = {
   period?: string;
   tecnosUsed?: string[];
   description: string;
-  urlName: string;
+  imageUrl?: string | null;
   produtionLink?: string;
   repositoryLink?: string;
+  tagsMap?: TechnologyTagMap;
 };
 
 function ActionButton({ label, url }: { label: string; url?: string }) {
@@ -52,13 +54,14 @@ export default function CardProject({
   period,
   description,
   tecnosUsed,
-  urlName,
+  imageUrl,
   produtionLink,
   repositoryLink,
+  tagsMap,
 }: CardProjectProps) {
   const imagePath =
-    urlName !== ""
-      ? `/images/projects/${urlName}`
+    imageUrl && imageUrl.trim().length > 0
+      ? imageUrl
       : "/images/projects/default.jpg";
 
   return (
@@ -138,7 +141,7 @@ export default function CardProject({
             ) : null}
           </Stack>
 
-          <SkillsTags tecnosUsed={tecnosUsed || []} />
+          <SkillsTags tecnosUsed={tecnosUsed || []} tagsMap={tagsMap} />
           <Typography sx={{ color: "text.secondary", lineHeight: 1.7 }}>
             {description}
           </Typography>

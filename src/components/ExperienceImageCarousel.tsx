@@ -7,26 +7,26 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 type ExperienceImageCarouselProps = {
-  imageNames: string[];
+  imageUrls: string[];
   title: string;
 };
 
 export default function ExperienceImageCarousel({
-  imageNames,
+  imageUrls,
   title,
 }: ExperienceImageCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const canSlide = imageNames.length > 1;
-  const activeImage = imageNames[activeIndex] || imageNames[0];
+  const canSlide = imageUrls.length > 1;
+  const activeImage = imageUrls[activeIndex] || imageUrls[0];
 
   const goNext = () => {
     if (!canSlide) return;
-    setActiveIndex((prev) => (prev + 1) % imageNames.length);
+    setActiveIndex((prev) => (prev + 1) % imageUrls.length);
   };
 
   const goPrevious = () => {
     if (!canSlide) return;
-    setActiveIndex((prev) => (prev === 0 ? imageNames.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? imageUrls.length - 1 : prev - 1));
   };
 
   return (
@@ -41,7 +41,7 @@ export default function ExperienceImageCarousel({
         }}
       >
         <Image
-          src={`/images/experiences/${activeImage}`}
+          src={activeImage}
           alt={`Foto da experiência ${title}`}
           fill
           sizes="(max-width: 900px) 100vw, 70vw"
@@ -61,9 +61,9 @@ export default function ExperienceImageCarousel({
           </IconButton>
 
           <Stack direction="row" spacing={0.8}>
-            {imageNames.map((imageName, index) => (
+            {imageUrls.map((imageUrl, index) => (
               <Box
-                key={imageName}
+                key={imageUrl}
                 onClick={() => setActiveIndex(index)}
                 sx={{
                   width: 10,

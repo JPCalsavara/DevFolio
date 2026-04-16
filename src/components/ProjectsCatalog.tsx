@@ -12,11 +12,10 @@ import {
 } from "@mui/material";
 import CardProject from "@/components/CardProject";
 import {
-  projectsData,
-  tagsData,
-  legendItems,
-  type ProjectCardData,
-} from "@/data/portfolioData";
+  type LegendItem,
+  type PortfolioProject,
+  type TechnologyTagMap,
+} from "@/lib/portfolio";
 
 const stackOptions = [
   "all",
@@ -29,10 +28,10 @@ const stackOptions = [
 
 const PAGE_SIZE = 6;
 
-const colorByCategory: Record<string, string> = {
-  ...Object.fromEntries(legendItems.map((item) => [item.type, item.color])),
-  softskill: "#22D3EE",
-  default: "#64748B",
+type ProjectsCatalogProps = {
+  projects: PortfolioProject[];
+  tagsMap: TechnologyTagMap;
+  legendItems: LegendItem[];
 };
 
 const stackLabelByOption: Record<(typeof stackOptions)[number], string> = {
@@ -82,15 +81,28 @@ function chipLabel(label: string, color: string, isSelected: boolean) {
   );
 }
 
-function getProjectStacks(project: ProjectCardData) {
+function getProjectStacks(
+  project: PortfolioProject,
+  tagsMap: TechnologyTagMap,
+) {
   const categories = (project.tecnosUsed || [])
-    .map((tech) => tagsData[tech]?.category)
+    .map((tech) => tagsMap[tech]?.category)
     .filter((category): category is string => Boolean(category));
 
   return Array.from(new Set(categories));
 }
 
-export default function ProjectsCatalog() {
+export default function ProjectsCatalog({
+  projects,
+  tagsMap,
+  legendItems,
+}: ProjectsCatalogProps) {
+  const colorByCategory: Record<string, string> = {
+    ...Object.fromEntries(legendItems.map((item) => [item.type, item.color])),
+    softskill: "#22D3EE",
+    default: "#64748B",
+  };
+
   const [selectedStack, setSelectedStack] =
     useState<(typeof stackOptions)[number]>("all");
   const [selectedTech, setSelectedTech] = useState<string>("all");
@@ -99,21 +111,21 @@ export default function ProjectsCatalog() {
 
   const availableTechs = useMemo(() => {
     const techSet = new Set<string>();
-    projectsData.forEach((project) => {
+    projects.forEach((project) => {
       (project.tecnosUsed || []).forEach((tech) => techSet.add(tech));
     });
 
     return Array.from(techSet).sort((a, b) => {
-      const labelA = tagsData[a]?.realName || a;
-      const labelB = tagsData[b]?.realName || b;
+      const labelA = tagsMap[a]?.realName || a;
+      const labelB = tagsMap[b]?.realName || b;
       return labelA.localeCompare(labelB);
     });
-  }, []);
+  }, [projects, tagsMap]);
 
   const filteredProjects = useMemo(() => {
-    return projectsData.filter((project) => {
+    return projects.filter((project) => {
       const normalizedSearch = searchTerm.trim().toLowerCase();
-      const stacks = getProjectStacks(project);
+      const stacks = getProjectStacks(project, tagsMap);
       const matchesStack =
         selectedStack === "all" ||
         stacks.includes(selectedStack) ||
@@ -133,7 +145,7 @@ export default function ProjectsCatalog() {
 
       return matchesStack && matchesTech && matchesText;
     });
-  }, [searchTerm, selectedStack, selectedTech]);
+  }, [searchTerm, selectedStack, selectedTech, projects, tagsMap]);
 
   const totalPages = Math.max(
     1,
@@ -204,10 +216,10 @@ export default function ProjectsCatalog() {
         {availableTechs.map((tech) =>
           (() => {
             const isSelected = selectedTech === tech;
-            const category = tagsData[tech]?.category || "default";
+            const category = tagsMap[tech]?.category || "default";
             const categoryColor =
               colorByCategory[category] || colorByCategory.default;
-            const label = tagsData[tech]?.realName || tech;
+            const label = tagsMap[tech]?.realName || tech;
 
             return (
               <Chip
@@ -233,7 +245,7 @@ export default function ProjectsCatalog() {
         <Grid container spacing={1.3}>
           {paginatedProjects.map((project) => (
             <Grid key={project.slug} size={{ xs: 12, md: 6 }}>
-              <CardProject {...project} />
+              <CardProject {...project} tagsMap={tagsMap} />
             </Grid>
           ))}
         </Grid>

@@ -3,12 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import ExperienceImageCarousel from "@/components/ExperienceImageCarousel";
 import SkillsTags from "@/components/SkillsTags";
+import type { TechnologyTagMap } from "@/lib/portfolio";
 
 type CardExperienceProps = {
   slug?: string;
   title: string;
-  imageName?: string;
-  imageNames?: string[];
+  imageUrl?: string;
+  imageUrls?: string[];
   location?: string;
   period?: string;
   role?: string;
@@ -17,12 +18,15 @@ type CardExperienceProps = {
   skillsLearned: string[];
   exploreHref?: string;
   exploreLabel?: string;
+  showExploreButton?: boolean;
+  tagsMap?: TechnologyTagMap;
 };
 
 export default function CardExperience({
+  slug,
   title,
-  imageName,
-  imageNames,
+  imageUrl,
+  imageUrls,
   location,
   period,
   role,
@@ -30,8 +34,12 @@ export default function CardExperience({
   achievements,
   skillsLearned,
   exploreHref,
-  exploreLabel = "Explorar melhor",
+  exploreLabel = "Detalhar",
+  showExploreButton = true,
+  tagsMap,
 }: CardExperienceProps) {
+  const detailHref = exploreHref || (slug ? `/experiencia/${slug}` : undefined);
+
   return (
     <Card
       sx={{
@@ -42,9 +50,9 @@ export default function CardExperience({
     >
       <CardContent sx={{ p: { xs: 2.2, md: 3 } }}>
         <Stack spacing={2.2}>
-          {imageNames?.length ? (
-            <ExperienceImageCarousel imageNames={imageNames} title={title} />
-          ) : imageName ? (
+          {imageUrls?.length ? (
+            <ExperienceImageCarousel imageUrls={imageUrls} title={title} />
+          ) : imageUrl ? (
             <Stack
               sx={{
                 width: "100%",
@@ -55,7 +63,7 @@ export default function CardExperience({
               }}
             >
               <Image
-                src={`/images/experiences/${imageName}`}
+                src={imageUrl}
                 alt={`Foto da experiência ${title}`}
                 fill
                 sizes="(max-width: 900px) 100vw, 70vw"
@@ -135,10 +143,10 @@ export default function CardExperience({
             </Stack>
           ) : null}
 
-          <SkillsTags tecnosUsed={skillsLearned} />
+          <SkillsTags tecnosUsed={skillsLearned} tagsMap={tagsMap} />
 
-          {exploreHref ? (
-            <Link href={exploreHref} style={{ textDecoration: "none" }}>
+          {showExploreButton && detailHref ? (
+            <Link href={detailHref} style={{ textDecoration: "none" }}>
               <Button
                 component="span"
                 variant="contained"

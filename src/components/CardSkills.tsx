@@ -12,6 +12,7 @@ type CardSkillProps = {
   type: string;
   isHovered: boolean;
   label: string;
+  iconUrl?: string | null;
 };
 
 const colorByCategory: Record<string, string> = {
@@ -29,6 +30,7 @@ export default function CardSkills({
   type,
   label,
   isHovered,
+  iconUrl,
 }: CardSkillProps) {
   const imageByTech: Record<string, string> = {
     aws: "/images/tecnologies/AWS.png",
@@ -66,7 +68,8 @@ export default function CardSkills({
     argocd: "/images/tecnologies/Argo CD.png",
     dotnet: "/images/tecnologies/NET.png",
   };
-  const imagePath = imageByTech[name] || "/images/icons/screen-svgrepo-com.svg";
+  const imagePath =
+    iconUrl || imageByTech[name] || "/images/icons/screen-svgrepo-com.svg";
   const bgColor = isHovered
     ? colorByCategory[type] || colorByCategory.default
     : "rgba(255,255,255,0.02)";

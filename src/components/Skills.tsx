@@ -3,9 +3,14 @@
 import { useState } from "react";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import CardSkills from "@/components/CardSkills";
-import { legendItems, skillsData } from "@/data/portfolioData";
+import type { LegendItem, PortfolioTechnology } from "@/lib/portfolio";
 
-export default function Skills() {
+type SkillsProps = {
+  technologies: PortfolioTechnology[];
+  legendItems: LegendItem[];
+};
+
+export default function Skills({ technologies, legendItems }: SkillsProps) {
   const [hoveredType, setHoveredType] = useState<string | null>(null);
 
   return (
@@ -26,13 +31,14 @@ export default function Skills() {
         </Typography>
 
         <Grid container spacing={2} columns={{ xs: 12, md: 16 }}>
-          {skillsData.map((skill) => (
+          {technologies.map((skill) => (
             <Grid key={skill.name} size={{ xs: 6, md: 2 }}>
               <CardSkills
                 name={skill.name}
                 link={skill.link}
                 type={skill.type}
                 label={skill.label}
+                iconUrl={skill.iconUrl}
                 isHovered={hoveredType === skill.type}
               />
             </Grid>
@@ -53,7 +59,7 @@ export default function Skills() {
                   py: 1,
                   borderRadius: 2,
                   backgroundColor: "rgba(255,255,255,0.06)",
-                  minWidth: 220,
+                  minWidth: 180,
                   cursor: "default",
                   alignItems: "center",
                   justifyContent: "space-between",
