@@ -111,3 +111,8 @@
 - Qual família tipográfica deve ser adotada como padrão da marca?
 - A página detalhada de projeto deve abrir em rota própria ou em drawer/modal?
 - O hero deve enfatizar mais backend/cloud ou manter equilíbrio entre técnica e narrativa?
+
+## Atualização (2026-05-21)
+- **Arquitetura de Dados (Fallback):** Os componentes buscarão as informações primeiro do Supabase. Em caso de falha de conexão ou dados incompletos, haverá um fallback para o arquivo `mock-portfolio.json` gerado localmente.
+- **Testes Cypress:** A estratégia utilizará E2E para cobrir os fluxos completos e Component Testing para isolar o comportamento dos componentes UI durante o cenário de fallback (ex: simular falha no backend do Supabase para garantir que o componente renderize o JSON do diretório local).
+

@@ -70,19 +70,22 @@ Phase 14 - **IN PROGRESS**
 - [x] Inicializar e configurar o Cypress para funcionar com Next.js
 - [x] Criar teste E2E inicial (ex: verificar renderização correta da Home Page)
 - [x] Atualizar `package.json` com os scripts `"cypress:open"` e `"cypress:run"`
-- **Status:** ✅ complete
+- [ ] Configurar Testes de Componente (Component Testing) do Cypress para Next.js
+- **Status:** in_progress
 
 ### Phase 14: Extração de Dados e Criação de CV (LaTeX)
 - [ ] Ler o `README.md` raiz e experiências do LinkedIn (formato markdown)
 - [ ] Utilizar a skill `curriculo-latex-assistant` e os arquivos de `resume-template/` para gerar o currículo atualizado
-- [ ] Consolidar esses dados extraídos em um arquivo JSON local fortemente tipado (Mock Data)
-- **Status:** ✅ complete
+- [ ] Consolidar esses dados extraídos em um arquivo JSON local fortemente tipado (Mock Data / Fallback)
+- **Status:** pending
 
-### Phase 15: Transição para Supabase via Dados Locais
-- [ ] Adaptar o portfólio para consumir esse novo JSON local consolidado na Phase 14
-- [ ] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase
-- [ ] (Opcional) Testar se os dados novos quebram alguma regra no esquema existente do Supabase
-- **Status:** ✅ complete
+### Phase 15: Transição para Supabase via Dados Locais com Fallback
+- [ ] Adaptar o portfólio (UI) para consumir os dados primariamente do Supabase.
+- [ ] Implementar lógica de **Fallback**: caso o Supabase falhe ou esteja sem dados, ler do JSON local compilado na Phase 14.
+- [ ] Escrever **Cypress Component Tests** mockando as requisições para validar a renderização usando Supabase vs Fallback Local.
+- [ ] Escrever **Cypress E2E Test** validando todo o fluxo de apresentação de dados na interface.
+- [ ] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase.
+- **Status:** pending
 
 ## Decisions Made
 
