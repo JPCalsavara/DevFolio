@@ -131,6 +131,12 @@ Sendo um projeto Next.js nativo, a hospedagem gratuita na Vercel é o caminho ma
 
 O seu portfólio estará online num domínio `.vercel.app`. Qualquer alteração no banco de dados (via Painel Admin) ou novos commits na branch `main` serão refletidos automaticamente!
 
+**Dica avançada (Domínio Próprio):** Se você não quiser usar o sufixo `.vercel.app`, é possível conectar um domínio personalizado (ex: `seu-nome.com.br`). Para isso:
+1. Adquira o domínio em um registrador (como Registro.br, Hostinger, GoDaddy).
+2. Acesse as configurações do seu projeto na Vercel > **Settings** > **Domains** e adicione o seu domínio.
+3. A Vercel fornecerá os registros DNS (CNAME/A) que você deve configurar no painel do seu registrador.
+4. Veja o guia completo em: [Vercel Custom Domains Documentation](https://vercel.com/docs/projects/domains/add-a-domain).
+
 ## Como editar conteudo
 
 ### Fluxo manual (mais simples)
