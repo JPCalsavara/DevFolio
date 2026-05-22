@@ -1,32 +1,24 @@
-# Portfolio React (Next.js + Supabase)
+# DevFolio AI (Next.js + Supabase + Gemini)
 
-Este projeto e um portfolio pessoal com area publica e painel admin.
+Este projeto é um template open-source de portfólio pessoal projetado para desenvolvedores (backend, dados, devops) que desejam um visual premium sem precisar escrever código CSS. Ele conta com um pipeline nativo de **Inteligência Artificial (Gemini)** que lê seu currículo antigo em PDF e preenche o site inteiro sozinho, além de gerar um currículo LaTeX otimizado.
 
-- Frontend: Next.js (App Router) + React + MUI
-- Backend de dados: Supabase (Postgres + Auth + Storage)
-- Conteudo: projetos, experiencias e habilidades
-- Fallback: se Supabase falhar/estiver vazio, usa dados de `src/data/portfolioData.ts`
+- **Frontend:** Next.js (App Router) + React + MUI (Glassmorphism & Gradients)
+- **Backend:** Supabase (Postgres + Auth + Storage)
+- **IA Nativa:** Gemini 2.0 Flash integrado via pipeline de "Intake".
+- **Fallbacks:** Se o banco falhar, usa dados mockados automaticamente.
 
-## Como o portfolio foi construido
+## Principais Features
 
-O projeto foi migrado de dados estaticos para Supabase:
-
-1. Tabelas no banco para `projects`, `experiences` e `habilidades`.
-2. Storage bucket `portfolio` para imagens publicas.
-3. Admin com login (Supabase Auth) e CRUD de conteudo.
-4. Paginas publicas consumindo Supabase.
-5. Fallback automatico para `portfolioData` quando necessario.
-6. Testes automatizados com Cypress (E2E e Componentes) assegurando resiliência de UI e dados.
-7. Automação de extração de CV (LaTeX) gerando Mock JSON consolidado.
+1. **Intake de IA (`/admin/intake`):** Faça upload de um PDF. O sistema extrai suas skills, cria resumos pelo Método STAR e gera os metadados.
+2. **Gerador de CV LaTeX:** Integrado com um template premium open-source, devolvendo o `.tex` compilável.
+3. **Admin Seguro:** Painel protegido pelo Supabase Auth para gerenciar todo o conteúdo do seu site.
+4. **Demonstração Integrada (`/intro`):** Rota de onboarding para introduzir a stack a novos usuários.
 
 Arquivos centrais:
-
-- `src/lib/portfolio.ts`: leitura do Supabase + fallback para `portfolioData`.
-- `src/app/admin/page.tsx`: painel admin.
-- `src/app/admin/projects/[id]/page.tsx`: CRUD de projetos.
-- `src/app/admin/experiences/[id]/page.tsx`: CRUD de experiencias.
-- `supabase/schema.sql`: schema e policies.
-- `supabase/seed.sql`: seed inicial.
+- `src/app/api/intake/parse/route.ts`: Motor de inteligência artificial.
+- `src/theme/theme.ts`: Ponto único de personalização de cores e tipografia.
+- `src/app/admin/intake/page.tsx`: UI do gerador e validador de IA.
+- `supabase/schema.sql`: Regras de banco de dados e RLS.
 
 ## Setup local
 
@@ -83,6 +75,7 @@ Edite o `.env`:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://SEU_PROJECT_REF.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=sua_anon_key_aqui
+GEMINI_API_KEY=sua_chave_gemini_aqui
 ```
 
 > **Nunca** commite o `.env` — ele já está no `.gitignore`.
@@ -265,9 +258,6 @@ O repositório unifica seus fluxos de trabalho autônomos na pasta `.agent/skill
 - Edição técnica e exportação de currículos em LaTeX (`curriculo-latex-assistant`).
 - Testes autônomos e Git Workflow gerenciado (`git-flow`).
 
-## Proximos passos recomendados
+## Licença
 
-1. Implementar rota `POST /api/intake/parse` (CV + links -> draft JSON).
-2. Implementar `POST /api/intake/validate`.
-3. Implementar `POST /api/intake/apply` com confirmacao humana.
-4. Criar pagina `admin/intake` para revisao e aprovacao.
+Este projeto está sob a licença [MIT](LICENSE). Desenvolvido para a comunidade open-source. Sinta-se à vontade para realizar forks, customizar o tema e hospedar seu próprio DevFolio AI!
