@@ -27,3 +27,4 @@ Para iniciar a primeira dessas fases de imediato, utilizar a skill `execute`.
 - [21:37] Fase 13 concluída — Cypress instalado e configurado, scripts adicionados e teste inicial criado.
 - [21:46] Fase 14 concluída — Curriculo LaTeX gerado (curriculo-Joao.tex) e dados de mock validados.
 - [21:47] Fase 15 concluída — Testes Cypress (Componente e E2E) criados para validação do fallback do Supabase.
+- [21:55] Fase 16 concluída (docs-workflow) — Documentação central (README.md) atualizada com novas arquiteturas e testes.

@@ -16,6 +16,8 @@ O projeto foi migrado de dados estaticos para Supabase:
 3. Admin com login (Supabase Auth) e CRUD de conteudo.
 4. Paginas publicas consumindo Supabase.
 5. Fallback automatico para `portfolioData` quando necessario.
+6. Testes automatizados com Cypress (E2E e Componentes) assegurando resiliência de UI e dados.
+7. Automação de extração de CV (LaTeX) gerando Mock JSON consolidado.
 
 Arquivos centrais:
 
@@ -189,11 +191,25 @@ npm run dev
 npm run build
 npm run start
 npm run lint
+npm run cypress:open  # UI Interativa do Cypress
+npm run cypress:run   # Cypress headless
 ```
 
 ## Fallback de dados
 
 Se o Supabase cair, estiver sem dados, ou retornar erro nas consultas, o sistema usa `src/data/portfolioData.ts` como backup para nao quebrar a exibicao.
+
+A resiliência deste fluxo é comprovada através de:
+- **Cypress E2E Tests** (`cypress/e2e/fallback.cy.ts`): Valida que a aplicação real exibe os dados locais quando offline.
+- **Cypress Component Tests** (`cypress/component/App.cy.tsx`): Testa de forma isolada a injeção do Fallback na interface.
+- **Extração Automatizada de CV**: Os dados de fallback (`portfolioData.ts`) podem ser gerados a partir da skill `curriculo-latex-assistant`, baseada nos arquivos do `resume-template/`.
+
+## Agentes e Skills
+
+O repositório unifica seus fluxos de trabalho autônomos na pasta `.agent/skills/skills`. Utilizando esse ambiente centralizado, o desenvolvedor pode chamar agentes automatizados para:
+- Atualização e gestão rigorosa de documentos (`docs-workflow`).
+- Edição técnica e exportação de currículos em LaTeX (`curriculo-latex-assistant`).
+- Testes autônomos e Git Workflow gerenciado (`git-flow`).
 
 ## Proximos passos recomendados
 

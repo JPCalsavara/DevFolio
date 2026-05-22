@@ -87,6 +87,12 @@ Phase 15 - **IN PROGRESS**
 - [x] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase.
 - **Status:** ✅ complete
 
+### Phase 16: Atualização da Documentação (docs-workflow)
+- [x] Atualizar `README.md` com a nova estratégia de testes Cypress (E2E e Componentes).
+- [x] Documentar o fluxo de Extração de CV (LaTeX) e sua relação com os dados de Fallback.
+- [x] Documentar a nova organização das skills do agente (`.agent/skills`).
+- **Status:** ✅ complete
+
 ## Decisions Made
 
 | Decision                 | Rationale                                                     |
