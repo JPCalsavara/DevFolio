@@ -6,7 +6,7 @@ Evoluir o portfolio atual em Next.js com Material-UI para uma versão mais forte
 
 ## Current Phase
 
-Phase 13 - **IN PROGRESS**
+Phase 14 - **IN PROGRESS**
 
 ## Phases
 
@@ -66,10 +66,10 @@ Phase 13 - **IN PROGRESS**
 - **Status:** ✅ complete
 
 ### Phase 13: Setup de Testes com Cypress
-- [ ] Instalar o Cypress e dependências do TypeScript (`npm install cypress -D`)
-- [ ] Inicializar e configurar o Cypress para funcionar com Next.js
-- [ ] Criar teste E2E inicial (ex: verificar renderização correta da Home Page)
-- [ ] Atualizar `package.json` com os scripts `"cypress:open"` e `"cypress:run"`
+- [x] Instalar o Cypress e dependências do TypeScript (`npm install cypress -D`)
+- [x] Inicializar e configurar o Cypress para funcionar com Next.js
+- [x] Criar teste E2E inicial (ex: verificar renderização correta da Home Page)
+- [x] Atualizar `package.json` com os scripts `"cypress:open"` e `"cypress:run"`
 - **Status:** ✅ complete
 
 ### Phase 14: Extração de Dados e Criação de CV (LaTeX)
