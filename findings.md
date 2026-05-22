@@ -1,13 +1,11 @@
-# Findings
+# Bug Workflow - L lentidão nas páginas
 
-## Entendimento de Arquitetura e Regras de Negócio
+## Root Cause Analysis
+- O usuário relatou lentidão ao abrir as páginas.
+- Como o app usa Next.js App Router e o Supabase para o banco de dados, a ausência de definições explícitas de cache (`export const revalidate`) faz com que, no mínimo, a aplicação não tire proveito de SSG/ISR, e no pior caso (em produção) as requisições ao Supabase ocorram dinamicamente a cada visita (SSR).
+- Além disso, no modo de desenvolvimento (`npm run dev`), o Next.js não faz cache das rotas da mesma forma, o que exacerba a percepção de lentidão devido ao tempo de roundtrip da query no Supabase e tempo de compilação.
+- Solução principal será implementar "Incremental Static Regeneration (ISR)" configurando `export const revalidate = 3600` (ou tempo adequado) nas páginas públicas, para que o Next.js faça cache da página gerada e a entregue instantaneamente.
 
-1. **Requisito Original:** Uma "mini landing page" que não depende de Supabase.
-2. **Pivotagem:** O usuário prefere que a página aja como um `/intro` ou `/help` focado em **Onboarding** para outros desenvolvedores que pegarem este template.
-3. **Público-Alvo da Página:** Pessoas técnicas e não-técnicas configurando o projeto pela primeira vez. 
-4. **Fluxo a explicar na página:**
-   - Como ver a demonstração (imagens/video).
-   - Como usar a Inteligência Artificial para não ter que preencher banco "na mão" (AI Intake Pipeline).
-   - Como configurar as tabelas no Supabase e popular o site.
-   - Como trocar temas/deploy.
-5. **Ação Técnica:** O antigo `/gerador-cv` (ou seu conteúdo) será adaptado ou renomeado para suportar essa visão macro do projeto, possivelmente absorvendo a interface de upload do CV de forma educativa.
+## Ações
+- Adicionar validações de cache e ISR.
+- Garantir que as queries ao Supabase usem o fetch do Next.js se possível, ou que a página seja exportada como estática.

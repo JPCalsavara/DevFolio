@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
@@ -11,6 +12,8 @@ import {
   getPortfolioProjects,
   getPortfolioTechnologies,
 } from "@/lib/portfolio";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Projetos | Joao Calsavara",

@@ -1,3 +1,4 @@
+
 import App from "@/components/App";
 import {
   buildLegendItems,
@@ -7,6 +8,8 @@ import {
   getPortfolioProjects,
   getPortfolioTechnologies,
 } from "@/lib/portfolio";
+
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const [projects, experiences, technologies] = await Promise.all([

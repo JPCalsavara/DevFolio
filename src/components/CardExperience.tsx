@@ -10,9 +10,9 @@ type CardExperienceProps = {
   title: string;
   imageUrl?: string;
   imageUrls?: string[];
-  location?: string;
-  period?: string;
-  role?: string;
+  location?: string | null;
+  period?: string | null;
+  role?: string | null;
   summary: string;
   achievements?: string[];
   skillsLearned: string[];

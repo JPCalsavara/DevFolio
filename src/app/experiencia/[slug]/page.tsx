@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -13,6 +14,8 @@ import {
   getPortfolioExperiences,
   getPortfolioTechnologies,
 } from "@/lib/portfolio";
+
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const experiences = await getPortfolioExperiences();

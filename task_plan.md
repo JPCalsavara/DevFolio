@@ -1,27 +1,10 @@
-# Task Plan: Onboarding/Intro Landing Page
+# Bug Workflow - Lentidão nas Páginas
 
-## Objetivo
-Criar uma página oculta (ex: `/intro` ou `/help`) que atue como um guia visual e interativo (landing page de onboarding) para desenvolvedores que clonaram este repositório de template de portfólio. A página deve explicar o fluxo ponta a ponta: extração de dados via IA, estruturação do Supabase, rodar o Next.js e configurar o projeto.
-
-## Fases
-
-- [x] **Fase 1: Contexto e Planejamento**
-  - Mapear os requisitos da página de introdução.
-  - Estruturar o conteúdo explicativo (Setup Supabase, AI Intake, Deploy).
-  - Criar arquivos de persistência do fluxo.
-
-- [x] **Fase 2: Desenvolvimento da UI (`/intro`)**
-  - Criar rota `src/app/intro/page.tsx`.
-  - Construir Hero Section focado em "Como configurar seu Portfólio IA".
-  - Construir seção explicativa do fluxo (PDF -> JSON -> Next.js -> Supabase).
-  - Adicionar cards visuais ou placeholders para vídeos/imagens do template.
-
-- [x] **Fase 3: Limpeza e Refatoração**
-  - Avaliar se `/gerador-cv` ainda faz sentido ou se devemos fundir as rotas/remover o que não for mais necessário baseado no feedback do usuário.
-
-- [ ] **Fase 4: Validação e Build**
-  - Testar compilação do Next.js.
-  - Ajustar responsividade da página de intro.
-
-- [ ] **Fase 5: Pull Request / Conclusão**
-  - Commitar as mudanças usando conventional commits.
+- [x] Adicionar `export const revalidate = 3600;` nas rotas públicas:
+  - `src/app/page.tsx`
+  - `src/app/projetos/page.tsx`
+  - `src/app/projetos/[slug]/page.tsx`
+  - `src/app/experiencias/page.tsx`
+  - `src/app/experiencia/[slug]/page.tsx`
+- [x] Adicionar um script de otimização no `src/lib/supabase/server.ts` caso possível, habilitando o fetch interno do next no supabase (usando a opção fetch).
+- [x] Adicionar/Atualizar Teste (Simular carregamento em ambiente Cypress se aplicável, ou rodar o build localmente e verificar tempos e static generation).

@@ -15,17 +15,17 @@ import type { TechnologyTagMap } from "@/lib/portfolio";
 type CardProjectProps = {
   slug: string;
   title: string;
-  summaryLine?: string;
-  period?: string;
+  summaryLine?: string | null;
+  period?: string | null;
   tecnosUsed?: string[];
   description: string;
   imageUrl?: string | null;
-  produtionLink?: string;
-  repositoryLink?: string;
+  produtionLink?: string | null;
+  repositoryLink?: string | null;
   tagsMap?: TechnologyTagMap;
 };
 
-function ActionButton({ label, url }: { label: string; url?: string }) {
+function ActionButton({ label, url }: { label: string; url?: string | null }) {
   const isAvailable = Boolean(url);
   const isExternal = Boolean(url && /^(https?:\/\/|mailto:|tel:)/i.test(url));
   const isInternal = Boolean(url && !isExternal && url.startsWith("/"));

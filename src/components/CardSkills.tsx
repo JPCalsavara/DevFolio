@@ -8,7 +8,7 @@ import {
 
 type CardSkillProps = {
   name: string;
-  link?: string;
+  link?: string | null;
   type: string;
   isHovered: boolean;
   label: string;
