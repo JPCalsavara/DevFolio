@@ -5,18 +5,18 @@ Criar uma página oculta (ex: `/intro` ou `/help`) que atue como um guia visual 
 
 ## Fases
 
-- [ ] **Fase 1: Contexto e Planejamento**
+- [x] **Fase 1: Contexto e Planejamento**
   - Mapear os requisitos da página de introdução.
   - Estruturar o conteúdo explicativo (Setup Supabase, AI Intake, Deploy).
   - Criar arquivos de persistência do fluxo.
 
-- [ ] **Fase 2: Desenvolvimento da UI (`/intro`)**
+- [x] **Fase 2: Desenvolvimento da UI (`/intro`)**
   - Criar rota `src/app/intro/page.tsx`.
   - Construir Hero Section focado em "Como configurar seu Portfólio IA".
   - Construir seção explicativa do fluxo (PDF -> JSON -> Next.js -> Supabase).
   - Adicionar cards visuais ou placeholders para vídeos/imagens do template.
 
-- [ ] **Fase 3: Limpeza e Refatoração**
+- [x] **Fase 3: Limpeza e Refatoração**
   - Avaliar se `/gerador-cv` ainda faz sentido ou se devemos fundir as rotas/remover o que não for mais necessário baseado no feedback do usuário.
 
 - [ ] **Fase 4: Validação e Build**

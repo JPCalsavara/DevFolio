@@ -132,6 +132,7 @@ export async function POST(req: NextRequest) {
     const notes = formData.get("notes") as string ?? "";
     const tuneContent = formData.get("tune_content") === "true";
     const generateResume = formData.get("generate_resume") === "true";
+    const customApiKey = formData.get("custom_api_key") as string ?? "";
 
     const githubLinks = githubLinksStr.split("\\n").map((l) => l.trim()).filter(Boolean);
     const projectLinks = projectLinksStr.split("\\n").map((l) => l.trim()).filter(Boolean);
@@ -143,9 +144,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const apiKey = process.env.GEMINI_API_KEY ?? "";
+    const apiKey = customApiKey || process.env.GEMINI_API_KEY || "";
     if (!apiKey) {
-      return NextResponse.json({ draft: buildMockDraft() }, { status: 200 });
+      return NextResponse.json(
+        { error: "Chave da API do Gemini não configurada. Defina no .env ou insira na interface." },
+        { status: 400 }
+      );
     }
 
     // Processamento do arquivo

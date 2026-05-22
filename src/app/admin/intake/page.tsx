@@ -42,6 +42,7 @@ export default function IntakePage() {
   const [notes, setNotes] = useState("");
   const [tuneContent, setTuneContent] = useState(true);
   const [generateResume, setGenerateResume] = useState(false);
+  const [customApiKey, setCustomApiKey] = useState("");
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -98,6 +99,7 @@ export default function IntakePage() {
       formData.append("notes", notes);
       formData.append("tune_content", String(tuneContent));
       formData.append("generate_resume", String(generateResume));
+      if (customApiKey) formData.append("custom_api_key", customApiKey);
 
       const res = await fetch("/api/intake/parse", {
         method: "POST",
@@ -223,7 +225,7 @@ export default function IntakePage() {
                   onChange={handleFileChange}
                 />
                 {!cvFile ? (
-                  <Stack spacing={1} alignItems="center">
+                  <Stack spacing={1} sx={{ alignItems: "center" }}>
                     <UploadFileRoundedIcon sx={{ fontSize: 48, color: "text.secondary" }} />
                     <Typography>Faça upload do seu CV em PDF</Typography>
                     <Button variant="outlined" size="small" onClick={() => fileInputRef.current?.click()}>
@@ -231,14 +233,14 @@ export default function IntakePage() {
                     </Button>
                   </Stack>
                 ) : (
-                  <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-                    <Typography fontWeight={700} color="primary">{cvFile.name}</Typography>
+                  <Stack direction="row" spacing={1} sx={{ alignItems: "center", justifyContent: "center" }}>
+                    <Typography sx={{ fontWeight: 700 }} color="primary">{cvFile.name}</Typography>
                     <IconButton size="small" onClick={clearFile} color="error"><CloseRoundedIcon /></IconButton>
                   </Stack>
                 )}
               </Box>
 
-              <Typography variant="body2" color="text.secondary" textAlign="center">
+              <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
                 OU
               </Typography>
 
@@ -280,6 +282,15 @@ export default function IntakePage() {
                 placeholder="Ex: Foco em backend, omitir projetos antigos..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
+              />
+
+              <TextField
+                label="Chave da API do Gemini (Opcional)"
+                type="password"
+                fullWidth
+                placeholder="Se em branco, usará a do servidor"
+                value={customApiKey}
+                onChange={(e) => setCustomApiKey(e.target.value)}
               />
 
               <Divider />
