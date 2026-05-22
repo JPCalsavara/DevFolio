@@ -20,6 +20,14 @@ Arquivos centrais:
 - `src/app/admin/intake/page.tsx`: UI do gerador e validador de IA.
 - `supabase/schema.sql`: Regras de banco de dados e RLS.
 
+## Como começar (Crie o seu)
+
+Se você quer usar o DevFolio para criar o seu próprio portfólio, **não clone este repositório diretamente**. 
+
+1. No topo desta página no GitHub, clique no botão verde **Use this template** (Usar este modelo) e depois em **Create a new repository** (Criar um novo repositório). 
+2. Como alternativa, você pode clicar no botão de **Fork** no canto superior direito para copiar o projeto para a sua conta.
+3. Após criar a sua cópia no seu GitHub, siga os passos de "Setup local" ou vá direto para a seção de "Deploy na Vercel".
+
 ## Setup local
 
 ### 1. Instalar dependencias
