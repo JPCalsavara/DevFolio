@@ -145,7 +145,15 @@ O seu portfólio estará online num domínio `.vercel.app`. Qualquer alteração
 3. A Vercel fornecerá os registros DNS (CNAME/A) que você deve configurar no painel do seu registrador.
 4. Veja o guia completo em: [Vercel Custom Domains Documentation](https://vercel.com/docs/projects/domains/add-a-domain).
 
-## Como editar conteudo
+## Customizando o Visual (Temas e Estilos)
+
+O DevFolio foi desenhado para ser facilmente alterado sem quebrar a lógica de dados. Se você quiser mudar as cores globais, tipografia, efeitos de vidro (glassmorphism) ou o layout:
+
+Você não precisa reescrever o CSS manualmente! Basta usar a nossa skill de inteligência artificial preparada exatamente para isso: a **`restyle-ui-safe`**.
+- No seu editor (Cursor/Windsurf/Copilot), abra o chat e digite: `@restyle-ui-safe Mude o tema para um estilo cyberpunk com cores neon roxo e verde, e mude a fonte para Roboto`.
+- Essa skill irá alterar as paletas de cores no `src/theme/theme.ts` e ajustar a UI de forma segura e responsiva, mantendo todos os componentes do Next.js intactos.
+
+## Como editar conteúdo
 
 ### Fluxo manual (mais simples)
 
