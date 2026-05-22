@@ -80,12 +80,12 @@ Phase 15 - **IN PROGRESS**
 - **Status:** ✅ complete
 
 ### Phase 15: Transição para Supabase via Dados Locais com Fallback
-- [ ] Adaptar o portfólio (UI) para consumir os dados primariamente do Supabase.
-- [ ] Implementar lógica de **Fallback**: caso o Supabase falhe ou esteja sem dados, ler do JSON local compilado na Phase 14.
-- [ ] Escrever **Cypress Component Tests** mockando as requisições para validar a renderização usando Supabase vs Fallback Local.
-- [ ] Escrever **Cypress E2E Test** validando todo o fluxo de apresentação de dados na interface.
-- [ ] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase.
-- **Status:** pending
+- [x] Adaptar o portfólio (UI) para consumir os dados primariamente do Supabase.
+- [x] Implementar lógica de **Fallback**: caso o Supabase falhe ou esteja sem dados, ler do JSON local compilado na Phase 14.
+- [x] Escrever **Cypress Component Tests** mockando as requisições para validar a renderização usando Supabase vs Fallback Local.
+- [x] Escrever **Cypress E2E Test** validando todo o fluxo de apresentação de dados na interface.
+- [x] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase.
+- **Status:** ✅ complete
 
 ## Decisions Made
 
