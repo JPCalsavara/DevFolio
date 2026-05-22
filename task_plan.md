@@ -6,7 +6,7 @@ Evoluir o portfolio atual em Next.js com Material-UI para uma versão mais forte
 
 ## Current Phase
 
-Phase 14 - **IN PROGRESS**
+Phase 15 - **IN PROGRESS**
 
 ## Phases
 
@@ -74,10 +74,10 @@ Phase 14 - **IN PROGRESS**
 - **Status:** in_progress
 
 ### Phase 14: Extração de Dados e Criação de CV (LaTeX)
-- [ ] Ler o `README.md` raiz e experiências do LinkedIn (formato markdown)
-- [ ] Utilizar a skill `curriculo-latex-assistant` e os arquivos de `resume-template/` para gerar o currículo atualizado
-- [ ] Consolidar esses dados extraídos em um arquivo JSON local fortemente tipado (Mock Data / Fallback)
-- **Status:** pending
+- [x] Ler o `README.md` raiz e experiências do LinkedIn (formato markdown)
+- [x] Utilizar a skill `curriculo-latex-assistant` e os arquivos de `resume-template/` para gerar o currículo atualizado
+- [x] Consolidar esses dados extraídos em um arquivo JSON local fortemente tipado (Mock Data / Fallback)
+- **Status:** ✅ complete
 
 ### Phase 15: Transição para Supabase via Dados Locais com Fallback
 - [ ] Adaptar o portfólio (UI) para consumir os dados primariamente do Supabase.
