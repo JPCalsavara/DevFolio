@@ -40,3 +40,6 @@ public/images_backup_20260412_231051
 
 # Supabase seeds (local/private)
 supabase/seed*.sql
+progress.md
+task_plan.md
+findings.md

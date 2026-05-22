@@ -1,0 +1,137 @@
+% GitHub Repo and Documentation: https://github.com/celiobjunior/resume-template
+% Copyright © 2025 Celio B Junior. All rights reserved.
+% 
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% This template follows best practices from README.md
+
+% Início do documento LaTeX: define tipo e formato do documento
+% a4paper = tamanho A4, 10pt = tamanho base da fonte
+\documentclass[a4paper,10pt]{article}
+
+% --- PACOTES: BASE / IDIOMA ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+
+% --- PACOTES: LAYOUT / TIPOGRAFIA ---
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+
+% --- PACOTES: LINKS / BOOKMARKS ---
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{xurl}
+
+% --- CONFIGURAÇÃO: MARGENS / ESPAÇAMENTO ---
+\geometry{top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm} % Margens da página
+\setcounter{secnumdepth}{0}                                 % Remove numeração de seção
+\setlist[itemize]{
+    leftmargin=0.75em, % Recuo da lista (mais perto da margem da página)
+    itemsep=0.2em,     % Espaço entre itens
+    topsep=0.25em,     % Espaço antes/depois da lista
+    parsep=0em,        % Espaço entre parágrafos no mesmo item
+    partopsep=0em      % Espaço extra ao iniciar a lista
+}
+
+% Remove números de página e cabeçalhos para visual limpo do currículo
+\pagestyle{empty}
+
+% --- CONFIGURAÇÃO: METADADOS / LINKS ---
+\hypersetup{
+    pdftitle={CV João Pedro Calsavara},   % Título do PDF
+    pdfauthor={João Pedro Calsavara},     % Autor do PDF
+    colorlinks=true,          % Usa cor nos links (sem caixa)
+    linkcolor=black,          % Cor de links internos
+    urlcolor=black,           % Cor de URLs
+    citecolor=black,          % Cor de citações
+    bookmarksdepth=2          % Barra lateral: seção e subseção
+}
+
+% --- CONFIGURAÇÃO: TÍTULOS ---
+\titleformat{\section}
+{\Large\bfseries}
+{}
+{0em}
+{}
+[\titlerule\vspace{0.5ex}]
+\titleformat{\subsection}
+{\normalsize\bfseries}
+{}
+{0em}
+{}
+\titlespacing*{\subsection}{0pt}{0.35em}{0.15em}
+
+% Macro para entradas do currículo com bookmark no PDF
+\newcounter{cventry}
+\newcommand{\cventry}[4]{%
+    \refstepcounter{cventry}%
+    \phantomsection%
+    \pdfbookmark[2]{#1}{cventry-\thecventry}%
+    \noindent\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X >{\raggedleft\arraybackslash}X@{}}
+    \textbf{#1} & #2 \\
+    \textit{#3} & \textit{#4} \\
+    \end{tabularx}
+}
+
+% --- INÍCIO DO DOCUMENTO ---
+\begin{document}
+
+% --- CABEÇALHO ---
+% Substitua por suas informações pessoais
+\begin{center}
+    {\LARGE \textbf{João Pedro Calsavara}} 
+    \\ [0.1cm]
+    Limeira, SP
+    {\textbullet}
+    \href{mailto:jpcalsavara@email.com}{jpcalsavara@email.com} 
+    {\textbullet}
+    \href{https://linkedin.com/in/joaopedrocalsavara}{linkedin.com/in/joaopedrocalsavara} 
+    {\textbullet}
+    \href{https://github.com/JPCalsavara}{github.com/JPCalsavara}
+\end{center}
+
+% --- SEÇÕES ---
+
+\section{Educação}
+    % Formação mais recente primeiro
+    \cventry{Universidade Estadual de Campinas (UNICAMP)}{Limeira, SP}{Tecnólogo em Análise e Desenvolvimento de Sistemas}{Fev 2023 - Dez 2026}
+
+\section{Experiência}
+    \cventry{Mottu}{São Paulo, SP}{Desenvolvedor Backend (Estagiário)}{Set 2025 - Atual}
+        \begin{itemize}
+            \item Assegurou a consistência de dados operacionais e retenção de repasses financeiros ao desenvolver microsserviços escaláveis em .NET 8 utilizando mensageria (Pub/Sub), Docker e Kubernetes.
+            \item Eliminou 2 horas de trabalho manual diário na operação logística arquitetando um CronJob em Kubernetes integrado a LLM (Engenharia de Prompt) para triagem de notificações.
+            \item Evitou perdas semanais de penalidades e reduziu o tempo de resolução de incidentes ao criar painéis analíticos e alertas em tempo real no Datadog.
+        \end{itemize}
+
+    \cventry{Atria Jr.}{Limeira, SP}{Desenvolvedor Backend / Assessor Comercial}{Mai 2024 - Set 2025}
+        \begin{itemize}
+            \item Desenvolveu aplicação web backend em TypeScript seguindo Clean Architecture e Domain-Driven Design (DDD), utilizando PostgreSQL, Prisma, Docker e infraestrutura AWS.
+            \item Reestruturou estrategicamente o blog com foco em SEO, gerando mais de 1.000 usuários orgânicos mensais para a Empresa Júnior.
+            \item Conduziu reuniões diagnósticas atuando como ponte técnica entre cliente e time de desenvolvimento para estruturar propostas comerciais.
+        \end{itemize}
+
+\section{Atividades de Liderança}
+    \cventry{Semeia Code}{Limeira, SP}{Co-fundador e Coordenador Executivo}{Jul 2024 - Fev 2026}
+        \begin{itemize}
+            \item Co-fundou projeto de extensão para ampliar o acesso à educação em programação para alunos de escolas públicas no ensino médio.
+            \item Coordenou equipes multidisciplinares compostas por alunos da Unicamp, impactando diretamente e continuamente dezenas de estudantes a cada semestre.
+        \end{itemize}
+
+\section{Habilidades}
+    \begin{itemize}
+        \item \textbf{Técnicas:} C#, .NET 8, TypeScript, Python, Next.js, PostgreSQL, SQL Server, Docker, Kubernetes, AWS, RabbitMQ, Datadog, xUnit.
+        \item \textbf{Idiomas:} Português (Nativo), Inglês (Avançado).
+    \end{itemize}
+
+\end{document}

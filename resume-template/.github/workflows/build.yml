@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-lang-portuguese
+
+      - name: Build English Resume
+        working-directory: resumes/en
+        run: pdflatex resume.tex
+
+      - name: Build Portuguese Resume
+        working-directory: resumes/pt-br
+        run: pdflatex curriculo.tex
+      
+      - name: Upload generated PDFs to GitHub Actions Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: resumes
+          path: |
+            resumes/en/resume.pdf
+            resumes/pt-br/curriculo.pdf

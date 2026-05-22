@@ -1,4 +1,0 @@
-- [2026-05-22] - Criados arquivos de plano (task_plan, findings, progress). Identificada necessidade de revalidate (ISR) no Next.js para as páginas estáticas que consultam o Supabase.
-- [2026-05-22] - Feita a tipagem em CardProject e CardExperience para aceitar null, o que quebrava o build.
-- [2026-05-22] - Adicionado export const revalidate = 3600 em todas as rotas públicas, tornando-as estáticas em tempo de build/produção.
-- [2026-05-22] - O build confirmou que as páginas passaram de "Dynamic (ƒ)" para "Static (○)" e "SSG (●)", reduzindo o tempo de carregamento da página a zero no deploy.
