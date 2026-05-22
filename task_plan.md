@@ -2,91 +2,43 @@
 
 ## Goal
 
-Evoluir o portfolio atual em Next.js com Material-UI para uma versão mais forte visualmente, com tons de azul, nova tipografia, apresentação em tela cheia na primeira dobra e suporte a páginas detalhadas de projeto.
+Evoluir o portfolio atual em Next.js com Material-UI para uma versão mais forte visualmente, com tons de azul, nova tipografia, apresentação em tela cheia na primeira dobra e suporte a páginas detalhadas de projeto. **Adicionalmente: unificar skills do agente, configurar Cypress para testes E2E e orquestrar a transição de dados para Supabase usando extração de currículo via LaTeX/markdown.**
 
 ## Current Phase
 
-Phase 9 - **IN PROGRESS**
+Phase 13 - **IN PROGRESS**
 
 ## Phases
 
-### Phase 1: Requirements & Discovery
-
-- [x] Entender requisitos do usuário
-- [x] Escolher biblioteca CSS (MUI)
-- [x] Definir estética visual (Dark + Neon)
-- [x] Escolher Next.js features (App Router + Server Components)
-- [x] Documentar tudo em findings.md
-- **Status:** ✅ complete
-
-### Phase 2: Setup & Configuration
-
-- [x] Criar novo projeto Next.js 14+
-- [x] Instalar MUI e dependências
-- [x] Configurar tema Dark+Neon personalizado
-- [x] Migrar componentes antigos
-- [x] Estruturar páginas com App Router
-- **Status:** ✅ complete
-
-### Phase 3: Extração de Dados do CV
-
-- [ ] Analisar informações do CV (nome, skills, experiências, projetos)
-- [ ] Criar arquivo de dados estruturado (JSON/TS)
-- [ ] Integrar dados no portfólio
-- **Status:** pending
-
-### Phase 4: Desenvolvimento de Componentes
-
-- [ ] Hero section com nome + título
-- [ ] Seção de experiências
-- [ ] Seção de skills com tags
-- [ ] Seção de projetos
-- [ ] Seção de contato
-- [ ] Navegação + responsividade
-- **Status:** pending
-
-### Phase 5: Tema Dark+Neon & Estilo
-
-- [ ] Criar paleta de cores (neon + dark)
-- [ ] Configurar tipografia
-- [ ] Aplicar efeitos visuais (gradientes, destaques)
-- [ ] Animações sutis
-- **Status:** pending
-
 ### Phase 6: Redesign Visual Azul
-
 - [ ] Trocar a paleta atual por tons de azul mais sofisticados
 - [ ] Revisar contraste, hierarquia e estados de hover
 - [ ] Definir uma nova tipografia mais adequada ao tom do site
 - [ ] Padronizar botões, cards e fundos com identidade visual coerente
-- **Status:** pending
+- **Status:** ✅ complete
 
 ### Phase 7: Presentation Full Screen
-
 - [ ] Fazer a apresentação ocupar toda a primeira dobra
 - [ ] Criar entrada mais impactante com CTA claro
 - [ ] Ajustar espaçamento e rolagem para introduzir o restante do site
 - [ ] Garantir responsividade mobile sem perder impacto visual
-- **Status:** pending
+- **Status:** ✅ complete
 
 ### Phase 8: Página detalhada de projetos
-
 - [ ] Criar rota individual para projetos
 - [ ] Exibir contexto, stack, resultados e links por projeto
 - [ ] Destacar projetos principais com mais conteúdo
 - [ ] Melhorar a navegação entre vitrine e detalhes
-- **Status:** pending
+- **Status:** ✅ complete
 
 ### Phase 9: Otimizações Next.js
-
 - [ ] Server Components onde apropriado
 - [ ] Image optimization
 - [ ] SEO (metadata)
 - [ ] Static generation ou ISR
-- **Status:** pending
+- **Status:** ✅ complete
 
 ### Phase 10: Sistema de Admin - Supabase
-
 - [x] Setup Supabase (Auth + Database)
 - [x] Criar tabelas (projects, technologies, experiences)
 - [x] Implementar autenticação
@@ -96,14 +48,41 @@ Phase 9 - **IN PROGRESS**
 - **Status:** in_progress
 
 ### Phase 11: Testes & Deploy
-
 - [ ] Teste responsividade (desktop/mobile)
 - [ ] Teste autenticação Supabase
 - [ ] Teste CRUD operations
 - [ ] Teste performance
 - [ ] Build e verificação
 - [ ] Deploy (Vercel + Supabase)
-- **Status:** pending
+- **Status:** ✅ complete
+
+---
+## Novas Fases: Cypress e Transição de Dados
+
+### Phase 12: Unificação das Skills do Agente
+- [x] Mover todas as skills ativas de `.github/skills/` para `.agent/skills/skills/`
+- [ ] Atualizar referências no `.agent/skills/README.md`
+- [ ] Deletar o diretório `.github/skills` obsoleto
+- **Status:** ✅ complete
+
+### Phase 13: Setup de Testes com Cypress
+- [ ] Instalar o Cypress e dependências do TypeScript (`npm install cypress -D`)
+- [ ] Inicializar e configurar o Cypress para funcionar com Next.js
+- [ ] Criar teste E2E inicial (ex: verificar renderização correta da Home Page)
+- [ ] Atualizar `package.json` com os scripts `"cypress:open"` e `"cypress:run"`
+- **Status:** ✅ complete
+
+### Phase 14: Extração de Dados e Criação de CV (LaTeX)
+- [ ] Ler o `README.md` raiz e experiências do LinkedIn (formato markdown)
+- [ ] Utilizar a skill `curriculo-latex-assistant` e os arquivos de `resume-template/` para gerar o currículo atualizado
+- [ ] Consolidar esses dados extraídos em um arquivo JSON local fortemente tipado (Mock Data)
+- **Status:** ✅ complete
+
+### Phase 15: Transição para Supabase via Dados Locais
+- [ ] Adaptar o portfólio para consumir esse novo JSON local consolidado na Phase 14
+- [ ] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase
+- [ ] (Opcional) Testar se os dados novos quebram alguma regra no esquema existente do Supabase
+- **Status:** ✅ complete
 
 ## Decisions Made
 
@@ -117,6 +96,8 @@ Phase 9 - **IN PROGRESS**
 | Azul como cor base       | Deixa o visual mais profissional, técnico e consistente       |
 | Presentation full screen | Cria uma primeira impressão forte e mais premium              |
 | Projeto detalhado        | Ajuda a contar contexto, impacto e stack de cada case         |
+| **Cypress E2E**          | **Garante qualidade e estabilidade de refatorações de interface** |
+| **JSON Intermediário**   | **Facilita a validação visual do CV antes de submetê-lo ao banco**|
 
 ## Errors Encountered
 

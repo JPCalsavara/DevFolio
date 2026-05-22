@@ -11,8 +11,24 @@
 - Basear conteúdo no CV PDF atual
 - Foco em desenvolvimento (destacar skills técnicas e projetos)
 - Manter responsividade e navegação suave
+- **NOVO:** Unificar diretórios de Skills (`.github/skills` -> `.agent/skills/skills`)
+- **NOVO:** Implementar Cypress para testes E2E
+- **NOVO:** Processar currículo via `resume-template/` com dados do `README.md` e LinkedIn e mapear em JSON mockado para alimentar o Supabase.
 
 ## Research Findings
+
+### Sobre o CV e Extração (NOVO)
+- O projeto atual possui a pasta `resume-template/` e ferramentas como a skill `curriculo-latex-assistant`.
+- Os insumos principais são o `README.md` raiz do portfólio e possíveis arquivos `.md` descrevendo experiências do LinkedIn.
+- O JSON consolidado servirá de ponte antes de inserirmos de fato as informações definitivas no Supabase.
+
+### Unificação das Skills (NOVO)
+- Há uma pasta `.github/skills/` com algumas skills e uma `.agent/skills/skills/` que foi recentemente refatorada.
+- Ter duas origens causa ruído. Unificaremos tudo em `.agent/skills/skills/`.
+
+### Cypress no Next.js (NOVO)
+- O Next.js suporta nativamente a integração com Cypress.
+- Requer a instalação, a inicialização gerando `cypress.config.ts`, `cypress/e2e` e atualizações de scripts no `package.json`.
 
 ### Sobre o CV (cv-João.pdf)
 
@@ -76,6 +92,8 @@
 | Admin CRUD              | Permite atualizar portfólio sem redeploy                                |
 | RLS + Auth              | Seguro, apenas admin pode modificar dados                               |
 | Real-time subscriptions | Portfólio sempre atualizado quando admin faz mudanças                   |
+| Unificar Skills         | Evita divergências na execução de tarefas autônomas.                    |
+| JSON Intermediário      | Permite compor e visualizar os dados no Front antes de popular o Banco. |
 
 ## Issues Encountered
 
