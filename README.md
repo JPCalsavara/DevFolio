@@ -114,6 +114,23 @@ npm run dev
 Abra `http://localhost:3000`.
 
 
+## Deploy na Vercel (Produção)
+
+Sendo um projeto Next.js nativo, a hospedagem gratuita na Vercel é o caminho mais fácil e otimizado. As páginas públicas do DevFolio AI possuem **ISR (Incremental Static Regeneration)** ativado, garantindo que o seu portfólio seja distribuído como HTML estático globalmente, com consultas mínimas ao Supabase.
+
+### Passo a passo
+
+1. **GitHub:** Certifique-se de que o código já está em um repositório no seu GitHub.
+2. **Vercel:** Faça login em [vercel.com](https://vercel.com/) com sua conta do GitHub.
+3. Clique em **Add New...** > **Project** e importe o repositório do seu portfólio.
+4. **Environment Variables:** Na tela de configuração de build, abra a seção `Environment Variables` e copie exatamente as chaves do seu arquivo `.env`:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `GEMINI_API_KEY` (opcional, ou preencha depois)
+5. Clique em **Deploy** e aguarde cerca de 1 a 2 minutos.
+
+O seu portfólio estará online num domínio `.vercel.app`. Qualquer alteração no banco de dados (via Painel Admin) ou novos commits na branch `main` serão refletidos automaticamente!
+
 ## Como editar conteudo
 
 ### Fluxo manual (mais simples)
