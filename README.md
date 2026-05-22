@@ -1,4 +1,4 @@
-# DevFolio AI (Next.js + Supabase + Gemini)
+# DevFolio (Next.js + Supabase + Gemini)
 
 Este projeto é um template open-source de portfólio pessoal projetado para desenvolvedores (backend, dados, devops) que desejam um visual premium sem precisar escrever código CSS. Ele conta com um pipeline nativo de **Inteligência Artificial (Gemini)** que lê seu currículo antigo em PDF e preenche o site inteiro sozinho, além de gerar um currículo LaTeX otimizado.
 
@@ -116,7 +116,7 @@ Abra `http://localhost:3000`.
 
 ## Deploy na Vercel (Produção)
 
-Sendo um projeto Next.js nativo, a hospedagem gratuita na Vercel é o caminho mais fácil e otimizado. As páginas públicas do DevFolio AI possuem **ISR (Incremental Static Regeneration)** ativado, garantindo que o seu portfólio seja distribuído como HTML estático globalmente, com consultas mínimas ao Supabase.
+Sendo um projeto Next.js nativo, a hospedagem gratuita na Vercel é o caminho mais fácil e otimizado. As páginas públicas do DevFolio possuem **ISR (Incremental Static Regeneration)** ativado, garantindo que o seu portfólio seja distribuído como HTML estático globalmente, com consultas mínimas ao Supabase.
 
 ### Passo a passo
 
@@ -283,4 +283,4 @@ O repositório unifica seus fluxos de trabalho autônomos na pasta `.agent/skill
 
 ## Licença
 
-Este projeto está sob a licença [MIT](LICENSE). Desenvolvido para a comunidade open-source. Sinta-se à vontade para realizar forks, customizar o tema e hospedar seu próprio DevFolio AI!
+Este projeto está sob a licença [MIT](LICENSE). Desenvolvido para a comunidade open-source. Sinta-se à vontade para realizar forks, customizar o tema e hospedar seu próprio DevFolio!
