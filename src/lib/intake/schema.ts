@@ -52,6 +52,7 @@ export type IntakeDraft = {
   projects: IntakeProject[];
   experiences: IntakeExperience[];
   warnings: string[];
+  resume_tex?: string | null;
 };
 
 export type ValidationResult = {

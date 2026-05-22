@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Alert,
   Box,
@@ -16,11 +16,17 @@ import {
   Tabs,
   TextField,
   Typography,
+  FormControlLabel,
+  Switch,
+  IconButton,
 } from "@mui/material";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import CloudUploadRoundedIcon from "@mui/icons-material/CloudUploadRounded";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
+import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { supabase } from "@/lib/supabase/client";
 import type { IntakeDraft, IntakeHabilidade, IntakeProject, IntakeExperience } from "@/lib/intake/schema";
 import type { ValidationResult } from "@/lib/intake/schema";
@@ -29,10 +35,15 @@ type Step = "input" | "review" | "done";
 
 export default function IntakePage() {
   // ── Inputs ────────────────────────────────────────────────
+  const [cvFile, setCvFile] = useState<File | null>(null);
   const [cvText, setCvText] = useState("");
   const [githubLinks, setGithubLinks] = useState("");
   const [projectLinks, setProjectLinks] = useState("");
   const [notes, setNotes] = useState("");
+  const [tuneContent, setTuneContent] = useState(true);
+  const [generateResume, setGenerateResume] = useState(false);
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // ── Estado da pipeline ────────────────────────────────────
   const [step, setStep] = useState<Step>("input");
@@ -48,6 +59,30 @@ export default function IntakePage() {
   const [apiError, setApiError] = useState("");
 
   // ── Handlers ──────────────────────────────────────────────
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files.length > 0) {
+      setCvFile(e.target.files[0]);
+    }
+  }
+
+  function clearFile() {
+    setCvFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  function downloadTex() {
+    if (!draft?.resume_tex) return;
+    const blob = new Blob([draft.resume_tex], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "resume.tex";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   async function handleParse() {
     setLoading(true);
     setApiError("");
@@ -55,15 +90,18 @@ export default function IntakePage() {
     setDraft(null);
 
     try {
+      const formData = new FormData();
+      if (cvFile) formData.append("cv_file", cvFile);
+      formData.append("cv_text", cvText);
+      formData.append("github_links", githubLinks);
+      formData.append("project_links", projectLinks);
+      formData.append("notes", notes);
+      formData.append("tune_content", String(tuneContent));
+      formData.append("generate_resume", String(generateResume));
+
       const res = await fetch("/api/intake/parse", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cv_text: cvText,
-          github_links: githubLinks.split("\n").map((l) => l.trim()).filter(Boolean),
-          project_links: projectLinks.split("\n").map((l) => l.trim()).filter(Boolean),
-          notes,
-        }),
+        body: formData,
       });
 
       const data = await res.json();
@@ -143,7 +181,7 @@ export default function IntakePage() {
           </Typography>
         </Stack>
         <Typography sx={{ color: "text.secondary" }}>
-          Cole seu CV, adicione links de projetos e deixe a IA montar o draft. Revise, valide e aplique com um clique.
+          Faça upload do seu CV em PDF ou texto, adicione links e deixe a IA extrair tudo e até gerar um novo CV LaTeX usando o template open-source.
         </Typography>
       </Stack>
 
@@ -176,47 +214,93 @@ export default function IntakePage() {
         <Card>
           <CardContent>
             <Stack spacing={3}>
+              <Box sx={{ border: "1px dashed", borderColor: "divider", borderRadius: 2, p: 3, textAlign: "center" }}>
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                />
+                {!cvFile ? (
+                  <Stack spacing={1} alignItems="center">
+                    <UploadFileRoundedIcon sx={{ fontSize: 48, color: "text.secondary" }} />
+                    <Typography>Faça upload do seu CV em PDF</Typography>
+                    <Button variant="outlined" size="small" onClick={() => fileInputRef.current?.click()}>
+                      Escolher arquivo
+                    </Button>
+                  </Stack>
+                ) : (
+                  <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
+                    <Typography fontWeight={700} color="primary">{cvFile.name}</Typography>
+                    <IconButton size="small" onClick={clearFile} color="error"><CloseRoundedIcon /></IconButton>
+                  </Stack>
+                )}
+              </Box>
+
+              <Typography variant="body2" color="text.secondary" textAlign="center">
+                OU
+              </Typography>
+
               <TextField
-                label="Texto do CV"
+                label="Texto do CV (txt na mão mesmo)"
                 multiline
-                rows={10}
+                rows={6}
                 fullWidth
                 placeholder="Cole aqui o conteúdo do seu currículo em texto plano ou Markdown..."
                 value={cvText}
                 onChange={(e) => setCvText(e.target.value)}
+                disabled={!!cvFile}
               />
-              <TextField
-                label="Links do GitHub (um por linha)"
-                multiline
-                rows={3}
-                fullWidth
-                placeholder={"https://github.com/user/repo-1\nhttps://github.com/user/repo-2"}
-                value={githubLinks}
-                onChange={(e) => setGithubLinks(e.target.value)}
-              />
-              <TextField
-                label="Links de Projetos em produção (um por linha)"
-                multiline
-                rows={2}
-                fullWidth
-                placeholder="https://meu-projeto.vercel.app"
-                value={projectLinks}
-                onChange={(e) => setProjectLinks(e.target.value)}
-              />
+
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                <TextField
+                  label="Links do GitHub (um por linha)"
+                  multiline
+                  rows={2}
+                  fullWidth
+                  placeholder={"https://github.com/user/repo-1"}
+                  value={githubLinks}
+                  onChange={(e) => setGithubLinks(e.target.value)}
+                />
+                <TextField
+                  label="Projetos em produção (um por linha)"
+                  multiline
+                  rows={2}
+                  fullWidth
+                  placeholder="https://meu-projeto.vercel.app"
+                  value={projectLinks}
+                  onChange={(e) => setProjectLinks(e.target.value)}
+                />
+              </Stack>
+              
               <TextField
                 label="Observações adicionais (opcional)"
                 fullWidth
-                placeholder="Ex: Foco em backend, omitir projetos pessoais antigos..."
+                placeholder="Ex: Foco em backend, omitir projetos antigos..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />
+
+              <Divider />
+              
+              <Stack direction="column" spacing={1}>
+                <FormControlLabel
+                  control={<Switch checked={tuneContent} onChange={(e) => setTuneContent(e.target.checked)} color="primary" />}
+                  label="Tunar com IA: Melhorar verbos de ação e impacto usando método STAR (Recomendado)"
+                />
+                <FormControlLabel
+                  control={<Switch checked={generateResume} onChange={(e) => setGenerateResume(e.target.checked)} color="secondary" />}
+                  label="Gerar arquivo LaTeX (curriculo.tex) com base no open-source resume-template"
+                />
+              </Stack>
 
               <Button
                 variant="contained"
                 size="large"
                 startIcon={loading ? <CircularProgress size={18} color="inherit" /> : <AutoAwesomeRoundedIcon />}
                 onClick={handleParse}
-                disabled={loading || (!cvText.trim() && !githubLinks.trim() && !projectLinks.trim())}
+                disabled={loading || (!cvFile && !cvText.trim() && !githubLinks.trim() && !projectLinks.trim())}
               >
                 {loading ? "Analisando..." : "Analisar com IA"}
               </Button>
@@ -228,7 +312,6 @@ export default function IntakePage() {
       {/* ── STEP: REVIEW ─────────────────────────────────── */}
       {step === "review" && draft && (
         <Stack spacing={3}>
-          {/* Warnings do agente */}
           {draft.warnings?.length > 0 && (
             <Alert severity="warning" icon={<WarningAmberRoundedIcon />}>
               <Typography sx={{ fontWeight: 700, mb: 0.5 }}>Avisos da IA:</Typography>
@@ -236,7 +319,6 @@ export default function IntakePage() {
             </Alert>
           )}
 
-          {/* Resultado de validação */}
           {validation && (
             <Alert severity={validation.valid ? "success" : "error"}>
               <Typography sx={{ fontWeight: 700 }}>
@@ -251,7 +333,22 @@ export default function IntakePage() {
             </Alert>
           )}
 
-          {/* Abas por entidade */}
+          {draft.resume_tex && (
+            <Card sx={{ bgcolor: "rgba(125, 211, 252, 0.05)", borderColor: "secondary.main" }}>
+              <CardContent>
+                <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center" }}>
+                  <Box>
+                    <Typography sx={{ fontWeight: 700 }} color="secondary.light">Seu currículo LaTeX está pronto!</Typography>
+                    <Typography variant="body2" color="text.secondary">Código gerado preservando direitos autorais do resume-template.</Typography>
+                  </Box>
+                  <Button variant="contained" color="secondary" startIcon={<DownloadRoundedIcon />} onClick={downloadTex}>
+                    Baixar .tex
+                  </Button>
+                </Stack>
+              </CardContent>
+            </Card>
+          )}
+
           <Card>
             <CardContent>
               <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v)} sx={{ mb: 2 }}>
@@ -319,7 +416,6 @@ export default function IntakePage() {
 
           <Divider />
 
-          {/* Ações */}
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
             <Button variant="outlined" onClick={() => setStep("input")}>
               ← Voltar e editar entrada
