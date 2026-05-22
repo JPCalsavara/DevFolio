@@ -1,115 +1,71 @@
-# Task Plan: Evolução visual do portfolio em Next.js com MUI
+# Task Plan: AI Intake Pipeline — Parse → Validate → Apply → Admin UI
 
 ## Goal
-
-Evoluir o portfolio atual em Next.js com Material-UI para uma versão mais forte visualmente, com tons de azul, nova tipografia, apresentação em tela cheia na primeira dobra e suporte a páginas detalhadas de projeto. **Adicionalmente: unificar skills do agente, configurar Cypress para testes E2E e orquestrar a transição de dados para Supabase usando extração de currículo via LaTeX/markdown.**
+Implementar o pipeline semi-automático de ingestão de dados de portfólio:
+1. API REST com 3 rotas (`/api/intake/parse`, `/validate`, `/apply`)
+2. Página `admin/intake` para revisão visual e aprovação humana antes de qualquer escrita no Supabase
 
 ## Current Phase
-
-Phase 15 - **IN PROGRESS**
+Phase 1 - **IN PROGRESS**
 
 ## Phases
 
-### Phase 6: Redesign Visual Azul
-- [ ] Trocar a paleta atual por tons de azul mais sofisticados
-- [ ] Revisar contraste, hierarquia e estados de hover
-- [ ] Definir uma nova tipografia mais adequada ao tom do site
-- [ ] Padronizar botões, cards e fundos com identidade visual coerente
-- **Status:** ✅ complete
-
-### Phase 7: Presentation Full Screen
-- [ ] Fazer a apresentação ocupar toda a primeira dobra
-- [ ] Criar entrada mais impactante com CTA claro
-- [ ] Ajustar espaçamento e rolagem para introduzir o restante do site
-- [ ] Garantir responsividade mobile sem perder impacto visual
-- **Status:** ✅ complete
-
-### Phase 8: Página detalhada de projetos
-- [ ] Criar rota individual para projetos
-- [ ] Exibir contexto, stack, resultados e links por projeto
-- [ ] Destacar projetos principais com mais conteúdo
-- [ ] Melhorar a navegação entre vitrine e detalhes
-- **Status:** ✅ complete
-
-### Phase 9: Otimizações Next.js
-- [ ] Server Components onde apropriado
-- [ ] Image optimization
-- [ ] SEO (metadata)
-- [ ] Static generation ou ISR
-- **Status:** ✅ complete
-
-### Phase 10: Sistema de Admin - Supabase
-- [x] Setup Supabase (Auth + Database)
-- [x] Criar tabelas (projects, technologies, experiences)
-- [x] Implementar autenticação
-- [x] Criar página /admin com proteção
-- [x] Componentes CRUD para cada entidade
-- [ ] Integrar dados em tempo real no portfólio
+### Phase 1: Tipos e Schema de Validação
+- [ ] Criar `src/lib/intake/schema.ts` com tipos TypeScript do payload de intake
+- [ ] Criar `src/lib/intake/validate.ts` com a função de validação de schema (sem dependências externas)
+- **Arquivos:** `src/lib/intake/schema.ts`, `src/lib/intake/validate.ts`
 - **Status:** in_progress
 
-### Phase 11: Testes & Deploy
-- [ ] Teste responsividade (desktop/mobile)
-- [ ] Teste autenticação Supabase
-- [ ] Teste CRUD operations
-- [ ] Teste performance
-- [ ] Build e verificação
-- [ ] Deploy (Vercel + Supabase)
-- **Status:** ✅ complete
+### Phase 2: Rota POST /api/intake/parse
+- [ ] Criar `src/app/api/intake/parse/route.ts`
+- [ ] Aceitar `multipart/form-data` com `cv_text`, `github_links`, `project_links`, `notes`
+- [ ] Chamar o prompt template do `docs/ai-intake-pipeline.md` via Gemini API (ou fallback mock)
+- [ ] Retornar draft JSON puro
+- **Arquivos:** `src/app/api/intake/parse/route.ts`
+- **Status:** pending
 
----
-## Novas Fases: Cypress e Transição de Dados
+### Phase 3: Rota POST /api/intake/validate
+- [ ] Criar `src/app/api/intake/validate/route.ts`
+- [ ] Recebe o draft JSON, roda a função de `validate.ts`
+- [ ] Retorna `{ valid: boolean, errors: string[], warnings: string[] }`
+- **Arquivos:** `src/app/api/intake/validate/route.ts`
+- **Status:** pending
 
-### Phase 12: Unificação das Skills do Agente
-- [x] Mover todas as skills ativas de `.github/skills/` para `.agent/skills/skills/`
-- [ ] Atualizar referências no `.agent/skills/README.md`
-- [ ] Deletar o diretório `.github/skills` obsoleto
-- **Status:** ✅ complete
+### Phase 4: Rota POST /api/intake/apply
+- [ ] Criar `src/app/api/intake/apply/route.ts`
+- [ ] Protegida por sessão Supabase (apenas admin autenticado)
+- [ ] Recebe draft aprovado, executa upserts em ordem: habilidades → experiences → projects
+- [ ] Retorna relatório de sucesso/falha por entidade
+- **Arquivos:** `src/app/api/intake/apply/route.ts`
+- **Status:** pending
 
-### Phase 13: Setup de Testes com Cypress
-- [x] Instalar o Cypress e dependências do TypeScript (`npm install cypress -D`)
-- [x] Inicializar e configurar o Cypress para funcionar com Next.js
-- [x] Criar teste E2E inicial (ex: verificar renderização correta da Home Page)
-- [x] Atualizar `package.json` com os scripts `"cypress:open"` e `"cypress:run"`
-- [ ] Configurar Testes de Componente (Component Testing) do Cypress para Next.js
-- **Status:** in_progress
+### Phase 5: Página admin/intake — UI de revisão
+- [ ] Criar `src/app/admin/intake/page.tsx` (Client Component, protegido)
+- [ ] Formulário de upload: textarea para CV texto, campos para links
+- [ ] Botão "Analisar" → chama `/parse` e exibe resultado em abas (Habilidades / Projetos / Experiências)
+- [ ] Cada seção editável inline
+- [ ] Botão "Validar" → chama `/validate` e exibe warnings/erros
+- [ ] Botão "Aplicar" (só habilitado se válido) → chama `/apply` e exibe relatório
+- **Arquivos:** `src/app/admin/intake/page.tsx`
+- **Status:** pending
 
-### Phase 14: Extração de Dados e Criação de CV (LaTeX)
-- [x] Ler o `README.md` raiz e experiências do LinkedIn (formato markdown)
-- [x] Utilizar a skill `curriculo-latex-assistant` e os arquivos de `resume-template/` para gerar o currículo atualizado
-- [x] Consolidar esses dados extraídos em um arquivo JSON local fortemente tipado (Mock Data / Fallback)
-- **Status:** ✅ complete
-
-### Phase 15: Transição para Supabase via Dados Locais com Fallback
-- [x] Adaptar o portfólio (UI) para consumir os dados primariamente do Supabase.
-- [x] Implementar lógica de **Fallback**: caso o Supabase falhe ou esteja sem dados, ler do JSON local compilado na Phase 14.
-- [x] Escrever **Cypress Component Tests** mockando as requisições para validar a renderização usando Supabase vs Fallback Local.
-- [x] Escrever **Cypress E2E Test** validando todo o fluxo de apresentação de dados na interface.
-- [x] Preparar a migração/seed.sql ou scripts para subir o JSON consolidado para o Supabase.
-- **Status:** ✅ complete
-
-### Phase 16: Atualização da Documentação (docs-workflow)
-- [x] Atualizar `README.md` com a nova estratégia de testes Cypress (E2E e Componentes).
-- [x] Documentar o fluxo de Extração de CV (LaTeX) e sua relação com os dados de Fallback.
-- [x] Documentar a nova organização das skills do agente (`.agent/skills`).
-- **Status:** ✅ complete
+### Phase 6: Testes E2E da página admin/intake
+- [ ] Cypress E2E: `cypress/e2e/intake.cy.ts`
+- [ ] Testa que a página carrega com formulário de intake
+- [ ] Testa que o fluxo parse → validate → apply é navegável
+- **Status:** pending
 
 ## Decisions Made
 
-| Decision                 | Rationale                                                     |
-| ------------------------ | ------------------------------------------------------------- |
-| Material-UI (MUI)        | Componentes robustos, customização completa, temas integrados |
-| Dark + Neon Theme        | Moderno, profissional com criatividade, atrai olhar           |
-| App Router               | Melhor performance, Server Components, futuro do Next.js      |
-| Foco Dev                 | Destaque tecnologias, projetos, skills técnicas               |
-| src_legacy_vite          | Preserva a versão antiga para consulta sem bloquear o build   |
-| Azul como cor base       | Deixa o visual mais profissional, técnico e consistente       |
-| Presentation full screen | Cria uma primeira impressão forte e mais premium              |
-| Projeto detalhado        | Ajuda a contar contexto, impacto e stack de cada case         |
-| **Cypress E2E**          | **Garante qualidade e estabilidade de refatorações de interface** |
-| **JSON Intermediário**   | **Facilita a validação visual do CV antes de submetê-lo ao banco**|
+| Decision | Rationale |
+|----------|-----------|
+| Sem biblioteca de validação externa | Manter bundle pequeno; regras são simples e documentadas |
+| Parse via Gemini (com fallback mock) | Não bloqueia a UI se a API key não estiver configurada |
+| Upsert em ordem: habilidades → experiences → projects | Dependências: projects podem referenciar habilidades |
+| apply protegida por sessão Supabase | Mesmo mecanismo já usado pelo admin existente |
+| UI em abas por entidade | Reduz scroll e facilita revisão focada por tipo |
 
 ## Errors Encountered
-
-| Error          | Resolution |
-| -------------- | ---------- |
-| (nenhum ainda) | -          |
+| Error | Resolution |
+|-------|------------|
+| (nenhum ainda) | - |

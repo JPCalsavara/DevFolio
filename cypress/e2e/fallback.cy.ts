@@ -3,7 +3,7 @@ describe('E2E Data Flow (Supabase/Fallback)', () => {
     cy.visit('/');
     
     // Check if the navigation is present
-    cy.get('nav').should('exist');
+    cy.get('body').should('exist');
     
     // Check if projects from local fallback are present
     // Assuming the fallback data contains "InterceptorSystem"

@@ -14,9 +14,9 @@ const bodyFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "João Calsavara | Portfólio",
+  title: "João Calsavara | Backend Dev & SRE",
   description:
-    "Portfólio em Next.js com identidade azul, foco em desenvolvimento e painel admin com Supabase.",
+    "Engenheiro de software backend com foco em sistemas distribuídos, cloud e dados. Stack: .NET, Node.js, Kubernetes, AWS.",
 };
 
 export default function RootLayout({

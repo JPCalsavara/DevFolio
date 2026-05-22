@@ -438,6 +438,7 @@ export default function AdminPage() {
             <Stack component="form" spacing={2} onSubmit={handleLogin}>
               <TextField
                 label="E-mail"
+                type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required

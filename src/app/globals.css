@@ -1,8 +1,14 @@
+/* ========================================================
+   Perfil: Backend / Data Dev
+   Terminal-chic: escuro, focado, técnico, sem frescura.
+   ======================================================== */
 :root {
-  --bg-main: #07111f;
-  --bg-accent: #0d1b2d;
-  --blue-primary: #5c9cff;
-  --blue-secondary: #7dd3fc;
+  --bg-main: #05101e;
+  --bg-accent: #0b1a2e;
+  --blue-primary: #4f9cf9;
+  --blue-secondary: #38bdf8;
+  --text-primary: #edf2ff;
+  --text-secondary: #8bafc9;
 }
 
 * {
@@ -20,16 +26,28 @@ body {
   min-height: 100%;
   background:
     radial-gradient(
-      circle at 15% 20%,
-      rgba(92, 156, 255, 0.16),
-      transparent 30%
+      ellipse at 10% 10%,
+      rgba(79, 156, 249, 0.14) 0%,
+      transparent 45%
     ),
     radial-gradient(
-      circle at 85% 70%,
-      rgba(125, 211, 252, 0.14),
-      transparent 35%
+      ellipse at 90% 80%,
+      rgba(56, 189, 248, 0.10) 0%,
+      transparent 40%
     ),
-    linear-gradient(135deg, var(--bg-main), var(--bg-accent));
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(15, 40, 80, 0.4) 0%,
+      transparent 70%
+    ),
+    linear-gradient(160deg, var(--bg-main) 0%, #020b16 100%);
+  background-attachment: fixed;
+}
+
+/* Seleção de texto com a cor da marca */
+::selection {
+  background: rgba(79, 156, 249, 0.3);
+  color: var(--text-primary);
 }
 
 a {
@@ -37,12 +55,39 @@ a {
   text-decoration: none;
 }
 
+/* Scrollbar estilizada — detalhe de quem sabe o que faz */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(79, 156, 249, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 156, 249, 0.5);
+}
+
+/* Micro-animações globais */
 @keyframes bounce {
-  0%,
-  100% {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(8px);
-  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 156, 249, 0); }
+  50%       { box-shadow: 0 0 16px 4px rgba(79, 156, 249, 0.2); }
 }
