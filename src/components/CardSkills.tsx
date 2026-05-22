@@ -98,8 +98,18 @@ export default function CardSkills({
             sx={{ width: 64, height: 64, objectFit: "contain" }}
           />
           <Typography
-            variant="subtitle1"
-            sx={{ textAlign: "center", fontWeight: 700 }}
+            variant="subtitle2"
+            sx={{
+              textAlign: "center",
+              fontWeight: 700,
+              lineHeight: 1.3,
+              maxWidth: "100%",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              wordBreak: "break-word",
+            }}
           >
             {label}
           </Typography>

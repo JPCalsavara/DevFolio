@@ -36,36 +36,90 @@ Arquivos centrais:
 npm install
 ```
 
-### 2. Configurar ambiente
+### 2. Configurar o Next.js
 
-Copie `.env.example` para `.env` e preencha:
+O arquivo `next.config.ts` já vem pré-configurado. Os únicos pontos de atenção são:
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+- **Domínios de imagens:** o hostname `**.supabase.co` já está liberado para `next/image`.
+- **Image qualities:** os valores `[72, 75, 80]` já estão definidos para evitar warnings de qualidade.
+- **Variáveis de ambiente:** qualquer variável que começar com `NEXT_PUBLIC_` fica disponível no browser.
+
+Se precisar liberar um novo domínio de imagem (ex: CDN própria):
+
+```ts
+// next.config.ts
+images: {
+  remotePatterns: [
+    { protocol: "https", hostname: "**.supabase.co", pathname: "/storage/v1/object/public/**" },
+    { protocol: "https", hostname: "sua-cdn.com" }, // adicione aqui
+  ],
+},
 ```
 
-### 3. Aplicar banco e seed
+### 3. Configurar o Supabase
 
-No Supabase SQL Editor:
+#### 3.1 Criar o projeto no Supabase
 
-1. Rode `supabase/schema.sql`
-2. Rode `supabase/seed.sql`
+1. Acesse [supabase.com](https://supabase.com) e crie uma conta gratuita.
+2. Clique em **New Project** e escolha um nome e região (ex: `South America (São Paulo)`).
+3. Defina uma **Database Password** forte e salve em local seguro.
+4. Aguarde o projeto inicializar (~60s).
 
-### 4. Criar usuario admin (Auth)
+#### 3.2 Obter as credenciais
 
-No Supabase Dashboard:
+No painel do projeto:
 
-- `Authentication` -> `Users` -> `Create user`
-- Use esse email/senha para login em `/admin`
+- `Settings` → `API`
+- Copie o **Project URL** e a **anon public key**
 
-### 5. Rodar projeto
+#### 3.3 Configurar variáveis de ambiente
+
+```bash
+cp .env.example .env
+```
+
+Edite o `.env`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://SEU_PROJECT_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sua_anon_key_aqui
+```
+
+> **Nunca** commite o `.env` — ele já está no `.gitignore`.
+
+#### 3.4 Criar o schema e seed
+
+No Supabase → **SQL Editor**, execute em ordem:
+
+```sql
+-- 1. Cria tabelas, índices e policies de segurança
+\i supabase/schema.sql
+
+-- 2. Popula com dados iniciais
+\i supabase/seed.sql
+```
+
+Ou copie e cole o conteúdo de cada arquivo diretamente no SQL Editor.
+
+#### 3.5 Configurar Storage
+
+1. Supabase → **Storage** → **New Bucket**
+2. Nome: `portfolio` | marcar como **Public**
+3. Crie as pastas: `projects/`, `experiences/`, `technologies/`
+
+#### 3.6 Criar usuário admin
+
+1. Supabase → **Authentication** → **Users** → **Add user**
+2. Use email e senha que você vai usar em `/admin`
+
+### 4. Rodar projeto
 
 ```bash
 npm run dev
 ```
 
 Abra `http://localhost:3000`.
+
 
 ## Como editar conteudo
 
@@ -168,7 +222,7 @@ Exemplo:
 
 Voce pode gerar um CV rapidamente com:
 
-- Template open source: `https://github.com/celiobjunior/resume-template`
+- Template open source: `https://github.com/celiobjunior/resume-template` ou dentro do repositorio `.agent/skills/skills/curriculo-latex-assistante`
 - Gerador online: `https://curricu.lol/cv/create`
 
 Depois de gerar o CV, use esse arquivo no fluxo de IA (CV + links + imagens) para preencher o portfolio.
