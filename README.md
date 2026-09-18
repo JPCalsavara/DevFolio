@@ -1,62 +1,56 @@
-# DevFolio (Next.js + Supabase + Gemini)
+# DevFolio (Next.js + Local-First + Supabase Opcional + Gemini)
 
-Este projeto é um template open-source de portfólio pessoal projetado para desenvolvedores (backend, dados, devops) que desejam um visual premium sem precisar escrever código CSS. Ele conta com um pipeline nativo de **Inteligência Artificial (Gemini)** que lê seu currículo antigo em PDF e preenche o site inteiro sozinho, além de gerar um currículo LaTeX otimizado.
+Este projeto é um template open-source de portfólio pessoal projetado para desenvolvedores (backend, dados, devops, full-stack) que desejam um visual premium sem precisar escrever código CSS. Ele conta com uma arquitetura **Local-First** (funciona 100% offline e local imediatamente após clonar) e suporte opcional a **Supabase** e **Inteligência Artificial (Gemini)** para quem desejar painel administrativo em nuvem e ingestão automatizada de currículos.
 
 - **Frontend:** Next.js (App Router) + React + MUI (Glassmorphism & Gradients)
-- **Backend:** Supabase (Postgres + Auth + Storage)
-- **IA Nativa:** Gemini 2.0 Flash integrado via pipeline de "Intake".
-- **Fallbacks:** Se o banco falhar, usa dados mockados automaticamente.
+- **Modo Padrão:** **100% Local-First** — dados estáticos em `src/data/portfolioData.ts` e mídias locais em `public/images/`.
+- **Backend Opcional:** Supabase (Postgres + Auth + Storage).
+- **IA Nativa (Opcional):** Gemini 2.0 Flash integrado via pipeline de "Intake" (`/admin/intake`).
+- **Resiliência:** Se o Supabase não estiver configurado ou falhar, o site consome os dados locais automaticamente sem travar.
 
 ## Principais Features
 
-1. **Intake de IA (`/admin/intake`):** Faça upload de um PDF. O sistema extrai suas skills, cria resumos pelo Método STAR e gera os metadados.
-2. **Gerador de CV LaTeX:** Integrado com um template premium open-source, devolvendo o `.tex` compilável.
-3. **Admin Seguro:** Painel protegido pelo Supabase Auth para gerenciar todo o conteúdo do seu site.
-4. **Demonstração Integrada (`/intro`):** Rota de onboarding para introduzir a stack a novos usuários.
+1. **Execução Local Imediata:** Clone, instale as dependências e rode o portfólio completo com projetos, experiências e habilidades sem precisar criar conta em serviços externos.
+2. **Intake de IA (`/admin/intake` - Opcional):** Faça upload de um PDF. O sistema extrai suas skills, cria resumos pelo Método STAR e gera os metadados.
+3. **Gerador de CV LaTeX:** Integrado com um template premium open-source (`resume-template/`), devolvendo o `.tex` compilável.
+4. **Admin Seguro (Opcional):** Painel protegido pelo Supabase Auth para gerenciar todo o conteúdo do seu site.
+5. **Demonstração Integrada (`/intro`):** Rota de onboarding para introduzir a stack a novos usuários.
 
 Arquivos centrais:
-- `src/app/api/intake/parse/route.ts`: Motor de inteligência artificial.
+- `src/data/portfolioData.ts`: Fonte de dados local e de fallback do portfólio.
+- `src/lib/portfolio.ts`: Camada resiliente de acesso a dados (local / Supabase).
 - `src/theme/theme.ts`: Ponto único de personalização de cores e tipografia.
-- `src/app/admin/intake/page.tsx`: UI do gerador e validador de IA.
-- `supabase/schema.sql`: Regras de banco de dados e RLS.
+- `supabase/schema.sql` e `supabase/seed.sql`: Esquema e dados iniciais para quem quiser ativar o Supabase.
+- `resume-template/resumes/pt-br/curriculo-Joao.tex`: Template de currículo em LaTeX atualizado.
 
 ## Como começar (Crie o seu)
 
-Se você quer usar o DevFolio para criar o seu próprio portfólio, **não clone este repositório diretamente**. 
+Se você quer usar o DevFolio para criar o seu próprio portfólio:
 
-1. No topo desta página no GitHub, clique no botão verde **Use this template** (Usar este modelo) e depois em **Create a new repository** (Criar um novo repositório). 
-2. Como alternativa, você pode clicar no botão de **Fork** no canto superior direito para copiar o projeto para a sua conta.
-3. Após criar a sua cópia no seu GitHub, siga os passos de "Setup local" ou vá direto para a seção de "Deploy na Vercel".
+1. Clique em **Use this template** ou faça um **Fork** para sua conta no GitHub.
+2. Siga o setup local rápido abaixo.
 
-## Setup local
+## Setup local rápido (100% Local)
 
-### 1. Instalar dependencias
+### 1. Instalar dependências
 
 ```bash
 npm install
 ```
 
-### 2. Configurar o Next.js
+### 2. Rodar o projeto diretamente
 
-O arquivo `next.config.ts` já vem pré-configurado. Os únicos pontos de atenção são:
-
-- **Domínios de imagens:** o hostname `**.supabase.co` já está liberado para `next/image`.
-- **Image qualities:** os valores `[72, 75, 80]` já estão definidos para evitar warnings de qualidade.
-- **Variáveis de ambiente:** qualquer variável que começar com `NEXT_PUBLIC_` fica disponível no browser.
-
-Se precisar liberar um novo domínio de imagem (ex: CDN própria):
-
-```ts
-// next.config.ts
-images: {
-  remotePatterns: [
-    { protocol: "https", hostname: "**.supabase.co", pathname: "/storage/v1/object/public/**" },
-    { protocol: "https", hostname: "sua-cdn.com" }, // adicione aqui
-  ],
-},
+```bash
+npm run dev
 ```
 
-### 3. Configurar o Supabase
+Abra `http://localhost:3000`. O portfólio estará 100% carregado com projetos, experiências, timeline acadêmica e ícones técnicos!
+
+---
+
+## Configuração Opcional do Supabase (Apenas se quiser nuvem e /admin)
+
+Se você deseja persistir seus dados na nuvem e utilizar o painel `/admin`:
 
 #### 3.1 Criar o projeto no Supabase
 
@@ -153,111 +147,74 @@ Você não precisa reescrever o CSS manualmente! Basta usar a nossa skill de int
 - No seu editor (Cursor/Windsurf/Copilot), abra o chat e digite: `@restyle-ui-safe Mude o tema para um estilo cyberpunk com cores neon roxo e verde, e mude a fonte para Roboto`.
 - Essa skill irá alterar as paletas de cores no `src/theme/theme.ts` e ajustar a UI de forma segura e responsiva, mantendo todos os componentes do Next.js intactos.
 
-## Como editar conteúdo
+## Como editar conteúdo (Links, Fotos e CV)
 
-### Fluxo manual (mais simples)
+Você tem **3 caminhos** para customizar o conteúdo do seu portfólio. Escolha o mais conveniente:
 
-1. Acesse `/admin` e faca login.
-2. Edite projetos, experiencias e habilidades.
-3. Salve cada item.
+### Caminho 1: Local-First (Recomendado — Menos de 3 minutos, Zero Nuvem) ⚡
 
-## Imagens: o que fazer
+É o caminho mais ágil e direto, sem necessidade de contas externas ou bancos em nuvem.
 
-Existem 2 formas.
+1. **Fotos e Mídias:**
+   - Projetos: salve as imagens em `public/images/projects/<nome-do-projeto>.png`.
+   - Experiências: salve os logos em `public/images/experiences/<empresa>.jpg`.
+   - Tecnologias: salve os ícones em `public/images/tecnologies/<tecnologia>.png`.
+2. **Currículo (CV):**
+   - Salve o seu arquivo PDF em `public/files/curriculo.pdf` (substituindo o existente).
+   - Se desejar editar o código LaTeX, use os modelos em `resume-template/resumes/pt-br/` no [Prism](https://prism.openai.com/) ou via skill `curriculo-latex-assistant`.
+3. **Links e Dados:**
+   - Abra `src/data/portfolioData.ts` e ajuste seus links sociais (`socialLinks`), projetos (`projectsData`), experiências (`experiencesData`) e habilidades (`skillsData`).
+4. **Deploy:**
+   - Suba para o GitHub e conecte à Vercel. O site já está pronto e em produção!
 
-### A) Pelo proprio admin (recomendado)
+---
 
-Nos formularios de projeto/experiencia/habilidade:
+### Caminho 2: Ingestão Automatizada por IA (`/admin/intake`) 🤖
 
-1. Clique em upload de imagem.
-2. O arquivo sobe no bucket `portfolio`.
-3. O sistema gera automaticamente `publicUrl` com `getPublicUrl(...)`.
-4. O campo de URL e preenchido automaticamente.
-5. Clique em salvar para persistir no banco.
+1. Acesse `/admin/intake` no seu navegador local.
+2. Anexe seu currículo em PDF e cole os links dos seus repositórios do GitHub ou sites em produção.
+3. Clique em **"Analisar com IA"** (utiliza a API do Google Gemini).
+4. A IA extrai e organiza todas as informações pelo **Método STAR** (Situação, Tarefa, Ação, Resultado) e gera métricas de impacto.
+5. Na tela de revisão:
+   - **Modo Local:** Clique no botão **"Baixar portfolioData.ts"** e substitua o arquivo local.
+   - **Modo Supabase:** Se configurado, clique em **"Aplicar no Supabase"**.
 
-Observacao: gerar URL nao salva sozinho; precisa confirmar no botao de salvar.
+---
 
-### B) Pelo dashboard do Supabase
+### Caminho 3: Painel Admin com Supabase (Opcional — Nuvem) ☁️
 
-1. `Storage` -> bucket `portfolio`.
-2. Upload manual em pastas como:
-   - `projects/`
-   - `experiences/`
-   - `technologies/`
-3. Copie a URL publica e cole no campo do admin.
+1. Configure o `.env` com as chaves do Supabase e execute `supabase/schema.sql` e `supabase/seed.sql`.
+2. Acesse `/admin` e faça login com seu usuário admin.
+3. Edite projetos, experiências e habilidades diretamente pelos formulários.
+4. **Imagens pelo Admin:** O upload envia diretamente para o bucket público `portfolio` do Supabase Storage e gera a URL pública de forma transparente.
 
-Boas praticas para imagens:
+---
 
-- Use nomes de arquivo sem espacos e sem caracteres especiais.
-- Prefira `webp` ou `png` comprimidos.
-- Mantenha proporcao consistente para cards/carrossel.
+## Gerenciamento do Currículo (LaTeX & PDF)
 
-## Como preencher com IA (CV + links + imagens)
+O portfólio consome o currículo estático para os botões de download através de:
+- `public/files/curriculo.pdf`
 
-Pipeline recomendada: `docs/ai-intake-pipeline.md`
+Para criar ou atualizar seu currículo profissional:
+- **Template LaTeX incluído:** Na pasta `resume-template/` você encontra modelos em Português (`resumes/pt-br/curriculo.tex`) e Inglês (`resumes/en/resume.tex`).
+- **Edição Sem Código:** Acesse o [Prism](https://prism.openai.com/), cole o `.tex` e edite com assistência de IA.
+- **Skill Especializada:** O projeto conta com a skill `.agent/skills/curriculo-latex-assistant/SKILL.md` para auxiliar na revisão e diagramação de currículos para o mercado alvo.
+- **Integração:** Após exportar o novo PDF, basta salvá-lo como `public/files/curriculo.pdf`.
 
-Resumo do fluxo:
+---
 
-1. Pessoa envia CV + links de repositorios/projetos + imagens.
-2. Backend extrai texto e metadados.
-3. Agente MCP recebe prompt estrito e retorna JSON puro.
-4. Sistema valida schema.
-5. Admin revisa/edita.
-6. Sistema faz upsert no Supabase.
+## Área de Preparação (`content-staging/`)
 
-Entradas sugeridas para IA:
+Para quem prefere rascunhar o conteúdo antes de integrar ao código:
+- `content-staging/markdown/`: templates estruturados em `.md` para projetos, experiências e habilidades.
+- `content-staging/images/`: pastas organizadas para separar capturas e ícones antes de mover para `public/images/`.
+- Consulte `content-staging/README.md` para mais orientações.
 
-- `cv_file` (PDF/DOCX)
-- `github_links[]`
-- `project_links[]`
-- `image_files[]` ou `image_urls[]`
-- observacoes opcionais
+## Onde buscar ícones e imagens técnicas
 
-Importante:
+- **Tech Icons:** [techicons.dev](https://techicons.dev/)
+- **SVGs e Logos:** [svgl.app](https://svgl.app/) ou pesquise por `<nome-da-tecnologia> icon png` com fundo transparente.
 
-- A IA nao deve escrever direto no banco.
-- Sempre revisar antes de aplicar.
-- URLs e slugs devem ser validados.
-
-## Pasta sugerida para preparar conteudo
-
-Para facilitar o uso da ferramenta, foi criada a pasta:
-
-- `content-staging/`
-
-Estrutura:
-
-- `content-staging/markdown/`: textos em `.md` para projetos, experiencias e habilidades.
-- `content-staging/images/projects/`: imagens de projetos.
-- `content-staging/images/experiences/`: imagens de experiencias.
-- `content-staging/images/habilidades/`: icones/logos de habilidades.
-
-Fluxo recomendado:
-
-1. Monte o conteudo textual em `.md` dentro de `content-staging/markdown/`.
-2. Separe e normalize as imagens nas pastas corretas dentro de `content-staging/images/`.
-3. Suba os arquivos para o Supabase (admin ou dashboard).
-4. Revise os links publicos e salve no banco.
-
-## Onde buscar icones/imagens
-
-- Tech Icons: `https://techicons.dev/`
-- Se nao achar o icone tecnico, pesquise por: `nome-da-empresa icon png`
-
-Exemplo:
-
-- `Datadog icon png`
-- `Rancher icon png`
-- `Argo CD icon png`
-
-## Se nao tiver CV ainda
-
-Voce pode gerar um CV rapidamente com:
-
-- Template open source: `https://github.com/celiobjunior/resume-template` ou dentro do repositorio `.agent/skills/skills/curriculo-latex-assistante`
-- Gerador online: `https://curricu.lol/cv/create`
-
-Depois de gerar o CV, use esse arquivo no fluxo de IA (CV + links + imagens) para preencher o portfolio.
 
 ## Prompt MCP (base)
 
@@ -292,10 +249,11 @@ A resiliência deste fluxo é comprovada através de:
 
 ## Agentes e Skills
 
-O repositório unifica seus fluxos de trabalho autônomos na pasta `.agent/skills/skills`. Utilizando esse ambiente centralizado, o desenvolvedor pode chamar agentes automatizados para:
+O repositório unifica seus fluxos de trabalho autônomos na pasta `.agent/skills`. Utilizando esse ambiente centralizado, o desenvolvedor pode chamar agentes automatizados para:
 - Atualização e gestão rigorosa de documentos (`docs-workflow`).
 - Edição técnica e exportação de currículos em LaTeX (`curriculo-latex-assistant`).
 - Testes autônomos e Git Workflow gerenciado (`git-flow`).
+- Customização segura de temas e CSS (`restyle-ui-safe`).
 
 ## Licença
 
