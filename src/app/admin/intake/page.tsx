@@ -27,6 +27,8 @@ import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import CodeRoundedIcon from "@mui/icons-material/CodeRounded";
 import { supabase } from "@/lib/supabase/client";
 import type { IntakeDraft, IntakeHabilidade, IntakeProject, IntakeExperience } from "@/lib/intake/schema";
 import type { ValidationResult } from "@/lib/intake/schema";
@@ -71,6 +73,8 @@ export default function IntakePage() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
+  const [copied, setCopied] = useState(false);
+
   function downloadTex() {
     if (!draft?.resume_tex) return;
     const blob = new Blob([draft.resume_tex], { type: "text/plain" });
@@ -82,6 +86,77 @@ export default function IntakePage() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  function generatePortfolioTsContent(d: IntakeDraft): string {
+    const projects = d.projects.map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      summaryLine: p.summary_line || undefined,
+      period: p.period || undefined,
+      tecnosUsed: p.technologies,
+      description: p.description,
+      urlName: p.image_url || `/images/projects/${p.slug}.png`,
+      produtionLink: p.production_link || undefined,
+      repositoryLink: p.repository_link || undefined,
+      detailsGoal: p.details_goal || undefined,
+      detailsHighlights: p.details_highlights?.length ? p.details_highlights : undefined,
+      detailsImpact: p.details_impact || undefined,
+    }));
+
+    const experiences = d.experiences.map((e) => ({
+      slug: e.slug,
+      title: e.title,
+      imageName: (e.image_urls && e.image_urls[0]) || `${e.slug}.jpg`,
+      imageNames: e.image_urls?.length ? e.image_urls : [`${e.slug}.jpg`],
+      location: e.location || undefined,
+      period: e.period || undefined,
+      role: e.role || undefined,
+      summary: e.summary,
+      achievements: e.achievements || [],
+      skillsLearned: e.skills_learned || [],
+    }));
+
+    const skills = d.habilidades.map((h) => ({
+      name: h.name,
+      label: h.label,
+      type: h.type,
+      link: h.link || undefined,
+    }));
+
+    return `// ============================================================
+// Gerado automaticamente via Intake IA (DevFolio)
+// Cole estes blocos no seu arquivo: src/data/portfolioData.ts
+// ============================================================
+
+export const projectsData: ProjectCardData[] = ${JSON.stringify(projects, null, 2)};
+
+export const experiencesData: ExperienceCardData[] = ${JSON.stringify(experiences, null, 2)};
+
+export const skillsData: SkillCardData[] = ${JSON.stringify(skills, null, 2)};
+`;
+  }
+
+  function downloadPortfolioDataTs() {
+    if (!draft) return;
+    const content = generatePortfolioTsContent(draft);
+    const blob = new Blob([content], { type: "text/typescript;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "portfolioData.draft.ts";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  async function copyPortfolioDataTs() {
+    if (!draft) return;
+    const content = generatePortfolioTsContent(draft);
+    await navigator.clipboard.writeText(content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
   }
 
   async function handleParse() {
@@ -146,7 +221,7 @@ export default function IntakePage() {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        setApiError("Você precisa estar logado como admin para aplicar.");
+        setApiError("Você está no modo Local-First sem sessão no Supabase. Utilize os botões 'Baixar dados (.ts)' ou 'Copiar TS' para atualizar seus dados locais, ou faça login no Supabase para sincronizar em nuvem.");
         return;
       }
 
@@ -360,6 +435,40 @@ export default function IntakePage() {
             </Card>
           )}
 
+          {/* Card de Exportação Local-First */}
+          <Card sx={{ bgcolor: "rgba(163, 230, 53, 0.06)", borderColor: "success.main", border: "1px solid" }}>
+            <CardContent>
+              <Stack direction={{ xs: "column", md: "row" }} sx={{ justifyContent: "space-between", alignItems: { md: "center" } }} spacing={2}>
+                <Box>
+                  <Typography sx={{ fontWeight: 700 }} color="success.main">
+                    🚀 Modo Local-First (Zero Dependência de Nuvem)
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Exporte os dados gerados pela IA diretamente para o seu <code>src/data/portfolioData.ts</code> sem precisar de banco de dados.
+                  </Typography>
+                </Box>
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    startIcon={<DownloadRoundedIcon />}
+                    onClick={downloadPortfolioDataTs}
+                  >
+                    Baixar portfolioData.ts
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="success"
+                    startIcon={copied ? <CheckCircleOutlineRoundedIcon /> : <ContentCopyRoundedIcon />}
+                    onClick={copyPortfolioDataTs}
+                  >
+                    {copied ? "Copiado!" : "Copiar TS"}
+                  </Button>
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardContent>
               <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v)} sx={{ mb: 2 }}>
@@ -397,6 +506,9 @@ export default function IntakePage() {
                           {p.technologies.map((t) => <Chip key={t} label={t} size="small" variant="outlined" />)}
                         </Box>
                       )}
+                      <Typography variant="caption" sx={{ display: "block", mt: 1.5, color: "text.secondary" }}>
+                        📁 Imagem local esperada: <code>public/images/projects/{p.slug}.png</code>
+                      </Typography>
                     </Box>
                   ))}
                 </Stack>
@@ -418,6 +530,9 @@ export default function IntakePage() {
                           ))}
                         </Box>
                       )}
+                      <Typography variant="caption" sx={{ display: "block", mt: 1.5, color: "text.secondary" }}>
+                        📁 Imagem local esperada: <code>public/images/experiences/{e.slug}.jpg</code>
+                      </Typography>
                     </Box>
                   ))}
                 </Stack>
@@ -430,6 +545,14 @@ export default function IntakePage() {
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
             <Button variant="outlined" onClick={() => setStep("input")}>
               ← Voltar e editar entrada
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<CodeRoundedIcon />}
+              onClick={downloadPortfolioDataTs}
+            >
+              Baixar portfolioData.ts
             </Button>
             <Button
               variant="outlined"

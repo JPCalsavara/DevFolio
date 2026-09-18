@@ -62,7 +62,7 @@ export type ValidationResult = {
 };
 
 // Enum válidos para o tipo de habilidade
-const VALID_HABILIDADE_TYPES = [
+export const VALID_HABILIDADE_TYPES = [
   "frontend",
   "backend",
   "database",
@@ -73,7 +73,7 @@ const VALID_HABILIDADE_TYPES = [
 ] as const;
 
 // Regex para slugs válidos
-const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 // Regex simplificado de URL
-const URL_RE = /^https?:\/\/.+/;
+export const URL_RE = /^https?:\/\/.+/;

@@ -60,7 +60,7 @@ Return this exact JSON shape (if generate_resume is asked, include resume_tex):
 }`;
 
 // Fallback mock quando a API key não está configurada
-function buildMockDraft(): IntakeDraft {
+export function buildMockDraft(): IntakeDraft {
   return {
     habilidades: [{ name: "typescript", label: "TypeScript", type: "frontend", link: null, icon_url: null }],
     projects: [],
@@ -116,7 +116,7 @@ async function callGemini(
   
   try {
     return JSON.parse(rawText) as IntakeDraft;
-  } catch (e) {
+  } catch {
     throw new Error("Gemini returned invalid JSON");
   }
 }

@@ -1,23 +1,13 @@
-import type {
-  IntakeDraft,
-  IntakeHabilidade,
-  IntakeProject,
-  IntakeExperience,
-  ValidationResult,
+import {
+  type IntakeDraft,
+  type IntakeHabilidade,
+  type IntakeProject,
+  type IntakeExperience,
+  type ValidationResult,
+  VALID_HABILIDADE_TYPES,
+  SLUG_RE,
+  URL_RE,
 } from "./schema";
-
-const VALID_HABILIDADE_TYPES = [
-  "frontend",
-  "backend",
-  "database",
-  "devops",
-  "all",
-  "softskill",
-  "default",
-];
-
-const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const URL_RE = /^https?:\/\/.+/;
 
 function isValidUrl(value: string | null): boolean {
   if (!value) return true; // null is allowed

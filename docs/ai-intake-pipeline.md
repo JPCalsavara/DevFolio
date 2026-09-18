@@ -96,14 +96,16 @@ Before writing to DB:
 - `projects`: upsert by `slug`.
 - `experiences`: upsert by `slug`.
 
-## MCP Integration Options
+## MCP & Local-First Integration Options
 
-- Option A (recommended): backend calls agent, gets JSON, validates, saves draft for review.
-- Option B: agent writes draft JSON file in workspace, admin imports this file to review UI.
+- Option A (Cloud / Supabase): backend calls agent, gets JSON, validates, human reviews, applies upserts to Supabase DB.
+- Option B (Local-First — Zero Cloud): backend/UI parses CV + links, user reviews, and clicks "Baixar portfolioData.ts" or "Copiar TS" directly to local code.
+- Option C: agent writes draft JSON file in workspace, admin imports this file to review UI.
 
-## Suggested Next Implementation
+## Implementation Status
 
-1. Create `/api/intake/parse` (CV + links -> draft JSON).
-2. Create `/api/intake/validate` (draft -> structured errors/warnings).
-3. Create `/api/intake/apply` (approved draft -> Supabase upserts in transaction-safe order).
-4. Add admin page `admin/intake` with diff/review UI.
+1. `/api/intake/parse` (CV PDF/text + links -> draft JSON) - **Implemented**
+2. `/api/intake/validate` (draft -> structured errors/warnings) - **Implemented**
+3. `/api/intake/apply` (approved draft -> Supabase upserts) - **Implemented**
+4. Admin UI `/admin/intake` (Review screen + Local-First `.ts` export + LaTeX download) - **Implemented**
+
