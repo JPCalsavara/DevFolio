@@ -1,5 +1,5 @@
 import './commands'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 
 declare global {
   namespace Cypress {

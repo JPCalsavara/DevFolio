@@ -3,8 +3,6 @@ import App from '../../src/components/App'
 import {
   projectsData,
   experiencesData,
-  skillsData,
-  tagsData,
   legendItems
 } from '../../src/data/portfolioData'
 
