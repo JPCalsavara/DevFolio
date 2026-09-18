@@ -39,7 +39,12 @@ public/images_backup_20260412_231051
 !.env.example
 
 # Supabase seeds (local/private)
-supabase/seed*.sql
+supabase/seed*.local.sql
+!supabase/seed.sql
 progress.md
 task_plan.md
 findings.md
+
+# Storage dumps and temporary uploads
+lvokqacgnslrheltmjcj*
+CV (3).pdf

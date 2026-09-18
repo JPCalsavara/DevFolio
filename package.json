@@ -1,7 +1,10 @@
 {
   "name": "devfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Template de portfólio profissional Local-First com Next.js 16, Material-UI, suporte opcional a Supabase e Gemini AI.",
+  "author": "João Pedro Calsavara",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "next dev",

@@ -139,6 +139,11 @@ const TECHNOLOGY_IMAGE_BY_NAME: Record<string, string> = {
   xunit: "/images/tecnologies/xUnit.png",
   argocd: "/images/tecnologies/Argo CD.png",
   dotnet: "/images/tecnologies/NET.png",
+  vercel: "/images/tecnologies/vercel.png",
+  javascript: "/images/tecnologies/JavaScript.png",
+  mysql: "/images/tecnologies/MySQL.png",
+  php: "/images/tecnologies/PHP.png",
+  pubsub: "/images/tecnologies/PubSub.png",
 };
 
 export default function AdminPage() {

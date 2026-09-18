@@ -67,6 +67,11 @@ export default function CardSkills({
     xunit: "/images/tecnologies/xUnit.png",
     argocd: "/images/tecnologies/Argo CD.png",
     dotnet: "/images/tecnologies/NET.png",
+    vercel: "/images/tecnologies/vercel.png",
+    javascript: "/images/tecnologies/JavaScript.png",
+    mysql: "/images/tecnologies/MySQL.png",
+    php: "/images/tecnologies/PHP.png",
+    pubsub: "/images/tecnologies/PubSub.png",
   };
   const imagePath =
     iconUrl || imageByTech[name] || "/images/icons/screen-svgrepo-com.svg";

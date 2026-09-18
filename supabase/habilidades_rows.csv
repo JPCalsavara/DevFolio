@@ -1,0 +1,48 @@
+id,name,label,type,link,icon_url,created_at,updated_at
+08cdd446-1341-4dc8-8474-1ac36ef8c8ec,vercel,Vercel,devops,https://vercel.com/,https://lvokqacgnslrheltmjcj.supabase.co/storage/v1/object/public/portfolio/technologies/1776279527844-vercel.png,2026-04-14 16:36:37.326793+00,2026-04-15 18:58:52.351191+00
+092661d1-70dc-4858-a4b5-9c41506fd468,swagger,Swagger,backend,https://swagger.io/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+0b822592-bd5a-4da1-adce-7001bb33efe0,llm,LLM,all,https://en.wikipedia.org/wiki/Large_language_model,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+0eab076f-4b35-40db-84ef-7cd572983b73,comunicacao,Comunicação,hidden:softskill,,,2026-04-14 16:36:37.326793+00,2026-04-15 18:52:15.251551+00
+152b0007-8f21-48ef-bb80-3d1f23b95e18,git,Git,all,https://git-scm.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+17e67d8d-355e-4a4c-be01-904def3e41a7,xunit,xUnit,backend,https://xunit.net/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+3a6c53d3-24ea-4095-9018-a22843c48965,pubsub,"Pub/Sub ",backend,https://cloud.google.com/pubsub,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+3b1b4135-d0c2-4452-bfe6-cebec67ee9be,cleanarchitecture,Clean arch,hidden:backend,https://8thlight.com/insights/a-color-coded-guide-to-clean-architecture,,2026-04-14 16:36:37.326793+00,2026-04-15 18:50:00.556618+00
+3ca228db-21ad-4186-9a36-c5f1696e1864,javascript,JavaScript,all,https://pt.wikipedia.org/wiki/JavaScript,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+4897d0ef-bfdd-4ec9-b385-2db11561876a,angular,Angular,frontend,https://angular.dev/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+4ea5820d-f33b-45c5-9d8c-0aa9e3a1a638,tailwind,Tailwind,frontend,https://tailwindcss.com,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+53da7c48-005a-4712-a3ca-7079fbe6cf2e,mysql,"MySQL ",database,https://www.mysql.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+5676c408-3591-4d21-94a8-9e210013d27c,c++,C++,backend,https://en.wikipedia.org/wiki/C%2B%2B,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+64aa144d-b800-4009-bfd5-b69935bbe76f,dockercompose,Compose,backend,https://docs.docker.com/compose/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+68f48e4c-7c9e-484c-a545-32e105957038,rabbitmq,RabbitMQ,backend,https://www.rabbitmq.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+6bb885e9-be83-4ca9-a360-0d3eb05c9028,express,Express,backend,https://expressjs.com,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+7e1e5755-51e6-4115-bbce-b9783c693760,lideranca,Liderança,hidden:softskill,,,2026-04-14 16:36:37.326793+00,2026-04-15 18:52:09.36939+00
+7f3f1a5e-dac3-4e1c-a1dd-309dcb4c49cd,ddd,DDD,hidden:backend,https://en.wikipedia.org/wiki/Domain-driven_design,,2026-04-14 16:36:37.326793+00,2026-04-15 18:51:51.894967+00
+8221de8d-e72f-4768-9cc4-1a50ddc10fe6,node,Node,backend,https://nodejs.org,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+8454b3a3-daa9-4c53-8ed7-da6cc0476e6d,nginx,NGINX,devops,https://nginx.org/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+8539e524-036a-4dd1-b895-1f7738f5a8f7,docker,Docker,devops,https://www.docker.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+8ef2310e-c504-40a7-ae81-2fa4b79185d0,rancher,Rancher,devops,https://www.rancher.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+942c68e1-d6e7-4780-aff9-858ea47b8a22,linux,Linuxa,devops,https://www.linux.org/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+9abaf945-9dc4-46bd-bfe6-b82ab52f9e6f,html,"HTML ",frontend,https://developer.mozilla.org/en-US/docs/Web/HTML,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+9dd199a4-9653-40d4-a295-9b19d1ee5165,dotnet,.NET,backend,https://dotnet.microsoft.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+9e3d5d7f-3239-46a4-b23e-14b0c7eb46f5,lamp,LAMP,hidden:devops,https://en.wikipedia.org/wiki/LAMP_(software_bundle),,2026-04-14 16:36:37.326793+00,2026-04-15 18:51:22.975246+00
+a36e0991-b176-481e-8146-741e5bc4feb3,c,C,backend,https://en.wikipedia.org/wiki/C_(programming_language),,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+ab4de1ec-8fc2-49d6-9499-a19df8559f4f,datadog,Datadog,devops,https://www.datadoghq.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+ae272bb0-57c6-41b5-8fcb-9eb122bce511,react,React,frontend,https://reactjs.org,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+b1522dab-b2e7-4d56-99d1-30398aace551,csharp,C#,backend,https://learn.microsoft.com/dotnet/csharp/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+b6b46597-9e70-4aad-ad28-00ddb77fcd70,uml,UML,all,https://en.wikipedia.org/wiki/Unified_Modeling_Language,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+b7662fe3-eff6-4061-8a7d-1baa2e8fe956,materialui,Material UI,frontend,https://mui.com/material-ui/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+bb8c08de-e7cd-4b2a-a490-7fab4df6955e,supabase,Supabase,database,https://supabase.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+bce6b4e2-78cb-4aeb-915a-700c94abf163,typescript,TypeScript,all,https://www.typescriptlang.org,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+bd875873-4cc9-48bb-9835-dc8199b33e5a,prisma,Prisma ORM,backend,https://www.prisma.io,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+be73021f-290b-496f-a214-cd0e2aca2448,python,"Python ",backend,https://www.python.org/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+c7c0d52d-1855-47b5-a54c-42770ea904e5,design,Design,hidden:softskill,,,2026-04-14 16:36:37.326793+00,2026-04-15 18:52:31.880082+00
+cb82b236-7fc2-43cd-ae1f-c0081ae89b47,css,CSS,frontend,https://developer.mozilla.org/en-US/docs/Web/CSS,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+d215f987-ecbc-4d07-842a-71b947b699c7,aws,AWS,devops,https://aws.amazon.com/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+d476fb52-a267-41ad-9fd0-7d1c59649a33,php,PHP,backend,https://www.php.net/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+d71318cf-888f-42bf-af17-a32c1f2a2472,oratoria,Oratória,hidden:softskill,,,2026-04-14 16:36:37.326793+00,2026-04-15 18:52:21.354655+00
+df09bfea-e0e2-4076-b947-d1a4bbca8d6d,nextjs,Nextjs,frontend,https://nextjs.org/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+e75d5ea8-a900-4492-9688-826b24ed5f3f,kubernetes,Kubernets,devops,https://kubernetes.io/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+f132a8ef-ca57-4d37-8c17-fd90d107f427,moq,Moq,backend,https://github.com/moq/moq,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+fa4b671f-3c12-4034-b984-11d9a41500c3,argocd,Argo CD,devops,https://argo-cd.readthedocs.io/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+fda00261-9b1f-4ec8-a876-c047701686fb,insomnia,Insomnia,all,https://insomnia.rest/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00
+fffde761-3889-4170-b5be-9a68b6dd2bde,postgres,PostgreSQL,database,https://www.postgresql.org/,,2026-04-14 16:36:37.326793+00,2026-04-14 16:36:37.326793+00

@@ -8,6 +8,9 @@ export type ProjectCardData = {
   urlName: string;
   produtionLink?: string;
   repositoryLink?: string;
+  detailsGoal?: string;
+  detailsHighlights?: string[];
+  detailsImpact?: string;
 };
 
 export type SkillCardData = {
@@ -138,9 +141,9 @@ export const tagsData: Record<
     link: "https://en.wikipedia.org/wiki/C%2B%2B",
     realName: "C++",
   },
-  comunicacao: { category: "softskill", realName: "Comunicacao" },
-  oratoria: { category: "softskill", realName: "Oratoria" },
-  lideranca: { category: "softskill", realName: "Lideranca" },
+  comunicacao: { category: "softskill", realName: "Comunicação" },
+  oratoria: { category: "softskill", realName: "Oratória" },
+  lideranca: { category: "softskill", realName: "Liderança" },
   design: { category: "softskill", realName: "Design" },
   csharp: {
     category: "backend",
@@ -312,13 +315,48 @@ export const tagsData: Record<
     link: "https://git-scm.com/",
     realName: "Git",
   },
+  nifi: {
+    category: "database",
+    link: "https://nifi.apache.org/",
+    realName: "Apache NiFi",
+  },
+  bigquery: {
+    category: "database",
+    link: "https://cloud.google.com/bigquery",
+    realName: "Google BigQuery",
+  },
+  cypress: {
+    category: "frontend",
+    link: "https://www.cypress.io/",
+    realName: "Cypress",
+  },
+  java: {
+    category: "backend",
+    link: "https://www.java.com/",
+    realName: "Java",
+  },
+  springboot: {
+    category: "backend",
+    link: "https://spring.io/projects/spring-boot",
+    realName: "Spring Boot",
+  },
+  fastapi: {
+    category: "backend",
+    link: "https://fastapi.tiangolo.com/",
+    realName: "FastAPI",
+  },
+  agents: {
+    category: "all",
+    link: "https://en.wikipedia.org/wiki/Intelligent_agent",
+    realName: "Agentic AI",
+  },
 };
 
 export const projectsData: ProjectCardData[] = [
   {
     slug: "interceptorsystem",
     title: "InterceptorSystem",
-    summaryLine: "Plataforma de Gestão em Segurança",
+    summaryLine: "Plataforma de Gestão em Segurança Corporativa",
     period: "Nov 2024 - Atual",
     tecnosUsed: [
       "dotnet",
@@ -332,23 +370,23 @@ export const projectsData: ProjectCardData[] = [
       "xunit",
       "moq",
       "aws",
+      "cypress",
+      "agents",
     ],
     description:
-      "Projeto full stack para gestão patrimonial. Estruturado em .NET 8 com Clean Architecture e DDD (monólito modular), com foco em escalabilidade, confiabilidade das regras de negócio e cobertura de testes unitários/integração.",
+      "Plataforma SaaS de gestão de segurança patrimonial com backend em .NET 8 (Clean Architecture e DDD) e frontend em Angular 18, acelerada por fluxos de agentes de IA e testes automatizados de ponta a ponta.",
     urlName: "InterceptorSystem.png",
     produtionLink: "https://d1wq60pm5w8m2y.cloudfront.net/",
     repositoryLink: "https://github.com/JPCalsavara/InterceptorSystem",
-  },
-  {
-    slug: "semeia-code",
-    title: "Semeia Code",
-    summaryLine: "Projeto de extensão em educação ",
-    period: "Jul 2024 - Fev 2026",
-    tecnosUsed: ["lideranca", "comunicacao", "oratoria", "design", "python"],
-    description:
-      "Projeto de extensão criado do zero para ampliar o acesso à educação tecnológica no ensino médio. Coordenação executiva, estruturação da metodologia e liderança de equipe multidisciplinar com impacto direto em mais de 20 estudantes.",
-    urlName: "SemeiaCode.jpeg",
-    repositoryLink: "",
+    detailsGoal:
+      "Plataforma SaaS de gestão de segurança patrimonial para clientes corporativos, com backend em .NET 8 e frontend em Angular.",
+    detailsHighlights: [
+      "Domínio estruturado com Clean Architecture e DDD para modular regras de negócio complexas e esteiras de CI/CD (GitHub Actions) na nuvem AWS (EC2, S3, redes).",
+      "Aceleração do desenvolvimento através da integração de fluxos autônomos de agentes de IA baseados em LLMs para construção de funcionalidades e debugging.",
+      "Qualidade de ponta a ponta com testes automatizados utilizando Cypress (E2E e componentes no frontend Angular 18) e testes unitários/integração no backend (xUnit, Moq).",
+    ],
+    detailsImpact:
+      "Projeto orientado a escalar operações críticas com segurança, alta qualidade de código com zero regressões lógicas e arquitetura sustentável.",
   },
   {
     slug: "ju-decoracao-de-natal",
@@ -360,38 +398,93 @@ export const projectsData: ProjectCardData[] = [
       "typescript",
       "tailwind",
       "supabase",
-      "framermotion",
       "vercel",
+      "postgres",
     ],
     description:
       "Aplicação web full-stack criada para transformar o portfólio de uma decoradora de Natal em uma ferramenta de negócio, com galeria interativa, filtros avançados e automação de captação de leads.",
-    urlName: "JuDecoraçãoDeNatal.png",
+    urlName: "JuDecoracaoDeNatal.png",
     produtionLink: "https://www.ju-decoracao-de-natal.com.br/",
     repositoryLink:
       "https://github.com/JPCalsavara/ju-decoradoracao-de-natal-site",
+    detailsGoal:
+      "Digitalizar o portfólio e o atendimento de uma decoradora para gerar credibilidade e captação de leads.",
+    detailsHighlights: [
+      "Galeria dinâmica com filtros avançados e experiência orientada à conversão.",
+      "Fluxo de orçamento com persistência de dados e integração de contato via WhatsApp.",
+      "Entrega full-stack com Next.js e Supabase, pronta para evolução de negócio.",
+    ],
+    detailsImpact:
+      "Transformou atendimento artesanal em operação digital com melhor apresentação comercial.",
+  },
+  {
+    slug: "semeia-code",
+    title: "Semeia Code",
+    summaryLine: "Iniciativa de extensão em educação tecnológica",
+    period: "Jul 2024 - Fev 2026",
+    tecnosUsed: ["lideranca", "comunicacao", "oratoria", "design", "python"],
+    description:
+      "Projeto de extensão criado do zero para ampliar o acesso à educação tecnológica no ensino médio. Coordenação executiva, estruturação pedagógica e liderança de equipe multidisciplinar.",
+    urlName: "SemeiaCode.jpeg",
+    repositoryLink: "",
+    detailsGoal:
+      "Criar uma iniciativa de extensão para democratizar o ensino de tecnologia e programação no ensino médio.",
+    detailsHighlights: [
+      "Coordenação executiva e educacional da iniciativa com organização de equipe multidisciplinar sob princípios ágeis.",
+      "Estruturação de metodologia de ensino, processos seletivos e trilhas práticas de aula em Python.",
+      "Impacto direto em dezenas de estudantes e continuidade sustentável após transição de liderança.",
+    ],
+    detailsImpact:
+      "Projeto com forte componente social e de liderança comunitária, conectando a universidade e escolas públicas.",
   },
   {
     slug: "portfolio-pessoal",
     title: "Portfólio Pessoal",
     summaryLine: "Vitrine profissional para projetos e experiência",
     period: "Jan 2026 - Atual",
-    tecnosUsed: ["nextjs", "typescript", "react", "tailwind", "materialui"],
+    tecnosUsed: [
+      "nextjs",
+      "typescript",
+      "react",
+      "tailwind",
+      "materialui",
+      "supabase",
+      "postgres",
+    ],
     description:
-      "Portfólio para consolidar minha apresentação profissional em engenharia de software, com foco em backend, projetos de impacto e experiências em cloud e observabilidade.",
+      "Portfólio para consolidar minha apresentação profissional em engenharia de software, com arquitetura Local-First resiliente, foco em backend, cloud, observabilidade e pipeline de IA nativa.",
     urlName: "Portifolio.png",
     produtionLink: "https://joaocalsavara.vercel.app/",
     repositoryLink: "https://github.com/JPCalsavara/portifolioReact",
+    detailsGoal:
+      "Centralizar minha apresentação profissional em uma vitrine moderna, objetiva e fácil de atualizar.",
+    detailsHighlights: [
+      "Estrutura para destacar projetos, experiências e habilidades com narrativa técnica clara.",
+      "Interface em Next.js e MUI com arquitetura Local-First e fallback resiliente.",
+      "Área administrativa com suporte para pipeline de IA com Gemini e gestão de conteúdo.",
+    ],
+    detailsImpact:
+      "Portfólio como peça de posicionamento profissional e demonstração de capacidade técnica.",
   },
   {
     slug: "projeto-web-faculdade",
-    title: "Projeto Web (Faculdade)",
+    title: "Jogo da Memória",
     summaryLine: "Jogo da Memória do Mario para disciplina de Web",
     period: "Mar - Jun 2025",
     tecnosUsed: ["html", "css", "javascript", "php", "mysql", "lamp"],
     description:
-      "Jogo da Memória interativo desenvolvido na disciplina SI401 para estimular memória visual e atenção. O objetivo é encontrar todos os pares em um tabuleiro embaralhado, com registro de movimentos e tempo de conclusão para aumentar o desafio.",
+      "Jogo da Memória interativo desenvolvido na disciplina SI401 para estimular memória visual e atenção. O objetivo é encontrar todos os pares em um tabuleiro embaralhado, com registro de movimentos e tempo de conclusão.",
     urlName: "JogoDaMemoriaMario.png",
     repositoryLink: "https://github.com/JPCalsavara/SI401-JogoDaMemoria",
+    detailsGoal:
+      "Desenvolver um jogo da memória web para exercitar atenção e memória visual em ambiente acadêmico.",
+    detailsHighlights: [
+      "Tabuleiro dinâmico com pares embaralhados e feedback visual de progresso.",
+      "Registro de tempo e movimentos para aumentar o desafio e medir desempenho.",
+      "Implementação web com HTML, CSS, JavaScript, PHP e MySQL em ambiente LAMP.",
+    ],
+    detailsImpact:
+      "Consolidou fundamentos de desenvolvimento web completo e integração com backend e banco de dados.",
   },
   {
     slug: "projeto-threads-faculdade",
@@ -401,8 +494,17 @@ export const projectsData: ProjectCardData[] = [
     tecnosUsed: ["c", "linux"],
     description:
       "Projeto da faculdade voltado a concorrência e paralelismo com merge sort em C, avaliando ganho de performance com diferentes quantidades de threads.",
-    urlName: "",
+    urlName: "default.jpg",
     repositoryLink: "https://github.com/JPCalsavara/mergesort",
+    detailsGoal:
+      "Comparar desempenho de processamento sequencial e paralelo em cenários de ordenação.",
+    detailsHighlights: [
+      "Implementação de merge sort em C com variações de paralelismo por threads.",
+      "Medição e comparação quantitativa de ganho de performance por configuração.",
+      "Estudo de concorrência, sincronização e limites práticos de escala.",
+    ],
+    detailsImpact:
+      "Fortaleceu fundamentos de sistemas operacionais e performance com abordagem experimental.",
   },
   {
     slug: "projeto-analise-faculdade",
@@ -412,8 +514,17 @@ export const projectsData: ProjectCardData[] = [
     tecnosUsed: ["c", "uml"],
     description:
       "Projeto acadêmico focado em análise de requisitos, modelagem de domínio e estruturação de solução de software com documentação técnica.",
-    urlName: "",
+    urlName: "default.jpg",
     repositoryLink: "https://github.com/JPCalsavara/gerenciador-credenciais",
+    detailsGoal:
+      "Transformar requisitos em uma solução de software bem modelada e documentada.",
+    detailsHighlights: [
+      "Levantamento e priorização de requisitos funcionais e não funcionais.",
+      "Modelagem de domínio e documentação técnica para orientar implementação.",
+      "Definição de escopo com foco em viabilidade e qualidade de entrega.",
+    ],
+    detailsImpact:
+      "Aprimorou a visão de engenharia de software da análise até a definição de arquitetura.",
   },
 ];
 
@@ -581,12 +692,6 @@ export const skillsData: SkillCardData[] = [
     label: "Insomnia",
   },
   {
-    name: "rider",
-    link: "https://www.jetbrains.com/rider/",
-    type: "all",
-    label: "Rider",
-  },
-  {
     name: "argocd",
     link: "https://argo-cd.readthedocs.io/",
     type: "devops",
@@ -603,6 +708,72 @@ export const skillsData: SkillCardData[] = [
     link: "https://supabase.com/",
     type: "database",
     label: "Supabase",
+  },
+  {
+    name: "vercel",
+    link: "https://vercel.com/",
+    type: "devops",
+    label: "Vercel",
+  },
+  {
+    name: "javascript",
+    link: "https://pt.wikipedia.org/wiki/JavaScript",
+    type: "all",
+    label: "JavaScript",
+  },
+  {
+    name: "mysql",
+    link: "https://www.mysql.com/",
+    type: "database",
+    label: "MySQL",
+  },
+  {
+    name: "php",
+    link: "https://www.php.net/",
+    type: "backend",
+    label: "PHP",
+  },
+  {
+    name: "pubsub",
+    link: "https://cloud.google.com/pubsub",
+    type: "backend",
+    label: "Pub/Sub",
+  },
+  {
+    name: "cypress",
+    link: "https://www.cypress.io/",
+    type: "frontend",
+    label: "Cypress",
+  },
+  {
+    name: "nifi",
+    link: "https://nifi.apache.org/",
+    type: "database",
+    label: "Apache NiFi",
+  },
+  {
+    name: "bigquery",
+    link: "https://cloud.google.com/bigquery",
+    type: "database",
+    label: "BigQuery",
+  },
+  {
+    name: "java",
+    link: "https://www.java.com/",
+    type: "backend",
+    label: "Java",
+  },
+  {
+    name: "springboot",
+    link: "https://spring.io/projects/spring-boot",
+    type: "backend",
+    label: "Spring Boot",
+  },
+  {
+    name: "fastapi",
+    link: "https://fastapi.tiangolo.com/",
+    type: "backend",
+    label: "FastAPI",
   },
   {
     name: "uml",
@@ -625,15 +796,16 @@ export const experiencesData: ExperienceCardData[] = [
     slug: "mottu",
     title: "Mottu",
     imageName: "Mottu.jpg",
-    location: "São Paulo, SP",
-    period: "Set 2025 - Atual",
-    role: "Desenvolvedor Backend (Estagiário)",
+    location: "São Paulo, SP (Remoto)",
+    period: "Set 2025 - Abr 2026",
+    role: "Desenvolvedor Backend",
     summary:
-      "Unicórnio brasileiro de mobilidade. Atuação no Squad de Infrações e Multas focada em redundância e dados estratégicos.",
+      "Unicórnio de mobilidade urbana. Atuação no Squad de Infrações focada em dados estratégicos, telemetria e resiliência financeira.",
     achievements: [
-      "Arquitetura Orientada a Eventos & Core Business: assegurei a consistência de dados operacionais e a retenção de repasses financeiros sem falhas de concorrência, ao desenvolver e orquestrar microsserviços seguros em .NET 8 utilizando mensageria (Pub/Sub), Docker e Kubernetes para lidar com complexidades espaciais (lat/long) e temporais (UTC).",
-      "Inovação (IA) & Redução de Custos: eliminei 2 horas de trabalho manual diário da operação logística, triando e processando com sucesso mais de 1.200 notificações/mês, ao arquitetar um CronJob em Kubernetes integrado a um LLM (Engenharia de Prompt / Few-Shot), salvando no PostgreSQL e mitigando multas NICs.",
-      "Sustentação & Observabilidade: evitei a perda de dezenas de milhares de reais semanais em penalidades, reduzindo drasticamente o tempo de resolução de incidentes de produção, ao criar painéis de monitorização analítica e alertas em tempo real no Datadog para um ecossistema híbrido (VMs e K8s).",
+      "Inovação com IA & Eficiência Operacional: eliminei 2 horas diárias de trabalho manual da operação logística ao projetar e implementar uma rotina agendada (Kubernetes CronJob) integrada a um modelo de linguagem (LLM via Few-Shot Prompt Engineering) para processar e estruturar mais de 1.200 notificações mensais caóticas no PostgreSQL.",
+      "Observabilidade Estratégica (Datadog): contornei a ausência de logs detalhados em sistemas legados ao configurar a telemetria nativa de Máquinas Virtuais (VMs) e estruturar dashboards analíticos no Datadog, estabelecendo visibilidade macro em tempo real sobre volumetria de dados e taxas de sucesso.",
+      "Integração de Dados & Solução de Falhas: garanti a estabilidade de fluxos logísticos cruciais e volumosos realizando o troubleshooting de integrações e a manutenção contínua de pipelines de produção através de ferramentas como Apache NiFi e Google BigQuery.",
+      "Análise de Gargalos & Redução de MTTR: evitei perdas financeiras semanais recorrentes em multas operacionais através do cruzamento de métricas em tempo real para isolar padrões de instabilidade sistêmica, reduzindo drasticamente o tempo médio de resolução (MTTR) de incidentes.",
     ],
     skillsLearned: [
       "dotnet",
@@ -647,6 +819,8 @@ export const experiencesData: ExperienceCardData[] = [
       "rancher",
       "argocd",
       "llm",
+      "nifi",
+      "bigquery",
     ],
     exploreHref: "/experiencia/mottu",
     exploreLabel: "Explorar melhor",
@@ -657,12 +831,13 @@ export const experiencesData: ExperienceCardData[] = [
     imageName: "PrimeiraTurmaSemeia.jpg",
     location: "Limeira, São Paulo, Brasil",
     period: "Jul 2024 - Fev 2026",
-    role: "Co-fundador e Coordenador Executivo/Educacional",
+    role: "Fundador e Coordenador Executivo",
     summary:
       "Co-fundei o Semeia Code para levar aulas de programação a escolas públicas e aproximar talentos do ensino médio da universidade.",
     achievements: [
-      "No primeiro semestre de 2025, impactamos 18 alunos com 3 alunos da Unicamp na organização.",
-      "No segundo semestre, conduzimos 2 turmas com 10 alunos e 7 alunos da Unicamp na organização; hoje atuo como conselheiro dos novos coordenadores.",
+      "Capacitação e engajamento ativo de dezenas de estudantes do ensino médio da comunidade local sem acesso à educação tecnológica.",
+      "Fundação do projeto do zero e liderança de equipe multidisciplinar de mais de 10 membros sob os princípios do desenvolvimento ágil.",
+      "Estruturação de metodologia de ensino, processos seletivos e trilhas práticas de aula em Python com sustentabilidade após transição de liderança.",
     ],
     skillsLearned: ["lideranca", "comunicacao", "oratoria", "design", "python"],
     exploreHref: "/experiencia/semeia-code",
@@ -678,8 +853,8 @@ export const experiencesData: ExperienceCardData[] = [
     summary:
       "Na Empresa Júnior atuei em duas frentes: marketing e comercial em 2024, e backend em 2025, com evolução da prospecção e requisitos até arquitetura e infraestrutura de software.",
     achievements: [
-      "2024: reestruturei o blog com foco em SEO, ultrapassando 1.000 usuários orgânicos/mês e apoiando pré-vendas e requisitos.",
-      "2025: desenvolvi backend em TypeScript com DDD/Clean Architecture, PostgreSQL/Prisma, Docker e AWS.",
+      "2024: reestruturei o blog com foco em SEO, ultrapassando 1.000 usuários orgânicos/mês e apoiando pré-vendas e requisitos técnicos.",
+      "2025: desenvolvi backend em TypeScript com DDD/Clean Architecture, PostgreSQL/Prisma, Docker e AWS para deploy e staging.",
     ],
     skillsLearned: [
       "comunicacao",
@@ -709,21 +884,22 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
     title: "Mottu",
     introTitle: "Mottu",
     intro:
-      "Unicórnio brasileiro de mobilidade com forte cultura de operação, tecnologia e escala. No time de Infrações e Multas, atuei em soluções orientadas a eventos e em observabilidade para processos críticos de negócio.",
+      "Unicórnio brasileiro de mobilidade com forte cultura de operação, tecnologia e escala. No Squad de Infrações, atuei em soluções orientadas a eventos, telemetria e observabilidade para processos críticos de negócio.",
     sections: [
       {
         slug: "mottu",
-        title: "Desenvolvedor Backend · Estagiário",
+        title: "Desenvolvedor Backend",
         imageName: "Mottu.jpg",
-        location: "São Paulo, SP",
-        period: "Set 2025 - Atual",
-        role: "Desenvolvedor Backend (Estagiário)",
+        location: "São Paulo, SP (Remoto)",
+        period: "Set 2025 - Abr 2026",
+        role: "Desenvolvedor Backend",
         summary:
-          "Atuação no Squad de Infrações e Multas focada em redundância, consistência de dados e entrega confiável em produção.",
+          "Atuação no Squad de Infrações focada em redundância, consistência de dados, telemetria analítica e entrega confiável em produção.",
         achievements: [
-          "Arquitetura Orientada a Eventos & Core Business: assegurei a consistência de dados operacionais e a retenção de repasses financeiros sem falhas de concorrência, ao desenvolver e orquestrar microsserviços seguros em .NET 8 utilizando mensageria (Pub/Sub), Docker e Kubernetes para lidar com complexidades espaciais (lat/long) e temporais (UTC).",
-          "Inovação (IA) & Redução de Custos: eliminei 2 horas de trabalho manual diário da operação logística, triando e processando com sucesso mais de 1.200 notificações/mês, ao arquitetar um CronJob em Kubernetes integrado a um LLM (Engenharia de Prompt / Few-Shot), salvando no PostgreSQL e mitigando multas NICs.",
-          "Sustentação & Observabilidade: evitei a perda de dezenas de milhares de reais semanais em penalidades, reduzindo drasticamente o tempo de resolução de incidentes de produção, ao criar painéis de monitorização analítica e alertas em tempo real no Datadog para um ecossistema híbrido (VMs e K8s).",
+          "Inovação com IA & Eficiência Operacional: eliminei 2 horas diárias de trabalho manual da operação logística ao projetar e implementar uma rotina agendada (Kubernetes CronJob) integrada a um modelo de linguagem (LLM via Few-Shot Prompt Engineering) para processar e estruturar mais de 1.200 notificações mensais caóticas no PostgreSQL.",
+          "Observabilidade Estratégica (Datadog): contornei a ausência de logs detalhados em sistemas legados ao configurar a telemetria nativa de Máquinas Virtuais (VMs) e estruturar dashboards analíticos no Datadog, estabelecendo visibilidade macro em tempo real sobre volumetria de dados e taxas de sucesso.",
+          "Integração de Dados & Solução de Falhas: garanti a estabilidade de fluxos logísticos cruciais e volumosos realizando o troubleshooting de integrações e a manutenção contínua de pipelines de produção através de ferramentas como Apache NiFi e Google BigQuery.",
+          "Análise de Gargalos & Redução de MTTR: evitei perdas financeiras semanais recorrentes em multas operacionais através do cruzamento de métricas em tempo real para isolar padrões de instabilidade sistêmica, reduzindo drasticamente o tempo médio de resolução (MTTR) de incidentes.",
         ],
         skillsLearned: [
           "dotnet",
@@ -737,6 +913,8 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
           "rancher",
           "argocd",
           "llm",
+          "nifi",
+          "bigquery",
         ],
       },
     ],
@@ -759,10 +937,9 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
           "Atuei na frente comercial e de pré-vendas, com foco em marketing, outbound e qualificação técnica para fortalecer o funil de novos projetos.",
         achievements: [
           "Geração de Demanda (Marketing): liderei a reestruturação estratégica do blog da Atria Jr. com foco em SEO, gerando mais de 1.000 usuários orgânicos mensais.",
-          "Prospecção Ativa (Outbound): realizei prospecção B2B de novos clientes por abordagens digitais (cold messages) e presenciais.",
+          "Prospecção Ativa (Outbound): realizei prospecção B2B de novos clientes por abordagens digitais e presenciais.",
           "Pré-Vendas e Requisitos: conduzi reuniões diagnósticas para qualificação de leads, atuando como ponte técnica entre cliente e time de desenvolvimento.",
           "Elicitação de requisitos e apoio à precificação de soluções de software.",
-          "Desenvolvi e mantive páginas do blog e landing pages em WordPress com customizações em HTML/CSS.",
         ],
         skillsLearned: [
           "comunicacao",
@@ -787,7 +964,6 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
           "Adquiri experiência prática na configuração e gerenciamento da infraestrutura de deploy e staging, utilizando Docker, Docker Compose e serviços da AWS (EC2 e S3).",
           "Auxiliei na estruturação e gerenciamento do banco de dados PostgreSQL e na utilização do ORM Prisma.",
           "Colaborei na modelagem técnica do sistema e na aplicação de boas práticas de desenvolvimento para garantir a qualidade e manutenibilidade do código.",
-          "Nas visitas técnicas, conheci melhores práticas e conversei com CTOs e CEOs de grandes empresas, incluindo Conquer e AGI.",
         ],
         skillsLearned: [
           "typescript",
@@ -813,15 +989,15 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
       {
         slug: "semeia-code",
         title: "Começo do projeto",
-        imageName: "ComeçoSemeiaCode.jpg",
+        imageName: "ComecoSemeiaCode.jpg",
         location: "Limeira, São Paulo, Brasil",
         period: "Jul 2024 - Fev 2025",
-        role: "Co-fundador, Coordenador Executivo e Educacional",
+        role: "Fundador e Coordenador Executivo/Educacional",
         summary:
-          "A etapa inicial foi dedicada à escrita científica para estruturar o projeto, buscar as primeiras pessoas e validar as ideias do Semeia Code.",
+          "A etapa inicial foi dedicada à escrita científica para estruturar o projeto, buscar os primeiros membros e validar as ideias do Semeia Code.",
         achievements: [
-          "Escrita científica para estruturar o projeto inicial.",
-          "Busca das primeiras pessoas para participar da iniciativa.",
+          "Escrita científica para estruturar a proposta do projeto inicial.",
+          "Busca e engajamento dos primeiros membros da Unicamp para compor a equipe.",
           "Validação das ideias e do formato pedagógico do Semeia Code.",
         ],
         skillsLearned: ["lideranca", "comunicacao", "oratoria", "design"],
@@ -834,12 +1010,11 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         period: "Jul 2025 - Fev 2026",
         role: "Coordenador Executivo e Educacional",
         summary:
-          "Reestruturei cargos, processo seletivo, reuniões e modelos de aula; dei aula à noite na Ely e uma aula na Nexus, além de conduzir os processos seletivos para 2025.2 e 2026.1.",
+          "Reestruturei cargos, processo seletivo, reuniões e modelos de aula; ministrei aulas na E. E. Ely e na Nexus (crianças superdotadas), além de apoiar os novos coordenadores.",
         achievements: [
-          "Reestruturação total dos cargos, do processo seletivo, das reuniões e dos modelos de aula.",
-          "Aulas à noite na Ely e uma aula na Nexus, organização para crianças superdotadas.",
-          "Condução do processo seletivo para 2025.2 e 2026.1 como coordenador executivo e educacional.",
-          "Atuação em suporte como conselho para os novos coordenadores executivos e educacionais.",
+          "Reestruturação total dos cargos, processo seletivo e modelos de aula.",
+          "Aulas noturnas na escola estadual Ely e workshop na organização Nexus.",
+          "Condução do processo seletivo e atuação como conselho consultivo para a nova gestão.",
         ],
         skillsLearned: [
           "lideranca",
@@ -857,11 +1032,11 @@ export const experiencesDetailsData: ExperienceDetailPageData[] = [
         period: "Mar 2025 - Jun 2025",
         role: "Professor e Coordenador do Projeto",
         summary:
-          "Tivemos uma turma na E. E. Ely com 13 alunos, ministrando 8 aulas de Python, com atuação direta na docência e na coordenação.",
+          "Primeira turma prática na E. E. Ely com 13 alunos, ministrando 8 aulas de lógica e programação em Python.",
         achievements: [
-          "Turma com 13 alunos na E. E. Ely.",
-          "Ministrei 8 aulas de Python.",
-          "Atuei como professor e coordenador do projeto, ao lado de mais um professor e um corretor de alunos.",
+          "Turma com 13 alunos na escola estadual parceira.",
+          "Ministração de 8 aulas práticas de introdução à programação com Python.",
+          "Atuação direta na docência e coordenação geral da equipe em sala.",
         ],
         skillsLearned: [
           "lideranca",
@@ -884,15 +1059,15 @@ export const socialLinks: Record<string, string> = {
 export const collegeData: CollegeDetailData = {
   institution: "Unicamp",
   course: "Análise e Desenvolvimento de Sistemas",
-  period: "2024 - 2026",
-  status: "Em formação",
+  period: "2024 - 2027",
+  status: "Em formação (Previsão: Dez 2027)",
   location: "Limeira, SP",
   summary:
-    "Minha formação combina base acadêmica e aplicação prática em engenharia de software, com foco em backend, dados e arquitetura para sistemas de alta confiabilidade.",
+    "Minha formação na Faculdade de Tecnologia da Unicamp combina base acadêmica rigorosa e aplicação prática em engenharia de software, com foco em backend, sistemas distribuídos, dados e arquitetura para soluções de alta confiabilidade.",
   pillars: [
     "Fundamentos sólidos de estruturas de dados, banco de dados e engenharia de software.",
-    "Projetos aplicados em C, C++, Node.js e desenvolvimento web moderno.",
-    "Evolução constante em arquitetura, modelagem e qualidade de código.",
+    "Projetos aplicados em C, C++, C# (.NET), Python e desenvolvimento web moderno.",
+    "Evolução constante em arquitetura distribuída, modelagem de domínio e qualidade de código.",
   ],
   subjects: [
     "Estruturas de Dados",

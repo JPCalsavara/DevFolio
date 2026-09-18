@@ -189,6 +189,30 @@ function normalizeType(category: string | undefined): string {
   return category || "default";
 }
 
+function isSupabaseConfigured(): boolean {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!url || !key) return false;
+  if (
+    url.includes("placeholder") ||
+    url.includes("YOUR_PROJECT_REF") ||
+    url.includes("SEU_PROJECT_REF")
+  ) {
+    return false;
+  }
+  if (
+    key.includes("placeholder") ||
+    key.includes("YOUR_ANON_KEY") ||
+    key.includes("sua_anon_key")
+  ) {
+    return false;
+  }
+  return true;
+}
+
 function fallbackProjects(): PortfolioProject[] {
   return projectsData.map((project) => ({
     id: `legacy-project-${project.slug}`,
@@ -201,9 +225,9 @@ function fallbackProjects(): PortfolioProject[] {
     imageUrl: project.urlName ? `/images/projects/${project.urlName}` : null,
     produtionLink: project.produtionLink || null,
     repositoryLink: project.repositoryLink || null,
-    detailsGoal: null,
-    detailsHighlights: [],
-    detailsImpact: null,
+    detailsGoal: project.detailsGoal ?? null,
+    detailsHighlights: project.detailsHighlights ?? [],
+    detailsImpact: project.detailsImpact ?? null,
     createdAt: new Date(0).toISOString(),
   }));
 }
@@ -301,6 +325,10 @@ function fallbackTechnologies(): PortfolioTechnology[] {
 }
 
 export async function getPortfolioProjects(): Promise<PortfolioProject[]> {
+  if (!isSupabaseConfigured()) {
+    return fallbackProjects();
+  }
+
   const { data, error } = await supabaseServer
     .from("projects")
     .select(
@@ -323,6 +351,10 @@ export async function getPortfolioProjects(): Promise<PortfolioProject[]> {
 export async function getPortfolioProjectBySlug(
   slug: string,
 ): Promise<PortfolioProject | null> {
+  if (!isSupabaseConfigured()) {
+    return fallbackProjects().find((project) => project.slug === slug) || null;
+  }
+
   const { data, error } = await supabaseServer
     .from("projects")
     .select(
@@ -346,6 +378,10 @@ export async function getPortfolioProjectBySlug(
 export async function getPortfolioExperiences(): Promise<
   PortfolioExperience[]
 > {
+  if (!isSupabaseConfigured()) {
+    return fallbackExperiences();
+  }
+
   const { data, error } = await supabaseServer
     .from("experiences")
     .select(
@@ -368,6 +404,10 @@ export async function getPortfolioExperiences(): Promise<
 export async function getPortfolioExperienceBySlug(
   slug: string,
 ): Promise<PortfolioExperience | null> {
+  if (!isSupabaseConfigured()) {
+    return fallbackExperienceBySlug(slug);
+  }
+
   const { data, error } = await supabaseServer
     .from("experiences")
     .select(
@@ -394,6 +434,10 @@ export async function getPortfolioExperienceBySlug(
 export async function getPortfolioTechnologies(): Promise<
   PortfolioTechnology[]
 > {
+  if (!isSupabaseConfigured()) {
+    return fallbackTechnologies();
+  }
+
   const { data, error } = await supabaseServer
     .from("habilidades")
     .select("id, name, label, type, link, icon_url")
