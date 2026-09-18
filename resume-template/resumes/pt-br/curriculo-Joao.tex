@@ -33,12 +33,12 @@
 \usepackage{xurl}
 
 % --- CONFIGURAÇÃO: MARGENS / ESPAÇAMENTO ---
-\geometry{top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm} % Margens da página
+\geometry{top=1.3cm, bottom=1.3cm, left=1.4cm, right=1.4cm} % Margens da página
 \setcounter{secnumdepth}{0}                                 % Remove numeração de seção
 \setlist[itemize]{
-    leftmargin=0.75em, % Recuo da lista (mais perto da margem da página)
-    itemsep=0.2em,     % Espaço entre itens
-    topsep=0.25em,     % Espaço antes/depois da lista
+    leftmargin=0.75em, % Recuo da lista
+    itemsep=0.15em,    % Espaço entre itens
+    topsep=0.2em,      % Espaço antes/depois da lista
     parsep=0em,        % Espaço entre parágrafos no mesmo item
     partopsep=0em      % Espaço extra ao iniciar a lista
 }
@@ -63,13 +63,13 @@
 {}
 {0em}
 {}
-[\titlerule\vspace{0.5ex}]
+[\titlerule\vspace{0.4ex}]
 \titleformat{\subsection}
 {\normalsize\bfseries}
 {}
 {0em}
 {}
-\titlespacing*{\subsection}{0pt}{0.35em}{0.15em}
+\titlespacing*{\subsection}{0pt}{0.3em}{0.15em}
 
 % Macro para entradas do currículo com bookmark no PDF
 \newcounter{cventry}
@@ -87,51 +87,69 @@
 \begin{document}
 
 % --- CABEÇALHO ---
-% Substitua por suas informações pessoais
 \begin{center}
     {\LARGE \textbf{João Pedro Calsavara}} 
     \\ [0.1cm]
     Limeira, SP
     {\textbullet}
-    \href{mailto:jpcalsavara@email.com}{jpcalsavara@email.com} 
+    (15) 99669-0551
+    {\textbullet}
+    \href{mailto:jpcalsavara@gmail.com}{jpcalsavara@gmail.com} 
     {\textbullet}
     \href{https://linkedin.com/in/joaopedrocalsavara}{linkedin.com/in/joaopedrocalsavara} 
     {\textbullet}
     \href{https://github.com/JPCalsavara}{github.com/JPCalsavara}
 \end{center}
 
-% --- SEÇÕES ---
+% --- RESUMO PROFISSIONAL ---
+\section{Resumo Profissional}
+Desenvolvedor de Software com sólida experiência em desenvolvimento Backend e Full Stack, atuando com alta proficiência no ecossistema .NET (C\#). Especialista na sustentação de arquiteturas de alta volumetria, engenharia de dados e observabilidade de sistemas de missão crítica. Histórico comprovado no aumento de eficiência operacional através da integração de Inteligência Artificial (LLMs) e automação de fluxos corporativos. Proficiente em Clean Architecture, Domain-Driven Design (DDD) e testes automatizados (Cypress, xUnit e Moq).
 
+% --- EDUCAÇÃO ---
 \section{Educação}
-    % Formação mais recente primeiro
-    \cventry{Universidade Estadual de Campinas (UNICAMP)}{Limeira, SP}{Tecnólogo em Análise e Desenvolvimento de Sistemas}{Fev 2023 - Dez 2026}
+    \cventry{Universidade Estadual de Campinas (UNICAMP)}{Limeira, SP}{Tecnólogo em Análise e Desenvolvimento de Sistemas — Faculdade de Tecnologia}{Mar 2024 - Dez 2027 (Previsão)}
 
-\section{Experiência}
-    \cventry{Mottu}{São Paulo, SP}{Desenvolvedor Backend (Estagiário)}{Set 2025 - Atual}
+% --- EXPERIÊNCIA PROFISSIONAL ---
+\section{Experiência Profissional}
+    \cventry{Mottu}{São Paulo, SP (Remoto)}{Desenvolvedor Backend}{Set 2025 - Abr 2026}
         \begin{itemize}
-            \item Assegurou a consistência de dados operacionais e retenção de repasses financeiros ao desenvolver microsserviços escaláveis em .NET 8 utilizando mensageria (Pub/Sub), Docker e Kubernetes.
-            \item Eliminou 2 horas de trabalho manual diário na operação logística arquitetando um CronJob em Kubernetes integrado a LLM (Engenharia de Prompt) para triagem de notificações.
-            \item Evitou perdas semanais de penalidades e reduziu o tempo de resolução de incidentes ao criar painéis analíticos e alertas em tempo real no Datadog.
+            \item \textbf{Inovação com IA \& Eficiência Operacional:} Eliminei 2 horas diárias de trabalho manual da operação logística ao projetar e implementar uma rotina agendada (Kubernetes CronJob) integrada a um modelo de linguagem (LLM via Few-Shot Prompt Engineering) para processar e estruturar mais de 1.200 notificações mensais caóticas no PostgreSQL.
+            \item \textbf{Observabilidade Estratégica (Datadog):} Configurei a telemetria nativa de Máquinas Virtuais (VMs) e estruturei dashboards analíticos no Datadog, estabelecendo visibilidade macro em tempo real sobre volumetria de dados e taxas de sucesso do processamento.
+            \item \textbf{Integração de Dados \& Solução de Falhas:} Garanti a estabilidade de fluxos logísticos cruciais e volumosos realizando o troubleshooting de integrações e a manutenção contínua de pipelines de produção através de Apache NiFi e Google BigQuery.
+            \item \textbf{Análise de Gargalos \& Redução de MTTR:} Evitei perdas financeiras semanais recorrentes em multas operacionais através do isolamento de padrões de instabilidade sistêmica em tempo real, reduzindo drasticamente o tempo médio de resolução (MTTR) de incidentes.
         \end{itemize}
 
     \cventry{Atria Jr.}{Limeira, SP}{Desenvolvedor Backend / Assessor Comercial}{Mai 2024 - Set 2025}
         \begin{itemize}
-            \item Desenvolveu aplicação web backend em TypeScript seguindo Clean Architecture e Domain-Driven Design (DDD), utilizando PostgreSQL, Prisma, Docker e infraestrutura AWS.
-            \item Reestruturou estrategicamente o blog com foco em SEO, gerando mais de 1.000 usuários orgânicos mensais para a Empresa Júnior.
-            \item Conduziu reuniões diagnósticas atuando como ponte técnica entre cliente e time de desenvolvimento para estruturar propostas comerciais.
+            \item Desenvolveu aplicação web backend em TypeScript com Clean Architecture e Domain-Driven Design (DDD), utilizando PostgreSQL, Prisma, Docker e infraestrutura AWS.
+            \item Reestruturou estrategicamente o blog com foco em SEO, superando 1.000 usuários orgânicos mensais e apoiando pré-vendas com diagnóstico técnico e requisitos.
         \end{itemize}
 
-\section{Atividades de Liderança}
-    \cventry{Semeia Code}{Limeira, SP}{Co-fundador e Coordenador Executivo}{Jul 2024 - Fev 2026}
+% --- PROJETOS DE DESTAQUE ---
+\section{Projetos de Destaque}
+    \cventry{InterceptorSystem}{Projeto Pessoal Full Stack}{Plataforma de Gestão Corporativa SaaS}{Nov 2024 - Atual}
         \begin{itemize}
-            \item Co-fundou projeto de extensão para ampliar o acesso à educação em programação para alunos de escolas públicas no ensino médio.
-            \item Coordenou equipes multidisciplinares compostas por alunos da Unicamp, impactando diretamente e continuamente dezenas de estudantes a cada semestre.
+            \item \textbf{Inteligência Artificial \& Workflows Agentes:} Acelerou o ciclo de desenvolvimento integrando fluxos autônomos de agentes de IA baseados em LLMs para construção de novas funcionalidades, depuração de erros e geração de testes.
+            \item \textbf{Qualidade Full-Stack \& Cobertura de Testes:} Assegurou alta confiabilidade com testes automatizados utilizando Cypress (E2E e componentes no Angular 18) e testes unitários/integração no backend .NET 8 (xUnit, Moq).
+            \item \textbf{Arquitetura de Software \& Cloud (CI/CD):} Arquitetou backend modular em C\# .NET 8 com Clean Architecture e DDD, esteiras de CI/CD via GitHub Actions e infraestrutura na nuvem AWS (EC2, S3, redes) em Docker.
         \end{itemize}
 
-\section{Habilidades}
+% --- ATIVIDADES DE LIDERANÇA ---
+\section{Atividades de Liderança}
+    \cventry{Semeia Code (Extensão Universitária - UNICAMP)}{Limeira, SP}{Fundador e Coordenador Executivo}{Jul 2024 - Fev 2026}
+        \begin{itemize}
+            \item Fundou o projeto do zero e liderou equipe multidisciplinar de mais de 10 membros sob princípios ágeis, capacitando e engajando ativamente dezenas de estudantes do ensino médio da rede pública em programação com Python.
+        \end{itemize}
+
+% --- HABILIDADES TÉCNICAS ---
+\section{Habilidades Técnicas}
     \begin{itemize}
-        \item \textbf{Técnicas:} C#, .NET 8, TypeScript, Python, Next.js, PostgreSQL, SQL Server, Docker, Kubernetes, AWS, RabbitMQ, Datadog, xUnit.
-        \item \textbf{Idiomas:} Português (Nativo), Inglês (Avançado).
+        \item \textbf{Linguagens \& Frameworks:} C\#, .NET Core 8, Java, Spring Boot, Angular, TypeScript, JavaScript, Python, FastAPI, APIs RESTful.
+        \item \textbf{Nuvem \& DevOps:} AWS (EC2, S3), Docker, Containers, Git, GitHub Actions (CI/CD), Kubernetes.
+        \item \textbf{Dados, IA \& Observabilidade:} Datadog, Google BigQuery, Apache NiFi, Engenharia de Prompt, Agentic Workflows.
+        \item \textbf{Arquitetura \& Qualidade:} Clean Architecture, Domain-Driven Design (DDD), SOLID, Cypress (E2E \& Componentes), xUnit, Moq.
+        \item \textbf{Bancos de Dados:} PostgreSQL, SQL Server, MySQL.
+        \item \textbf{Idiomas:} Português (Nativo), Inglês (Avançado — fluência profissional completa para leitura técnica, escrita e conversação).
     \end{itemize}
 
 \end{document}
