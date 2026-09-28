@@ -1,7 +1,7 @@
 {
   "name": "devfolio",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Template de portfólio profissional Local-First com Next.js 16, Material-UI, suporte opcional a Supabase e Gemini AI.",
   "author": "João Pedro Calsavara",
   "license": "MIT",
@@ -36,6 +36,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "sass": "^1.105.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1"
   }

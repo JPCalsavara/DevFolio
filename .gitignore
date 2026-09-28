@@ -20,6 +20,7 @@ bun.lockb
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*
