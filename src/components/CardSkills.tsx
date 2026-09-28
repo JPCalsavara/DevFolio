@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Card,
   CardActionArea,
@@ -5,6 +8,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { resolveTechIcon } from "@/lib/techIcons";
 
 type CardSkillProps = {
   name: string;
@@ -32,49 +36,9 @@ export default function CardSkills({
   isHovered,
   iconUrl,
 }: CardSkillProps) {
-  const imageByTech: Record<string, string> = {
-    aws: "/images/tecnologies/AWS.png",
-    angular: "/images/tecnologies/Angular.png",
-    c: "/images/tecnologies/C.png",
-    "c++": "/images/tecnologies/C++.png",
-    csharp: "/images/tecnologies/CSharp.png",
-    css: "/images/tecnologies/CSS.png",
-    datadog: "/images/tecnologies/Datadog.png",
-    docker: "/images/tecnologies/Docker.png",
-    express: "/images/tecnologies/Express.png",
-    git: "/images/tecnologies/Git.png",
-    html: "/images/tecnologies/HTML.png",
-    insomnia: "/images/tecnologies/Insomnia.png",
-    kubernetes: "/images/tecnologies/Kubernetes.png",
-    linux: "/images/tecnologies/Linux.png",
-    mongodb: "/images/tecnologies/mongodb.png",
-    nginx: "/images/tecnologies/NGINX.png",
-    nextjs: "/images/tecnologies/Next.js.png",
-    node: "/images/tecnologies/Node.png",
-    postgres: "/images/tecnologies/PostgresSQL.png",
-    prisma: "/images/tecnologies/Prisma.png",
-    python: "/images/tecnologies/Python.png",
-    rabbitmq: "/images/tecnologies/RabbitMQ.png",
-    rancher: "/images/tecnologies/Rancher.png",
-    react: "/images/tecnologies/React.png",
-    rider: "/images/tecnologies/Rider.png",
-    sqlserver: "/images/tecnologies/sqlserver.svg",
-    supabase: "/images/tecnologies/SupaBase.png",
-    swagger: "/images/tecnologies/Swagger.png",
-    tailwind: "/images/tecnologies/Tailwind.png",
-    typescript: "/images/tecnologies/TypeScript.png",
-    uml: "/images/tecnologies/Unified Modelling Language (UML).png",
-    xunit: "/images/tecnologies/xUnit.png",
-    argocd: "/images/tecnologies/Argo CD.png",
-    dotnet: "/images/tecnologies/NET.png",
-    vercel: "/images/tecnologies/vercel.png",
-    javascript: "/images/tecnologies/JavaScript.png",
-    mysql: "/images/tecnologies/MySQL.png",
-    php: "/images/tecnologies/PHP.png",
-    pubsub: "/images/tecnologies/PubSub.png",
-  };
-  const imagePath =
-    iconUrl || imageByTech[name] || "/images/icons/screen-svgrepo-com.svg";
+  const initialIcon = resolveTechIcon(name, iconUrl);
+  const [imgSrc, setImgSrc] = useState(initialIcon);
+
   const bgColor = isHovered
     ? colorByCategory[type] || colorByCategory.default
     : "rgba(255,255,255,0.02)";
@@ -96,8 +60,9 @@ export default function CardSkills({
         <CardContent sx={{ display: "grid", placeItems: "center", gap: 1 }}>
           <Box
             component="img"
-            src={imagePath}
+            src={imgSrc}
             alt={`${name} logo`}
+            onError={() => setImgSrc("/images/icons/screen-svgrepo-com.svg")}
             loading="lazy"
             decoding="async"
             sx={{ width: 64, height: 64, objectFit: "contain" }}

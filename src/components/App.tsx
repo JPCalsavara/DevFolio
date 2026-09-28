@@ -18,16 +18,14 @@ import type {
 type AppProps = {
   projects: PortfolioProject[];
   experiences: PortfolioExperience[];
-  technologies: PortfolioTechnology[];
-  legendItems: LegendItem[];
+  technologies?: PortfolioTechnology[];
+  legendItems?: LegendItem[];
   tagsMap: TechnologyTagMap;
 };
 
 export default function App({
   projects,
   experiences,
-  technologies,
-  legendItems,
   tagsMap,
 }: AppProps) {
   return (
@@ -38,7 +36,7 @@ export default function App({
       <Hero />
       <College />
       <Projects projects={projects} tagsMap={tagsMap} />
-      <Skills technologies={technologies} legendItems={legendItems} />
+      <Skills />
       <Contact />
     </Box>
   );

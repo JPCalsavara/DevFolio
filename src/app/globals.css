@@ -1,14 +1,127 @@
 /* ========================================================
-   Perfil: Backend / Data Dev
-   Terminal-chic: escuro, focado, técnico, sem frescura.
+   Theme Presets - CSS Custom Properties
+   Sincronizadas com o preset selecionado no navbar
    ======================================================== */
-:root {
-  --bg-main: #05101e;
-  --bg-accent: #0b1a2e;
-  --blue-primary: #4f9cf9;
-  --blue-secondary: #38bdf8;
-  --text-primary: #edf2ff;
-  --text-secondary: #8bafc9;
+
+:root,
+[data-theme="blue-terminal"] {
+  --bg-default: #030712;
+  --bg-paper: #071324;
+  --bg-card: rgba(11, 26, 46, 0.82);
+  --bg-card-hover: rgba(15, 34, 60, 0.92);
+  --aura-1: rgba(56, 189, 248, 0.16);
+  --aura-2: rgba(79, 156, 249, 0.13);
+  --aura-center: rgba(15, 40, 80, 0.35);
+  --primary-main: #38bdf8;
+  --primary-light: #7dd3fc;
+  --primary-dark: #0284c7;
+  --primary-contrast: #030712;
+  --secondary-main: #60a5fa;
+  --secondary-light: #93c5fd;
+  --secondary-dark: #2563eb;
+  --border-subtle: rgba(56, 189, 248, 0.16);
+  --border-active: rgba(56, 189, 248, 0.4);
+  --border-highlight: rgba(56, 189, 248, 0.6);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --selection-bg: rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="emerald-tech"] {
+  --bg-default: #02120a;
+  --bg-paper: #062417;
+  --bg-card: rgba(6, 36, 22, 0.82);
+  --bg-card-hover: rgba(9, 48, 30, 0.92);
+  --aura-1: rgba(16, 185, 129, 0.18);
+  --aura-2: rgba(6, 182, 212, 0.13);
+  --aura-center: rgba(6, 40, 26, 0.4);
+  --primary-main: #10b981;
+  --primary-light: #34d399;
+  --primary-dark: #059669;
+  --primary-contrast: #02120a;
+  --secondary-main: #34d399;
+  --secondary-light: #6ee7b7;
+  --secondary-dark: #059669;
+  --border-subtle: rgba(16, 185, 129, 0.18);
+  --border-active: rgba(16, 185, 129, 0.42);
+  --border-highlight: rgba(52, 211, 153, 0.6);
+  --text-primary: #f0fdf4;
+  --text-secondary: #a7f3d0;
+  --text-muted: #6ee7b7;
+  --selection-bg: rgba(16, 185, 129, 0.25);
+}
+
+[data-theme="purple-cyberpunk"] {
+  --bg-default: #0c0418;
+  --bg-paper: #180930;
+  --bg-card: rgba(28, 12, 52, 0.82);
+  --bg-card-hover: rgba(38, 18, 70, 0.92);
+  --aura-1: rgba(168, 85, 247, 0.2);
+  --aura-2: rgba(244, 63, 94, 0.14);
+  --aura-center: rgba(38, 12, 65, 0.45);
+  --primary-main: #a855f7;
+  --primary-light: #c084fc;
+  --primary-dark: #7e22ce;
+  --primary-contrast: #ffffff;
+  --secondary-main: #f43f5e;
+  --secondary-light: #fb7185;
+  --secondary-dark: #e11d48;
+  --border-subtle: rgba(168, 85, 247, 0.22);
+  --border-active: rgba(168, 85, 247, 0.48);
+  --border-highlight: rgba(192, 132, 252, 0.65);
+  --text-primary: #faf5ff;
+  --text-secondary: #d8b4fe;
+  --text-muted: #c084fc;
+  --selection-bg: rgba(168, 85, 247, 0.3);
+}
+
+[data-theme="amber-glow"] {
+  --bg-default: #120902;
+  --bg-paper: #221205;
+  --bg-card: rgba(38, 20, 8, 0.82);
+  --bg-card-hover: rgba(50, 28, 11, 0.92);
+  --aura-1: rgba(245, 158, 11, 0.18);
+  --aura-2: rgba(249, 115, 22, 0.13);
+  --aura-center: rgba(48, 22, 5, 0.42);
+  --primary-main: #f59e0b;
+  --primary-light: #fbbf24;
+  --primary-dark: #d97706;
+  --primary-contrast: #120902;
+  --secondary-main: #fb923c;
+  --secondary-light: #fdba74;
+  --secondary-dark: #ea580c;
+  --border-subtle: rgba(245, 158, 11, 0.22);
+  --border-active: rgba(245, 158, 11, 0.48);
+  --border-highlight: rgba(251, 191, 36, 0.65);
+  --text-primary: #fffbeb;
+  --text-secondary: #fde68a;
+  --text-muted: #fbbf24;
+  --selection-bg: rgba(245, 158, 11, 0.28);
+}
+
+[data-theme="monochrome-slate"] {
+  --bg-default: #090d16;
+  --bg-paper: #131b2e;
+  --bg-card: rgba(19, 27, 46, 0.82);
+  --bg-card-hover: rgba(27, 38, 64, 0.92);
+  --aura-1: rgba(148, 163, 184, 0.16);
+  --aura-2: rgba(56, 189, 248, 0.12);
+  --aura-center: rgba(15, 23, 42, 0.42);
+  --primary-main: #94a3b8;
+  --primary-light: #cbd5e1;
+  --primary-dark: #64748b;
+  --primary-contrast: #090d16;
+  --secondary-main: #38bdf8;
+  --secondary-light: #7dd3fc;
+  --secondary-dark: #0284c7;
+  --border-subtle: rgba(148, 163, 184, 0.2);
+  --border-active: rgba(148, 163, 184, 0.42);
+  --border-highlight: rgba(203, 213, 225, 0.6);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --selection-bg: rgba(148, 163, 184, 0.28);
 }
 
 * {
@@ -26,27 +139,29 @@ body {
   min-height: 100%;
   background:
     radial-gradient(
-      ellipse at 10% 10%,
-      rgba(79, 156, 249, 0.14) 0%,
-      transparent 45%
+      ellipse at 15% 15%,
+      var(--aura-1) 0%,
+      transparent 55%
     ),
     radial-gradient(
-      ellipse at 90% 80%,
-      rgba(56, 189, 248, 0.10) 0%,
-      transparent 40%
+      ellipse at 85% 80%,
+      var(--aura-2) 0%,
+      transparent 50%
     ),
     radial-gradient(
       ellipse at 50% 50%,
-      rgba(15, 40, 80, 0.4) 0%,
+      var(--aura-center) 0%,
       transparent 70%
     ),
-    linear-gradient(160deg, var(--bg-main) 0%, #020b16 100%);
+    linear-gradient(165deg, var(--bg-default) 0%, var(--bg-paper) 100%);
   background-attachment: fixed;
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Seleção de texto com a cor da marca */
 ::selection {
-  background: rgba(79, 156, 249, 0.3);
+  background: var(--selection-bg);
   color: var(--text-primary);
 }
 
@@ -55,19 +170,19 @@ a {
   text-decoration: none;
 }
 
-/* Scrollbar estilizada — detalhe de quem sabe o que faz */
+/* Scrollbar estilizada */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-main);
+  background: var(--bg-default);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(79, 156, 249, 0.25);
+  background: var(--border-subtle);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(79, 156, 249, 0.5);
+  background: var(--border-active);
 }
 
 /* Micro-animações globais */
@@ -85,9 +200,4 @@ a {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 156, 249, 0); }
-  50%       { box-shadow: 0 0 16px 4px rgba(79, 156, 249, 0.2); }
 }

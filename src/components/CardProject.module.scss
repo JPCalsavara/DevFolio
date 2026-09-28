@@ -1,0 +1,165 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.projectCard {
+  @include glass-card($bg: rgba(18, 23, 34, 0.85), $border: rgba(125, 211, 252, 0.15));
+  padding: $spacing-sm;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: $radius-lg;
+  transition: transform $transition-fast, border-color $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                0 0 16px -2px rgba(56, 189, 248, 0.2);
+  }
+}
+
+.imageWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: $radius-md;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.projectImage {
+  object-fit: cover;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: $spacing-md $spacing-xs $spacing-xs;
+}
+
+.infoStack {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: $text-primary;
+  letter-spacing: -0.01em;
+}
+
+.metaRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: space-between;
+
+  @media (min-width: $bp-tablet) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.summaryLine {
+  color: $text-secondary;
+  font-style: italic;
+  line-height: 1.35;
+  font-size: 0.9rem;
+}
+
+.period {
+  color: $text-secondary;
+  font-weight: 700;
+  font-size: 0.88rem;
+  min-width: 8rem;
+  line-height: 1.35;
+  text-align: left;
+
+  @media (min-width: $bp-tablet) {
+    text-align: right;
+  }
+}
+
+.description {
+  margin: 0;
+  color: $text-secondary;
+  line-height: 1.7;
+  font-size: 0.92rem;
+}
+
+.actionsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin-top: $spacing-md;
+
+  @media (min-width: $bp-mobile) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.btnAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: $radius-md;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  width: 100%;
+  font-family: inherit;
+  border: none;
+  background: none;
+
+  @media (min-width: $bp-mobile) {
+    width: auto;
+  }
+}
+
+.btnActive {
+  background: var(--primary-main, #38bdf8);
+  color: var(--primary-contrast, #030712);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+    transform: translateY(-1px);
+    color: var(--primary-contrast, #030712);
+  }
+}
+
+.btnDisabled {
+  background: rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+  border: 1px dashed rgba(148, 163, 184, 0.28);
+  box-shadow: none;
+  cursor: not-allowed;
+  user-select: none;
+  opacity: 0.85;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: #94a3b8;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.actionIcon {
+  font-size: 1.1rem;
+}

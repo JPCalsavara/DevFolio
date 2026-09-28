@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Box, Button, Stack } from "@mui/material";
-import { socialLinks } from "@/data/portfolioData";
+import { cvConfig, socialLinks } from "@/data/portfolioData";
 
 export default function SocialIcon() {
   const visibleSocialLinks = Object.entries(socialLinks).filter(
@@ -34,7 +34,7 @@ export default function SocialIcon() {
       ))}
 
       <Button
-        href="/files/curriculo.pdf"
+        href={cvConfig.resumePdfUrl || "/files/curriculo.pdf"}
         component="a"
         download
         variant="contained"

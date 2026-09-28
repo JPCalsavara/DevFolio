@@ -458,6 +458,24 @@ export async function getPortfolioTechnologies(): Promise<
 export function buildTechnologyTagMap(
   technologies: PortfolioTechnology[],
 ): TechnologyTagMap {
+  const base: TechnologyTagMap = {};
+
+  Object.entries(tagsData).forEach(([name, info]) => {
+    base[name] = {
+      category: info.category,
+      realName: info.realName || name,
+      link: info.link,
+    };
+  });
+
+  skillsData.forEach((skill) => {
+    base[skill.name] = {
+      category: skill.type,
+      realName: skill.label,
+      link: skill.link,
+    };
+  });
+
   return technologies.reduce<TechnologyTagMap>((acc, technology) => {
     acc[technology.name] = {
       category: technology.type,
@@ -465,7 +483,7 @@ export function buildTechnologyTagMap(
       link: technology.link ?? undefined,
     };
     return acc;
-  }, {});
+  }, base);
 }
 
 export function buildLegendItems(
@@ -498,6 +516,10 @@ export function filterVisiblePortfolioTechnologies(
     }
 
     const type = (technology.type || "").trim().toLowerCase();
-    return !HIDDEN_SKILL_TYPES.has(type) && !type.startsWith("hidden:");
+    return (
+      type !== "softskill" &&
+      !HIDDEN_SKILL_TYPES.has(type) &&
+      !type.startsWith("hidden:")
+    );
   });
 }

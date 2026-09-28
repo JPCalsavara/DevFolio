@@ -18,6 +18,7 @@ export type SkillCardData = {
   link?: string;
   type: string;
   label: string;
+  iconUrl?: string;
 };
 
 export type ExperienceCardData = {
@@ -59,6 +60,100 @@ export type CollegeDetailData = {
   summary: string;
   pillars: string[];
   subjects: string[];
+};
+
+export type ProfileData = {
+  name: string;
+  headline: string;
+  role: string;
+  presentationOverline?: string;
+  bio: string;
+  currentWork: string;
+  experienceHighlight: string;
+  projectsHighlight: string;
+  heroImageUrl: string;
+  location: string;
+  email: string;
+};
+
+export type ThemePreset =
+  | "blue-terminal"
+  | "emerald-tech"
+  | "purple-cyberpunk"
+  | "amber-glow"
+  | "monochrome-slate"
+  | "custom";
+
+export type ThemeConfig = {
+  preset: ThemePreset;
+  mode: "dark" | "light";
+  primaryMain: string;
+  primaryLight: string;
+  primaryDark: string;
+  secondaryMain: string;
+  secondaryLight: string;
+  secondaryDark: string;
+  backgroundDefault: string;
+  backgroundPaper: string;
+  textPrimary: string;
+  textSecondary: string;
+  borderRadius: number;
+};
+
+export type CvStat = {
+  label: string;
+  value: string;
+};
+
+export type CvConfig = {
+  resumePdfUrl: string;
+  stats: CvStat[];
+  summary: string;
+  targetMarket: "pt-br" | "en";
+  desiredRole: string;
+};
+
+export const profileData: ProfileData = {
+  name: "João Pedro Calsavara",
+  headline: "Backend, cloud e software de alto impacto.",
+  role: "Desenvolvedor Backend & Estudante de ADS na Unicamp",
+  presentationOverline: "PORTFÓLIO / JOÃO CALSAVARA",
+  bio: "Desenvolvedor Backend na Mottu, estudante da Unicamp e criador de soluções com foco em .NET 8, cloud, mensageria e observabilidade. A ideia aqui é apresentar minha trajetória com clareza, impacto e uma identidade visual mais premium.",
+  currentWork: "Atualmente atuo na Mottu com foco em .NET 8, microsserviços e dados estratégicos para operações de alta escala.",
+  experienceHighlight: "Minhas principais experiências incluem arquiteturas orientadas a eventos, automações com IA, observabilidade em Datadog e infraestrutura cloud com Docker/Kubernetes.",
+  projectsHighlight: "Entre os projetos de destaque estão o Laranjada, Gerenciador de Credenciais e Merge Sort paralelo com métricas de desempenho.",
+  heroImageUrl: "/images/hero-img.jpg",
+  location: "Limeira / Campinas - SP",
+  email: "jpcalsavara@gmail.com",
+};
+
+export const themeConfig: ThemeConfig = {
+  preset: "blue-terminal",
+  mode: "dark",
+  primaryMain: "#4F9CF9",
+  primaryLight: "#7DB9FF",
+  primaryDark: "#1A6FD8",
+  secondaryMain: "#38BDF8",
+  secondaryLight: "#7DD3FC",
+  secondaryDark: "#0284C7",
+  backgroundDefault: "#05101E",
+  backgroundPaper: "#0B1A2E",
+  textPrimary: "#EDF2FF",
+  textSecondary: "#8BAFC9",
+  borderRadius: 14,
+};
+
+export const cvConfig: CvConfig = {
+  resumePdfUrl: "/files/curriculo.pdf",
+  stats: [
+    { label: "Projetos Entregues", value: "12+" },
+    { label: "Anos de Experiência", value: "2+" },
+    { label: "Tecnologias Dominadas", value: "15+" },
+    { label: "Formação", value: "Unicamp" },
+  ],
+  summary: "Desenvolvedor Backend com foco em ecossistema .NET, TypeScript, microsserviços, mensageria e automações cloud-native.",
+  targetMarket: "pt-br",
+  desiredRole: "Desenvolvedor Backend / Cloud",
 };
 
 export const tagsData: Record<
@@ -376,7 +471,7 @@ export const projectsData: ProjectCardData[] = [
     description:
       "Plataforma SaaS de gestão de segurança patrimonial com backend em .NET 8 (Clean Architecture e DDD) e frontend em Angular 18, acelerada por fluxos de agentes de IA e testes automatizados de ponta a ponta.",
     urlName: "InterceptorSystem.png",
-    produtionLink: "https://d1wq60pm5w8m2y.cloudfront.net/",
+    produtionLink: "",
     repositoryLink: "https://github.com/JPCalsavara/InterceptorSystem",
     detailsGoal:
       "Plataforma SaaS de gestão de segurança patrimonial para clientes corporativos, com backend em .NET 8 e frontend em Angular.",
@@ -404,7 +499,7 @@ export const projectsData: ProjectCardData[] = [
     description:
       "Aplicação web full-stack criada para transformar o portfólio de uma decoradora de Natal em uma ferramenta de negócio, com galeria interativa, filtros avançados e automação de captação de leads.",
     urlName: "JuDecoracaoDeNatal.png",
-    produtionLink: "https://www.ju-decoracao-de-natal.com.br/",
+    produtionLink: "",
     repositoryLink:
       "https://github.com/JPCalsavara/ju-decoradoracao-de-natal-site",
     detailsGoal:
@@ -426,6 +521,7 @@ export const projectsData: ProjectCardData[] = [
     description:
       "Projeto de extensão criado do zero para ampliar o acesso à educação tecnológica no ensino médio. Coordenação executiva, estruturação pedagógica e liderança de equipe multidisciplinar.",
     urlName: "SemeiaCode.jpeg",
+    produtionLink: "semeiacode.vercel.app",
     repositoryLink: "",
     detailsGoal:
       "Criar uma iniciativa de extensão para democratizar o ensino de tecnologia e programação no ensino médio.",
@@ -620,12 +716,6 @@ export const skillsData: SkillCardData[] = [
     label: "Express",
   },
   {
-    name: "prisma",
-    link: "https://www.prisma.io",
-    type: "backend",
-    label: "Prisma",
-  },
-  {
     name: "c",
     link: "https://en.wikipedia.org/wiki/C_(programming_language)",
     type: "backend",
@@ -650,12 +740,6 @@ export const skillsData: SkillCardData[] = [
     label: "CSS",
   },
   {
-    name: "c++",
-    link: "https://en.wikipedia.org/wiki/C%2B%2B",
-    type: "backend",
-    label: "C++",
-  },
-  {
     name: "python",
     link: "https://www.python.org/",
     type: "backend",
@@ -672,12 +756,6 @@ export const skillsData: SkillCardData[] = [
     link: "https://www.rabbitmq.com/",
     type: "backend",
     label: "RabbitMQ",
-  },
-  {
-    name: "xunit",
-    link: "https://xunit.net/",
-    type: "backend",
-    label: "xUnit",
   },
   {
     name: "swagger",
@@ -744,12 +822,6 @@ export const skillsData: SkillCardData[] = [
     link: "https://www.cypress.io/",
     type: "frontend",
     label: "Cypress",
-  },
-  {
-    name: "nifi",
-    link: "https://nifi.apache.org/",
-    type: "database",
-    label: "Apache NiFi",
   },
   {
     name: "bigquery",

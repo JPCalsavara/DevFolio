@@ -1,0 +1,87 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.skillsSection {
+  padding: $spacing-xl 0;
+  background-color: rgba(17, 25, 40, 0.52);
+  scroll-margin-top: 92px;
+
+  @include mobile {
+    padding: $spacing-lg 0;
+  }
+}
+
+.title {
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: 2.1rem;
+  margin-bottom: $spacing-lg;
+  color: $text-primary;
+
+  @media (min-width: $bp-tablet) {
+    font-size: 3.4rem;
+  }
+}
+
+.legendContainer {
+  margin-top: $spacing-lg;
+}
+
+.legendTitle {
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin-bottom: $spacing-sm;
+  color: $text-primary;
+}
+
+.legendList {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  @media (min-width: $bp-mobile) {
+    flex-direction: row;
+  }
+}
+
+.legendItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 18px;
+  border-radius: $radius-md;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 235px;
+  flex: 1 1 220px;
+  cursor: pointer;
+  transition: all $transition-fast;
+  user-select: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(56, 189, 248, 0.35);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.legendLabel {
+  font-size: 0.95rem;
+  color: $text-primary;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.legendDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}

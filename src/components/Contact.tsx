@@ -1,5 +1,6 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import SocialIcon from "@/components/SocialIcon";
+import { profileData } from "@/data/portfolioData";
 
 export default function Contact() {
   return (
@@ -14,7 +15,7 @@ export default function Contact() {
           </Typography>
           <SocialIcon />
           <Typography color="text.secondary">
-            Feito por João Calsavara
+            Feito por {profileData.name}
           </Typography>
         </Stack>
       </Container>

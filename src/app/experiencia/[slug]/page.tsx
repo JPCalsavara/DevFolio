@@ -108,7 +108,7 @@ export default async function ExperienceDetailPage({
           pb: { xs: 7, md: 9 },
           minHeight: "100svh",
           background:
-            "radial-gradient(circle at 15% 20%, rgba(92,156,255,0.2), transparent 28%), radial-gradient(circle at 80% 20%, rgba(125,211,252,0.16), transparent 26%), linear-gradient(180deg, rgba(7,17,31,0.98) 0%, rgba(10,20,36,0.96) 100%)",
+            "radial-gradient(circle at 15% 20%, var(--aura-1), transparent 30%), radial-gradient(circle at 80% 20%, var(--aura-2), transparent 28%), linear-gradient(180deg, var(--bg-default) 0%, var(--bg-paper) 100%)",
         }}
       >
         <Container maxWidth="lg">

@@ -1,6 +1,7 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import SocialIcon from "@/components/SocialIcon";
+import { profileData } from "@/data/portfolioData";
 
 export default function Hero() {
   return (
@@ -23,7 +24,7 @@ export default function Hero() {
               }}
             >
               <Image
-                src="/images/hero-img.jpg"
+                src={profileData.heroImageUrl || "/images/hero-img.jpg"}
                 alt="Hero"
                 fill
                 priority
@@ -43,65 +44,30 @@ export default function Hero() {
               Quem eu sou?
             </Typography>
             <Typography sx={{ color: "text.secondary", lineHeight: 1.8 }}>
-              Meu nome e{" "}
+              Meu nome é{" "}
               <Box
                 component="span"
                 sx={{ color: "primary.main", fontWeight: 700 }}
               >
-                João Pedro Calsavara
+                {profileData.name}
               </Box>
-              , sou Desenvolvedor Backend e estudante de{" "}
+              , sou{" "}
               <Box
                 component="span"
                 sx={{ color: "primary.main", fontWeight: 700 }}
               >
-                Análise e Desenvolvimento de Sistemas na Unicamp
-              </Box>
-              .
-              <br />
-              <br />
-              Atualmente atuo na{" "}
-              <Box
-                component="span"
-                sx={{ color: "primary.main", fontWeight: 700 }}
-              >
-                Mottu
-              </Box>{" "}
-              com foco em .NET 8, microsserviços e dados estratégicos para
-              operações de alta escala.
-              <br />
-              <br />
-              Minhas principais experiências incluem arquiteturas orientadas a
-              eventos, automações com IA, observabilidade em Datadog e
-              infraestrutura cloud com Docker/Kubernetes.
-              <br />
-              <br />
-              Entre os projetos de destaque estão o{" "}
-              <Box
-                component="span"
-                sx={{ color: "primary.main", fontWeight: 700 }}
-              >
-                InterceptorSystem
-              </Box>
-              , plataforma full stack estruturada com Clean Architecture e DDD,
-              e a plataforma da{" "}
-              <Box
-                component="span"
-                sx={{ color: "primary.main", fontWeight: 700 }}
-              >
-                Ju Decoração de Natal
-              </Box>
-              , com foco em SEO e performance de negócio.
-              <br />
-              <br />
-              Minha stack principal inclui{" "}
-              <Box
-                component="span"
-                sx={{ color: "primary.main", fontWeight: 700 }}
-              >
-                C#, .NET 8, PostgreSQL, SQL Server, RabbitMQ/PubSub e Kubernetes
+                {profileData.role}
               </Box>
               .
+              <br />
+              <br />
+              {profileData.currentWork}
+              <br />
+              <br />
+              {profileData.experienceHighlight}
+              <br />
+              <br />
+              {profileData.projectsHighlight}
             </Typography>
           </Box>
         </Stack>

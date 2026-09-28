@@ -1,4 +1,5 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { profileData } from "@/data/portfolioData";
 
 export default function Presentation() {
   return (
@@ -12,13 +13,13 @@ export default function Presentation() {
         position: "relative",
         overflow: "hidden",
         background:
-          "radial-gradient(circle at 15% 20%, rgba(92,156,255,0.22), transparent 28%), radial-gradient(circle at 85% 75%, rgba(125,211,252,0.18), transparent 26%), linear-gradient(180deg, rgba(10,20,36,0.96) 0%, rgba(7,17,31,0.98) 100%)",
+          "radial-gradient(circle at 15% 20%, var(--aura-1), transparent 30%), radial-gradient(circle at 85% 75%, var(--aura-2), transparent 28%), linear-gradient(180deg, var(--bg-default) 0%, var(--bg-paper) 100%)",
         "&::before": {
           content: '""',
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(120deg, rgba(92,156,255,0.08), transparent 45%, rgba(125,211,252,0.05) 70%, transparent)",
+            "linear-gradient(120deg, var(--aura-1), transparent 45%, var(--aura-2) 70%, transparent)",
           pointerEvents: "none",
         },
       }}
@@ -33,7 +34,7 @@ export default function Presentation() {
               fontWeight: 700,
             }}
           >
-            PORTFÓLIO / JOÃO CALSAVARA
+            {profileData.presentationOverline || `PORTFÓLIO / ${profileData.name.toUpperCase()}`}
           </Typography>
           <Typography
             variant="h2"
@@ -43,7 +44,7 @@ export default function Presentation() {
               maxWidth: 900,
             }}
           >
-            Backend, cloud e software de alto impacto.
+            {profileData.headline}
           </Typography>
           <Typography
             sx={{
@@ -53,10 +54,7 @@ export default function Presentation() {
               maxWidth: 760,
             }}
           >
-            Desenvolvedor Backend na Mottu, estudante da Unicamp e criador de
-            soluções com foco em .NET 8, cloud, mensageria e observabilidade. A
-            ideia aqui é apresentar minha trajetória com clareza, impacto e uma
-            identidade visual mais premium.
+            {profileData.bio}
           </Typography>
           <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
             <Button
