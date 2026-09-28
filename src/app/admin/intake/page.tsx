@@ -219,18 +219,31 @@ export const skillsData: SkillCardData[] = ${JSON.stringify(skills, null, 2)};
     setApiError("");
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        setApiError("Você está no modo Local-First sem sessão no Supabase. Utilize os botões 'Baixar dados (.ts)' ou 'Copiar TS' para atualizar seus dados locais, ou faça login no Supabase para sincronizar em nuvem.");
-        return;
+      const isDev = process.env.NODE_ENV === "development";
+      let session = null;
+      if (!isDev) {
+        const {
+          data: { session: currentSession },
+        } = await supabase.auth.getSession();
+        session = currentSession;
+        if (!session) {
+          setApiError(
+            "Você está no modo Local-First sem sessão no Supabase. Utilize os botões 'Baixar dados (.ts)' ou 'Copiar TS' para atualizar seus dados locais, ou faça login no Supabase para sincronizar em nuvem.",
+          );
+          return;
+        }
+      }
+
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      if (session?.access_token) {
+        headers["Authorization"] = `Bearer ${session.access_token}`;
       }
 
       const res = await fetch("/api/intake/apply", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
-        },
+        headers,
         body: JSON.stringify({ draft }),
       });
 

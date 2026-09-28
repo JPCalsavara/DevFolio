@@ -17,10 +17,11 @@ type ApplyReport = {
 
 export async function POST(req: NextRequest) {
   // ── Autenticação ─────────────────────────────────────────
+  const isDev = process.env.NODE_ENV === "development";
   const authHeader = req.headers.get("authorization") ?? "";
   const token = authHeader.replace("Bearer ", "").trim();
 
-  if (!token) {
+  if (!token && !isDev) {
     return NextResponse.json({ error: "Autenticação obrigatória" }, { status: 401 });
   }
 
@@ -34,15 +35,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const supabase = createClient(
-    supabaseUrl,
-    supabaseAnonKey,
-    { global: { headers: { Authorization: `Bearer ${token}` } } }
-  );
-
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError || !user) {
-    return NextResponse.json({ error: "Token inválido ou expirado" }, { status: 401 });
+  let supabase;
+  if (token) {
+    supabase = createClient(
+      supabaseUrl,
+      supabaseAnonKey,
+      { global: { headers: { Authorization: `Bearer ${token}` } } }
+    );
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if ((authError || !user) && !isDev) {
+      return NextResponse.json({ error: "Token inválido ou expirado" }, { status: 401 });
+    }
+  } else {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
   }
 
   // ── Parse do body ─────────────────────────────────────────

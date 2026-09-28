@@ -14,7 +14,13 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { supabase } from "@/lib/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
+import {
+  ExperienceCardData,
+  ExperienceDetailPageData,
+  experiencesData,
+  experiencesDetailsData,
+} from "@/data/portfolioData";
 
 type ExperienceFormState = {
   slug: string;
@@ -84,16 +90,54 @@ export default function AdminExperienceDetailPage() {
 
   useEffect(() => {
     async function bootstrap() {
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (!sessionData.session) {
-        router.push("/admin");
-        return;
+      const isDev = process.env.NODE_ENV === "development";
+      if (!isDev && isSupabaseConfigured) {
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (!sessionData.session) {
+          router.push("/admin");
+          return;
+        }
       }
 
       if (isNew) {
         setForm(DEFAULTS);
         setIsLoading(false);
         return;
+      }
+
+      // Local-first: carregar diretamente de experiencesData sem aguardar timeout de rede
+      if (isDev || !isSupabaseConfigured) {
+        const fallback = experiencesData.find(
+          (e) =>
+            (e.slug || e.title.toLowerCase().replace(/\s+/g, "-")) === id,
+        );
+        if (fallback) {
+          setForm({
+            slug:
+              fallback.slug ||
+              fallback.title.toLowerCase().replace(/\s+/g, "-"),
+            title: fallback.title,
+            location: fallback.location || "",
+            period: fallback.period || "",
+            role: fallback.role || "",
+            summary: fallback.summary,
+            skills_learned: stringifyCsv(fallback.skillsLearned ?? []),
+            image_urls: stringifyLines(
+              fallback.imageNames?.length
+                ? fallback.imageNames.map(
+                    (name) => `/images/experiences/${name}`,
+                  )
+                : fallback.imageName
+                  ? [`/images/experiences/${fallback.imageName}`]
+                  : [],
+            ),
+            intro_title: fallback.title,
+            intro: fallback.summary,
+            achievements: stringifyLines(fallback.achievements ?? []),
+          });
+          setIsLoading(false);
+          return;
+        }
       }
 
       const { data, error: queryError } = await supabase
@@ -147,6 +191,84 @@ export default function AdminExperienceDetailPage() {
 
   async function handleSave() {
     setError("");
+    const isDev = process.env.NODE_ENV === "development";
+
+    if (isDev) {
+      try {
+        const imageNames = parseLines(form.image_urls)
+          .map((url) => url.replace(/^\/images\/experiences\//, "").trim())
+          .filter(Boolean);
+
+        const updatedItem: ExperienceCardData = {
+          slug: form.slug.trim(),
+          title: form.title.trim(),
+          location: form.location.trim() || undefined,
+          period: form.period.trim() || undefined,
+          role: form.role.trim() || undefined,
+          summary: form.summary.trim(),
+          skillsLearned: parseCsv(form.skills_learned),
+          imageNames: imageNames.length ? imageNames : undefined,
+          imageName: imageNames[0] || undefined,
+          achievements: parseLines(form.achievements),
+        };
+
+        const existingIndex = experiencesData.findIndex(
+          (e) =>
+            (e.slug || e.title.toLowerCase().replace(/\s+/g, "-")) ===
+            (isNew ? updatedItem.slug : id),
+        );
+        let nextExperiences = [...experiencesData];
+        if (existingIndex >= 0) {
+          nextExperiences[existingIndex] = updatedItem;
+        } else {
+          nextExperiences = [updatedItem, ...nextExperiences];
+        }
+
+        // Atualiza também experiencesDetailsData para a página detalhada
+        const detailItem: ExperienceDetailPageData = {
+          slug:
+            updatedItem.slug ||
+            updatedItem.title.toLowerCase().replace(/\s+/g, "-"),
+          title: updatedItem.title,
+          introTitle: form.intro_title.trim() || updatedItem.title,
+          intro: form.intro.trim() || updatedItem.summary,
+          sections: [updatedItem],
+        };
+
+        const existingDetailIndex = experiencesDetailsData.findIndex(
+          (d) => d.slug === detailItem.slug,
+        );
+        let nextDetails = [...experiencesDetailsData];
+        if (existingDetailIndex >= 0) {
+          nextDetails[existingDetailIndex] = detailItem;
+        } else {
+          nextDetails = [...nextDetails, detailItem];
+        }
+
+        await fetch("/api/admin/save-local", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            experiencesData: nextExperiences,
+            experiencesDetailsData: nextDetails,
+          }),
+        });
+
+        setStatus(
+          isNew
+            ? "Experiência criada e salva em portfolioData.ts com sucesso!"
+            : "Experiência atualizada e salva em portfolioData.ts com sucesso!",
+        );
+        if (isNew) {
+          setTimeout(() => router.push("/admin"), 800);
+        }
+        return;
+      } catch (err) {
+        console.error("Erro ao salvar experiência localmente:", err);
+        setError("Erro ao salvar dados localmente.");
+        return;
+      }
+    }
 
     if (isNew) {
       const { error: createError } = await supabase
@@ -157,8 +279,8 @@ export default function AdminExperienceDetailPage() {
         return;
       }
 
-      setStatus("Experiencia criada com sucesso.");
-      router.push("/admin");
+      setStatus("Experiência criada com sucesso!");
+      setTimeout(() => router.push("/admin"), 800);
       return;
     }
 
@@ -172,7 +294,7 @@ export default function AdminExperienceDetailPage() {
       return;
     }
 
-    setStatus("Experiencia atualizada com sucesso.");
+    setStatus("Experiência atualizada com sucesso!");
   }
 
   async function uploadExperienceImage(file: File) {
@@ -180,6 +302,35 @@ export default function AdminExperienceDetailPage() {
     setIsUploading(true);
 
     try {
+      const isDev = process.env.NODE_ENV === "development";
+
+      if (isDev) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("type", "experience");
+
+        const res = await fetch("/api/admin/upload-file", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Falha no upload local da imagem.");
+        }
+
+        setForm((prev) => {
+          const existing = parseLines(prev.image_urls);
+          return {
+            ...prev,
+            image_urls: [...existing, data.url].join("\n"),
+          };
+        });
+        setStatus(`Upload salvo com sucesso em public/images/experiences/${data.filename}`);
+        return;
+      }
+
+      // Em produção (Supabase Storage)
       const safeName = file.name.replace(/\s+/g, "-").toLowerCase();
       const filePath = `experiences/${Date.now()}-${safeName}`;
       const { error: uploadError } = await supabase.storage
@@ -204,7 +355,9 @@ export default function AdminExperienceDetailPage() {
           image_urls: [...existing, data.publicUrl].join("\n"),
         };
       });
-      setStatus("Upload concluido.");
+      setStatus("Upload concluído no Supabase.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro no upload da imagem.");
     } finally {
       setIsUploading(false);
     }
@@ -356,7 +509,9 @@ export default function AdminExperienceDetailPage() {
                     component="label"
                     disabled={isUploading}
                   >
-                    {isUploading ? "Enviando..." : "Upload imagem (Supabase)"}
+                    {isUploading
+                      ? "Enviando..."
+                      : "Upload imagem (public/images/experiences)"}
                     <input
                       hidden
                       type="file"

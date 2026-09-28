@@ -14,7 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { supabase } from "@/lib/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
+import { ProjectCardData, projectsData } from "@/data/portfolioData";
 
 type ProjectFormState = {
   slug: string;
@@ -86,16 +87,46 @@ export default function AdminProjectDetailPage() {
 
   useEffect(() => {
     async function bootstrap() {
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (!sessionData.session) {
-        router.push("/admin");
-        return;
+      const isDev = process.env.NODE_ENV === "development";
+      if (!isDev && isSupabaseConfigured) {
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (!sessionData.session) {
+          router.push("/admin");
+          return;
+        }
       }
 
       if (isNew) {
         setForm(DEFAULTS);
         setIsLoading(false);
         return;
+      }
+
+      // Local-first: carregar diretamente de projectsData sem aguardar timeout de rede
+      if (isDev || !isSupabaseConfigured) {
+        const fallback = projectsData.find((p) => p.slug === id);
+        if (fallback) {
+          setForm({
+            slug: fallback.slug,
+            title: fallback.title,
+            summary_line: fallback.summaryLine || "",
+            period: fallback.period || "",
+            technologies: stringifyCsv(fallback.tecnosUsed ?? []),
+            description: fallback.description,
+            image_url: fallback.urlName
+              ? `/images/projects/${fallback.urlName}`
+              : "",
+            production_link: fallback.produtionLink || "",
+            repository_link: fallback.repositoryLink || "",
+            details_goal: fallback.detailsGoal || "",
+            details_highlights: stringifyLines(
+              fallback.detailsHighlights ?? [],
+            ),
+            details_impact: fallback.detailsImpact || "",
+          });
+          setIsLoading(false);
+          return;
+        }
       }
 
       const { data, error: queryError } = await supabase
@@ -151,6 +182,56 @@ export default function AdminProjectDetailPage() {
 
   async function handleSave() {
     setError("");
+    const isDev = process.env.NODE_ENV === "development";
+
+    if (isDev || !isSupabaseConfigured) {
+      try {
+        const updatedItem: ProjectCardData = {
+          slug: form.slug.trim(),
+          title: form.title.trim(),
+          summaryLine: form.summary_line.trim() || undefined,
+          period: form.period.trim() || undefined,
+          tecnosUsed: parseCsv(form.technologies),
+          description: form.description.trim(),
+          urlName: form.image_url.replace(/^\/images\/projects\//, "").trim(),
+          produtionLink: form.production_link.trim() || undefined,
+          repositoryLink: form.repository_link.trim() || undefined,
+          detailsGoal: form.details_goal.trim() || undefined,
+          detailsHighlights: parseLines(form.details_highlights),
+          detailsImpact: form.details_impact.trim() || undefined,
+        };
+
+        const existingIndex = projectsData.findIndex(
+          (p) => p.slug === (isNew ? updatedItem.slug : id),
+        );
+        let nextProjects = [...projectsData];
+        if (existingIndex >= 0) {
+          nextProjects[existingIndex] = updatedItem;
+        } else {
+          nextProjects = [updatedItem, ...nextProjects];
+        }
+
+        await fetch("/api/admin/save-local", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ projectsData: nextProjects }),
+        });
+
+        setStatus(
+          isNew
+            ? "Projeto criado e salvo em portfolioData.ts com sucesso."
+            : "Projeto atualizado e salvo em portfolioData.ts com sucesso.",
+        );
+        if (isNew) {
+          setTimeout(() => router.push("/admin"), 800);
+        }
+        return;
+      } catch (err) {
+        console.error("Erro ao salvar localmente:", err);
+        setError("Erro ao salvar localmente.");
+        return;
+      }
+    }
 
     if (isNew) {
       const { error: createError } = await supabase
@@ -162,7 +243,7 @@ export default function AdminProjectDetailPage() {
       }
 
       setStatus("Projeto criado com sucesso.");
-      router.push("/admin");
+      setTimeout(() => router.push("/admin"), 800);
       return;
     }
 
@@ -182,8 +263,29 @@ export default function AdminProjectDetailPage() {
   async function uploadProjectImage(file: File) {
     setError("");
     setIsUploading(true);
+    const isDev = process.env.NODE_ENV === "development";
 
     try {
+      if (isDev) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("type", "project");
+
+        const res = await fetch("/api/admin/upload-file", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Falha no upload local");
+        }
+
+        setForm((prev) => ({ ...prev, image_url: data.url }));
+        setStatus(`Upload local concluído: ${data.url}`);
+        return;
+      }
+
       const safeName = file.name.replace(/\s+/g, "-").toLowerCase();
       const filePath = `projects/${Date.now()}-${safeName}`;
       const { error: uploadError } = await supabase.storage
@@ -203,6 +305,8 @@ export default function AdminProjectDetailPage() {
         .getPublicUrl(filePath);
       setForm((prev) => ({ ...prev, image_url: data.publicUrl }));
       setStatus("Upload concluido.");
+    } catch (err: any) {
+      setError(err?.message || "Erro no upload");
     } finally {
       setIsUploading(false);
     }
@@ -340,7 +444,9 @@ export default function AdminProjectDetailPage() {
                     component="label"
                     disabled={isUploading}
                   >
-                    {isUploading ? "Enviando..." : "Upload imagem (Supabase)"}
+                    {isUploading
+                      ? "Enviando..."
+                      : "Upload imagem (public/images/projects)"}
                     <input
                       hidden
                       type="file"
