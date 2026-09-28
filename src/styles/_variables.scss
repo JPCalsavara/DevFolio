@@ -1,0 +1,61 @@
+// Design Tokens - DevFolio
+// Consome CSS Variables dinâmicas que alternam com o tema selecionado
+
+$bg-default: var(--bg-default, #030712);
+$bg-paper: var(--bg-paper, #071324);
+$bg-card: var(--bg-card, rgba(11, 26, 46, 0.82));
+$bg-card-hover: var(--bg-card-hover, rgba(15, 34, 60, 0.92));
+
+$primary: var(--primary-main, #38BDF8);
+$primary-light: var(--primary-light, #7DD3FC);
+$primary-dark: var(--primary-dark, #0284C7);
+
+$secondary: var(--secondary-main, #60A5FA);
+$secondary-light: var(--secondary-light, #93C5FD);
+$secondary-dark: var(--secondary-dark, #2563EB);
+
+$success: #22C55E;
+$success-light: #86EFAC;
+$success-bg: rgba(34, 197, 94, 0.12);
+
+$info: var(--primary-main, #38BDF8);
+$info-light: var(--primary-light, #BAE6FD);
+$info-bg: var(--aura-1, rgba(56, 189, 248, 0.12));
+
+$neutral: var(--text-muted, #94A3B8);
+$neutral-light: var(--text-secondary, #CBD5E1);
+$neutral-bg: rgba(148, 163, 184, 0.12);
+
+$text-primary: var(--text-primary, #F8FAFC);
+$text-secondary: var(--text-secondary, #94A3B8);
+$text-muted: var(--text-muted, #64748B);
+
+$border-subtle: var(--border-subtle, rgba(56, 189, 248, 0.16));
+$border-active: var(--border-active, rgba(56, 189, 248, 0.4));
+$border-highlight: var(--border-highlight, rgba(56, 189, 248, 0.6));
+
+// Espaçamentos
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// Border Radius
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+$radius-xl: 20px;
+$radius-pill: 9999px;
+
+// Transições
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+// Breakpoints
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 1280px;

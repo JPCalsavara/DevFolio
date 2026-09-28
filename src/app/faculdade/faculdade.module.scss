@@ -1,0 +1,499 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.pageWrapper {
+  min-height: 100vh;
+  background-color: $bg-default;
+  color: $text-primary;
+}
+
+.mainSection {
+  padding-top: 100px;
+  padding-bottom: 72px;
+  min-height: 100vh;
+  background: radial-gradient(circle at 15% 20%, var(--aura-1), transparent 30%),
+              radial-gradient(circle at 85% 25%, var(--aura-2), transparent 28%),
+              linear-gradient(180deg, var(--bg-default) 0%, var(--bg-paper) 100%);
+
+  @include mobile {
+    padding-top: 84px;
+    padding-bottom: 48px;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+
+  @include mobile {
+    padding: 0 $spacing-sm;
+  }
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: 8px 18px;
+  color: $secondary-light;
+  background: rgba(56, 189, 248, 0.06);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: $radius-pill;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all $transition-normal;
+  margin-bottom: $spacing-lg;
+
+  &:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: $secondary;
+    color: #fff;
+    transform: translateX(-3px);
+  }
+}
+
+.headerBlock {
+  margin-bottom: $spacing-xl;
+}
+
+.overline {
+  display: inline-block;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: $secondary;
+  font-weight: 700;
+  margin-bottom: $spacing-xs;
+}
+
+.mainTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: $text-primary;
+  margin: 0 0 $spacing-xs 0;
+
+  @include mobile {
+    font-size: 2.1rem;
+  }
+}
+
+.subTitle {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: $text-secondary;
+  margin: 0 0 $spacing-sm 0;
+
+  @include mobile {
+    font-size: 1.1rem;
+  }
+}
+
+.metaInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+.metaBadge {
+  @include badge-pill(rgba(255, 255, 255, 0.05), $text-secondary, rgba(255, 255, 255, 0.12));
+  font-size: 0.82rem;
+}
+
+.metaBadgeActive {
+  @include badge-pill($info-bg, $info-light, rgba(56, 189, 248, 0.3));
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+// Cards Principais
+.overviewCard {
+  @include glass-card;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-xl;
+
+  @include mobile {
+    padding: $spacing-md;
+  }
+}
+
+.sectionHeading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: $primary-light;
+  margin: 0 0 $spacing-sm 0;
+}
+
+.paragraph {
+  color: $text-secondary;
+  line-height: 1.7;
+  font-size: 0.98rem;
+  margin: 0 0 $spacing-md 0;
+}
+
+// Bloco de Conhecimentos e Destaques
+.highlightsPanel {
+  background: rgba(56, 189, 248, 0.04);
+  border: 1px solid rgba(56, 189, 248, 0.14);
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  margin-top: $spacing-md;
+
+  @include mobile {
+    padding: $spacing-md;
+  }
+}
+
+.panelTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $secondary-light;
+  margin: 0 0 $spacing-sm 0;
+}
+
+.customList {
+  margin: 0;
+  padding-left: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    color: $text-secondary;
+    line-height: 1.6;
+    font-size: 0.92rem;
+
+    &::marker {
+      color: $secondary;
+    }
+  }
+}
+
+// Botões de Projetos e Materiais
+.linksGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: $spacing-md;
+}
+
+.linkPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  border-radius: $radius-md;
+  color: $secondary-light;
+  background: rgba(56, 189, 248, 0.06);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: rgba(56, 189, 248, 0.16);
+    border-color: $secondary;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+  }
+}
+
+// Timeline
+.timelineSection {
+  margin-top: $spacing-xl;
+}
+
+.timelineHeading {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: $text-primary;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.timelineWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  padding-left: 28px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 24px;
+    left: 8px;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      #22c55e 0%,
+      #38bdf8 65%,
+      rgba(148, 163, 184, 0.3) 100%
+    );
+  }
+
+  @include mobile {
+    padding-left: 20px;
+    gap: $spacing-md;
+
+    &::before {
+      left: 6px;
+    }
+  }
+}
+
+.timelineItem {
+  position: relative;
+}
+
+.timelineNode {
+  position: absolute;
+  top: 18px;
+  left: -28px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid $bg-default;
+  transform: translateX(-1px);
+  z-index: 2;
+
+  @include mobile {
+    left: -20px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.nodeCompleted {
+  background-color: $success;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.nodeInProgress {
+  background-color: $secondary;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.nodeUpcoming {
+  background-color: $neutral;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.85);
+  }
+}
+
+// Card de Cada Semestre
+.semesterCard {
+  @include glass-card;
+  padding: $spacing-lg;
+  position: relative;
+
+  @include mobile {
+    padding: $spacing-md;
+  }
+}
+
+.cardActiveSemester {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(14, 32, 56, 0.85);
+  box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.4),
+              0 0 16px -2px rgba(56, 189, 248, 0.2);
+}
+
+.semesterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.semesterTitleGroup {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-sm;
+}
+
+.semesterOrdinal {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.semesterStatusPill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: $radius-pill;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusCompleted {
+  background-color: $success-bg;
+  color: $success-light;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.statusInProgress {
+  background-color: $info-bg;
+  color: $info-light;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.statusUpcoming {
+  background-color: $neutral-bg;
+  color: $neutral-light;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.creditsPill {
+  font-size: 0.8rem;
+  color: $text-secondary;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px 9px;
+  border-radius: $radius-sm;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+// Lista de Matérias
+.subjectsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $spacing-md 0;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subjectItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: $radius-sm;
+  font-size: 0.88rem;
+  color: $text-primary;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(125, 211, 252, 0.15);
+  }
+}
+
+.subjectCode {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $secondary-light;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.subjectName {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.subjectCredits {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-secondary;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-block;
+  letter-spacing: 0.02em;
+}
+
+.mt12 {
+  margin-top: 12px;
+}
+
+// Relevância Técnica
+.technicalHighlights {
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-left: 3px solid $secondary;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-top: $spacing-sm;
+
+  h5 {
+    margin: 0 0 $spacing-xs 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $secondary-light;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: $spacing-md;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    li {
+      color: $text-secondary;
+      font-size: 0.88rem;
+      line-height: 1.55;
+
+      &::marker {
+        color: $secondary;
+      }
+    }
+  }
+}
+
+.footerNote {
+  margin-top: $spacing-lg;
+  color: $text-muted;
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
+.footer {
+  padding: $spacing-md 0;
+  border-top: 1px solid rgba(125, 211, 252, 0.12);
+  background-color: rgba(7, 17, 31, 0.95);
+  text-align: center;
+  color: $text-secondary;
+  font-size: 0.88rem;
+}
